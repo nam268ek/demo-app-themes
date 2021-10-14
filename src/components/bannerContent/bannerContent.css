@@ -1,0 +1,53 @@
+.banner {
+  width: 1200px;
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+  margin: 0 auto;
+  border: 0.5px solid #000000;
+}
+.banner__content-1 {
+  width: 50%;
+  padding: 22px 17px;
+}
+.banner__content-1 > h1 {
+  font-size: 54px;
+  font-weight: 800;
+}
+.banner__content-1 > p {
+  font-size: 20px;
+}
+
+.btn__btn-primary {
+  padding: 16px 32px;
+  background-color: #001FFF;
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 2px;
+}
+.btn__btn-primary:hover {
+  color: white;
+  background-color: #04c;
+}
+.btn__btn-primary:focus {
+  outline-offset: 2px;
+  outline: 2px solid #04c;
+}
+
+.content-1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  list-style-type: none;
+}
+
+.content-2 {
+  width: 50%;
+}
+.content-2__img {
+  width: 552px;
+}
+
+/*# sourceMappingURL=bannerContent.css.map */
