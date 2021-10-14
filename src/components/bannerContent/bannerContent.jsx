@@ -1,4 +1,3 @@
-import { Button } from "reactstrap";
 import './bannerContent.scss';
 
 const BannerContent = () => {
@@ -11,23 +10,23 @@ const BannerContent = () => {
           membership full support.
         </p>
         <a href="/" className="btn__btn-primary">Choose your theme →</a>
-        <ul className="content-1">
+        <ul className="content-1 u-mt-8">
           <li className="content-1__points">
-            <span>
-              <i className="fas fa-check"></i>
+            <span className="mr-4">
+              <i className="fas fa-check c-icon"></i>
               
             </span>
             Ghost 4 Support
           </li>
           <li className="content-1__points">
-            <span>
-              <i className="fas fa-check"></i>
+            <span className="mr-4">
+              <i className="fas fa-check c-icon"></i>
             </span>
             Free Support & Updates
           </li>
           <li className="content-1__points">
-            <span>
-              <i className="fas fa-check"></i>
+            <span className="mr-4">
+              <i className="fas fa-check c-icon"></i>
             </span>
             100% Money Back Guarantee
           </li>
