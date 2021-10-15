@@ -1,0 +1,55 @@
+@use "../../scss/" as *;
+
+.cardtheme__selection {
+    padding: $padding-tb;
+    &__container {
+        @include flex(flex-start, unset);
+        flex-direction: column;
+        margin: 0 auto;
+        max-width: $width-container;
+        padding: 0 14px;
+        &-title {
+            padding: 0 14px;
+            width: 100%;
+        }
+        &-content {
+            @include flex(unset, flex-start);
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+    }
+}
+.theme-lastest {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 30px;
+    margin-bottom: 24px;
+}
+.theme-content-link {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    background-color: #F5F5F5;
+    width: 100%;
+    padding: 24px;
+}
+.theme-content {
+    @include flex(center, center);
+    flex-direction: column;
+    padding: 0 14px;
+    margin-bottom: 28px;
+    width: 50%;
+}
+.theme-img {
+    width: 504px;
+    height: 284px;
+}
+.theme-info {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 22px;
+    color: $color-text;
+    &:hover {
+        color: $color-hover;
+    }
+}

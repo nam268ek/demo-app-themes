@@ -1,6 +1,9 @@
+@use './scss/' as *;
+
 body {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 .header {

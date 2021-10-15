@@ -1,9 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
+
 import NavBar from "./components/navBar/navBar";
 import BannerContent from "./components/bannerContent/bannerContent";
 import LogoBrand from "./components/logoBrand/logoBrand";
 import Testimonial from "./components/testimonial/testimonial";
+import CardTheme from "./components/cardTheme/cardTheme";
+
 import "bootstrap/dist/css/bootstrap.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./index.scss";
@@ -16,6 +19,8 @@ ReactDOM.render(
     <main className="wrapper">
       <BannerContent />
       <LogoBrand />
+      <Testimonial />
+      <CardTheme />
       <Testimonial />
     </main>
   </React.Fragment>,
