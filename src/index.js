@@ -5,7 +5,11 @@ import NavBar from "./components/navBar/navBar";
 import BannerContent from "./components/bannerContent/bannerContent";
 import LogoBrand from "./components/logoBrand/logoBrand";
 import Testimonial from "./components/testimonial/testimonial";
+import TestimonialSecond from "./components/testimonialSecond/testimonialSecond";
 import CardTheme from "./components/cardTheme/cardTheme";
+import ShowcaseCard from "./components/showcaseCard/showcaseCard";
+import TestimontialThird from "./components/testimontialThird/testimontialThird";
+import CardPost from "./components/cardPost/cardPost";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -21,7 +25,10 @@ ReactDOM.render(
       <LogoBrand />
       <Testimonial />
       <CardTheme />
-      <Testimonial />
+      <TestimonialSecond />
+      <ShowcaseCard/>
+      <TestimontialThird />
+      <CardPost/>
     </main>
   </React.Fragment>,
   document.getElementById("root")
