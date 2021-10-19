@@ -1,0 +1,67 @@
+@use "../../scss/" as *;
+
+.cardpost__gird {
+    padding: $padding-tb;
+    &-container {
+        width: 1200px;
+        margin: 0 auto;
+        padding: 0 16px;
+    }
+}
+.cardpost-header {
+    padding: 0 16px;
+    &__title {
+        font-size: 24px;
+        margin: 0;
+    }
+    &__info {
+        @include flex(unset, space-between);
+    }
+}
+.cardpost-content {
+    padding: 0 16px;
+    display: flex;
+    &__item {
+        padding: 0 14px;
+        width: 100%;
+    }
+}
+.content-item-link {
+    width: 100%;
+    display: block;
+    margin-bottom: 32px;
+    background-color: #fafafa;
+    text-decoration: none;
+    color: $color-text;
+}
+.content-item-text {
+    padding: 40px 32px;
+    &__title {
+        font-size: 20px;
+        font-weight: 600;
+    }
+    &__content {
+        font-size: 14px;
+    }
+    &__time {
+        color: #525252;
+        font-size: 12px;
+        font-weight: 500;
+    }
+}
+.content-item-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    object-position: top;
+}
+.info {
+    font-size: 18px;
+    color: $color-text-link;
+    &-link {
+        text-decoration: underline;
+        text-underline-offset: 4px;
+        color: $color-text;
+    }
+}

@@ -5,7 +5,7 @@ const ShowcaseCard = () => {
     <div className="cardtheme__selection">
       <div className="cardtheme__selection__container">
         <div className="cardtheme__selection__container-title">
-          <h1 className="theme-lastest mb-0">Lastest Ghost themes</h1>
+          <h1 className="theme-lastest mb-0">See Aspire Themes in action</h1>
         </div>
         <div className="showcase__text-secondary p-lr-14">
           <p className="text-secondary">
