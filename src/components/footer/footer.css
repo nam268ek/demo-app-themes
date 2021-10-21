@@ -1,0 +1,75 @@
+.footer__gird {
+  padding-top: 64px;
+}
+
+.footer-container-sosial,
+.footer-container-copyright {
+  width: 1200px;
+  margin: 0 auto;
+  padding: 0 14px;
+}
+
+.footer-container-sosial {
+  display: flex;
+}
+
+.sosial-col-1,
+.sosial-col-2,
+.sosial-col-3 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 33.33%;
+  padding-bottom: 32px;
+}
+
+.footer-sosial-link {
+  color: #525252;
+  width: 100%;
+  display: block;
+  padding: 0 14px;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+}
+
+.footer-sosial-link,
+.faq,
+.terms {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  color: #525252;
+}
+
+.terms {
+  padding-left: 10px;
+}
+
+.faq,
+.terms {
+  font-size: 14px;
+}
+
+.footer-copy {
+  margin-left: 14px;
+  padding: 14px 0;
+  border-top: 1px solid #e5e5e5;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer-copy-text {
+  color: #525252;
+  font-size: 14px;
+  margin: 0;
+}
+
+.form-subs__input {
+  padding: 16px 20px;
+  width: 100%;
+  border: 1px solid #d2d2d7;
+}
+
+/*# sourceMappingURL=footer.css.map */

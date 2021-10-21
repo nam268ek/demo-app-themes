@@ -11,6 +11,7 @@ import ShowcaseCard from "./components/showcaseCard/showcaseCard";
 import TestimontialThird from "./components/testimontialThird/testimontialThird";
 import CardPost from "./components/cardPost/cardPost";
 import Background from "./components/background/background";
+import Footer from "./components/footer/footer";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -31,6 +32,7 @@ ReactDOM.render(
       <TestimontialThird />
       <CardPost />
       <Background />
+      <Footer />
     </main>
   </React.Fragment>,
   document.getElementById("root")
