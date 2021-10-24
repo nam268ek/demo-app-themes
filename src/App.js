@@ -18,7 +18,7 @@ function App() {
       <main>
         <Switch>
           <Route path="/" exact component={HomePage} />
-          <Route path="/themes" component={Themes} />
+          <Route path="/themes" render={(props) => <Themes {...props} />} />
           <Route path="/documentations" component={Documentation} />
           <Route path="/showcase" component={ShowCase} />
           <Route path="/blog" component={Blog} />

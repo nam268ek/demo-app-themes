@@ -15,21 +15,7 @@ import OnTop from "../onTop/onTop";
 import themeApi from "../../api/themeApi";
 
 const HomePage = () => {
-  const [onTop, setOnTop] = useState(0);
   const [themeList, setThemeList] = useState([]);
-
-  useEffect(() => {
-    //handle on top
-    const handleOnTop = () => {
-      if (window.scrollY > 0) {
-        setOnTop(window.scrollY);
-      }
-    };
-    window.addEventListener("scroll", handleOnTop);
-    return () => {
-      window.removeEventListener("scroll", handleOnTop);
-    };
-  }, []);
 
   useEffect(() => {
     //call api get limit theme
@@ -56,7 +42,7 @@ const HomePage = () => {
       <CardPost />
       <Background />
       <Footer />
-      {onTop > 120 && <OnTop />}
+      <OnTop />
     </div>
   );
 };

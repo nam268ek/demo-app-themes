@@ -1,10 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Collapse, Nav, Navbar, NavItem } from "reactstrap";
 
 import "./navBar.scss";
 
-const NavBar = () => {
+const NavBar = (props) => {
   return (
     <Navbar className="navbar__gird-center" light expand="md">
       <Link to="/" className="navbar__logo-link navbar-brand">
@@ -13,34 +13,54 @@ const NavBar = () => {
       <Collapse className="navbar__collapse" navbar>
         <Nav className="mr-auto" navbar>
           <NavItem className="navbar__item">
-            <Link to="/themes" className="navbar__link nav-link">
+            <NavLink
+              activeClassName="actived"
+              to="/themes"
+              className="navbar__link nav-link"
+            >
               Themes
-            </Link>
+            </NavLink>
           </NavItem>
           <NavItem className="navbar__item">
-            <Link to="/documentations" className="navbar__link nav-link">
+            <NavLink
+              activeClassName="actived"
+              to="/documentations"
+              className="navbar__link nav-link"
+            >
               Documentations
-            </Link>
+            </NavLink>
           </NavItem>
           <NavItem className="navbar__item">
-            <Link to="/showcase" className="navbar__link nav-link">
+            <NavLink
+              activeClassName="actived"
+              to="/showcase"
+              className="navbar__link nav-link"
+            >
               Showcase
-            </Link>
+            </NavLink>
           </NavItem>
           <NavItem className="navbar__item">
-            <Link to="/blog" className="navbar__link nav-link">
+            <NavLink
+              activeClassName="actived"
+              to="/blog"
+              className="navbar__link nav-link"
+            >
               Blog
-            </Link>
+            </NavLink>
           </NavItem>
           <NavItem className="navbar__item">
-            <Link to="/contact" className="navbar__link nav-link">
+            <NavLink
+              activeClassName="actived"
+              to="/contact"
+              className="navbar__link nav-link"
+            >
               Contact
-            </Link>
+            </NavLink>
           </NavItem>
           <NavItem className="navbar__item">
-            <Link className="navbar__btn--small" to="/getallthemes">
+            <NavLink className="navbar__btn--small" to="/getallthemes">
               Get all themes
-            </Link>
+            </NavLink>
           </NavItem>
         </Nav>
       </Collapse>

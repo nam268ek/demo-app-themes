@@ -1,7 +1,11 @@
+import { useState, useEffect } from "react";
+import { Fragment } from "react";
+
+import themeApi from "./../../api/themeApi";
+
 import Footer from "./../footer/footer";
 import CardTheme from "./../cardTheme/cardTheme";
-import themeApi from "./../../api/themeApi";
-import { useState, useEffect } from "react";
+import OnTop from "../onTop/onTop";
 
 const Themes = () => {
   const [themeList, setThemeList] = useState([]);
@@ -16,13 +20,14 @@ const Themes = () => {
   }, []);
 
   return (
-    <div className="themes">
+    <Fragment>
       <CardTheme
         themeList={themeList}
         themesTitle="Choose a Ghost theme you love"
       />
       <Footer />
-    </div>
+      <OnTop />
+    </Fragment>
   );
 };
 
