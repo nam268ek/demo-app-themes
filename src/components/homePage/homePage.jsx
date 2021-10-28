@@ -14,8 +14,10 @@ import OnTop from "../onTop/onTop";
 
 import themeApi from "../../api/themeApi";
 
-const HomePage = () => {
+const HomePage = (props) => {
   const [themeList, setThemeList] = useState([]);
+  const [showCase, setShowCase] = useState([]);
+  const [cardPostList, setCardPostList] = useState([]);
 
   useEffect(() => {
     //call api get limit theme
@@ -27,6 +29,24 @@ const HomePage = () => {
       const data = await themeApi.getLimit(params);
       setThemeList(data);
     };
+    const getShowCase = async () => {
+      const params = {
+        _start: 0,
+        _limit: 6,
+      };
+      const data = await themeApi.getLimitShowCase(params);
+      setShowCase(data);
+    };
+    const getCardPostList = async () => {
+      const params = {
+        _start: 0,
+        _limit: 3,
+      };
+      const data = await themeApi.getCardPostListLimit(params);
+      setCardPostList(data);
+    };
+    getCardPostList();
+    getShowCase();
     getAllTheme();
   }, []);
 
@@ -37,9 +57,9 @@ const HomePage = () => {
       <Testimonial />
       <CardTheme themeList={themeList} />
       <TestimonialSecond />
-      <ShowcaseCard />
+      <ShowcaseCard showCase={showCase} props={props} />
       <TestimontialThird />
-      <CardPost />
+      <CardPost cardPostList={cardPostList} props={props} />
       <Background />
       <Footer />
       <OnTop />

@@ -4,8 +4,8 @@
     @include flex(unset, space-between);
     width: 100%;
 }
-.p-lr-14 {
-    padding: 0 14px;
+.p-lr-16 {
+    padding: 0 16px;
 }
 .text-secondary {
     font-size: 18px;
@@ -15,16 +15,40 @@
         color: $color-text;
     }
 }
+.showcase__btn--small {
+    &-link {
+        display: inline-block;
+        border: 1px solid #1608d6;
+        border-radius: 2px;
+        padding: 8px 24px;
+        color: #1608d6;
+        font-size: 14px;
+        text-decoration: none;
+        margin-right: 16px;
+        margin-bottom: 32px;
+        font-weight: 500;
+        &:hover {
+            background-color: #fafafa;
+        }
+        &:focus {
+            outline-offset: 2px;
+            outline: 2px solid #1608d6;
+        }
+    }
+}
 .showcase-template {
+    width: 33.33%;
     padding: 0 16px;
     margin-bottom: 32px;
-    width: 100%/3;
     &__item {
         width: 100%;
         display: block;
-        background-color: #FAFAFA;
+        padding: 2px;
+        background-color: #fafafa;
         border-radius: 2px;
-        border: 1px solid #FAFAFA;
+        &:hover {
+            background-color: $color-hover;
+        }
     }
 }
 .theme-lastest {
@@ -34,6 +58,5 @@
     margin-bottom: 0;
 }
 .template-item {
-    width: 354px;
-    height: 265px;
+    width: 100%;
 }

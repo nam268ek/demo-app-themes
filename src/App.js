@@ -17,12 +17,15 @@ function App() {
       </div>
       <main>
         <Switch>
-          <Route path="/" exact component={HomePage} />
+          <Route path="/" exact render={(props) => <HomePage {...props} />} />
           <Route path="/themes" render={(props) => <Themes {...props} />} />
-          <Route path="/documentations" component={Documentation} />
-          <Route path="/showcase" component={ShowCase} />
-          <Route path="/blog" component={Blog} />
-          <Route path="/contact" component={Contact} />
+          <Route
+            path="/documentations"
+            render={(props) => <Documentation {...props} />}
+          />
+          <Route path="/showcase" render={(props) => <ShowCase {...props} />} />
+          <Route path="/blog" render={(props) => <Blog {...props} />} />
+          <Route path="/contact" render={(props) => <Contact {...props} />} />
         </Switch>
       </main>
     </React.Fragment>

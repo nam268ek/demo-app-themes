@@ -7,7 +7,7 @@
 .footer-container-copyright {
     width: 1200px;
     margin: 0 auto;
-    padding: 0 14px;
+    padding: 30px;
 }
 .footer-container-sosial {
     display: flex;
@@ -25,7 +25,6 @@
     color: $color-text-link;
     width: 100%;
     display: block;
-    padding: 0 14px;
     margin-bottom: 8px;
     padding-bottom: 8px;
 }
@@ -44,7 +43,6 @@
     font-size: 14px;
 }
 .footer-copy {
-    margin-left: 14px;
     padding: 14px 0;
     border-top: 1px solid #e5e5e5;
 }
@@ -65,4 +63,5 @@
     padding: 16px 20px;
     width: 100%;
     border: 1px solid $color-border;
+    border-radius: 3px;
 }
