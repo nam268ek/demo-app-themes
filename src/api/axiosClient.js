@@ -1,9 +1,15 @@
 import axios from "axios";
 import queryString from "query-string";
 
+//config .env for production
+const apiUrl =
+  process.env.NODE_ENV === "production"
+    ? process.env.REACT_APP_API_URL
+    : process.env.REACT_APP_API_URL;
+
 //config axios client
 const axiosClient = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL: apiUrl,
   headers: {
     "Content-Type": "application/json",
   },
