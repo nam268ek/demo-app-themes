@@ -1,0 +1,73 @@
+@use "../../scss/" as *;
+
+.gird-layout__container {
+    &-header {
+        display: flex;
+        flex-direction: column;
+        & > h1 {
+            font-weight: 600;
+            font-size: 2em;
+            margin-bottom: 16px;
+        }
+        & > hr {
+            background-color: #c2c2c2;
+            height: 1px;
+            margin: 40px 0;
+            width: 100%;
+        }
+    }
+    // &-content {
+
+    // }
+}
+
+.content-col-1 {
+    &__header {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
+    &__header-left {
+        width: 75%;
+        & > p {
+            font-size: 16px;
+        }
+    }
+    &__header-right {
+        & > img {
+            width: 90px;
+            border-radius: 50% 50%;
+            object-fit: cover;
+        }
+    }
+    &__form-contact {
+        & > form {
+            // display: flex;
+            // flex-direction: row;
+            // flex-wrap: wrap;
+            width: 100%;
+            & > input {
+                width: 50%;
+                // padding: 0 16px;
+            }
+        }
+    }
+}
+
+.content-contact {
+    background-color: white;
+    width: 66%;
+    padding: 0;
+}
+
+.content-col-2 {
+    &__note {
+        & > ul > li {
+            font-size: 14px;
+            color: $color-text-link;
+            margin-bottom: 8px;
+        }
+    }
+}
