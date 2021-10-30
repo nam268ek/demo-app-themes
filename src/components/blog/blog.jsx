@@ -14,7 +14,7 @@ const Blog = (props) => {
       setCardPostList(data);
     };
     getCardPostList();
-  });
+  }, []);
   return (
     <Fragment>
       <div className="gird-layout">
