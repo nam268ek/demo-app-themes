@@ -7,12 +7,18 @@
         margin: 0 auto;
         padding: 0 30px;
         &-content {
-            width: 100%;
+            // width: 100%;
+            // margin-left: 16px;
+            // margin-right: 16px;
             display: flex;
             flex-direction: row;
             background-color: $color-background;
         }
     }
+}
+.p-lr-14 {
+    padding-left: 14px;
+    padding-right: 14px;
 }
 .content-col-1,
 .content-col-2 {

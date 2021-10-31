@@ -57,7 +57,11 @@ const HomePage = (props) => {
       <Testimonial />
       <CardTheme themeList={themeList} />
       <TestimonialSecond />
-      <ShowcaseCard showCase={showCase} props={props} />
+      <ShowcaseCard
+        showCase={showCase}
+        title="See Aspire Themes in action"
+        props={props}
+      />
       <TestimontialThird />
       <CardPost cardPostList={cardPostList} props={props} />
       <Background />

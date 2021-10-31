@@ -40,7 +40,7 @@ const Contact = () => {
         </div>
       </div>
       <div className="gird-layout p-0">
-        <div className="gird-layout__container">
+        <div className="gird-layout__container p-lr-14">
           <div className="gird-layout__container-content">
             <div className="content-col-1 content-contact">
               <div className="content-col-1__header">
@@ -50,7 +50,12 @@ const Contact = () => {
                     Do you have any questions? Just fill out the form below. I
                     will get back to you at the earliest opportunity.
                   </p>
-                  <p>Or you can drop me a line at ahmad@aspirethemes.com</p>
+                  <p>
+                    Or you can drop me a line at{" "}
+                    <span style={{ fontWeight: 500 }}>
+                      ahmad@aspirethemes.com
+                    </span>
+                  </p>
                 </div>
                 <div className="content-col-1__header-right">
                   <img
@@ -61,28 +66,38 @@ const Contact = () => {
               </div>
               <div className="content-col-1__form-contact">
                 <form>
-                  <input
-                    className="form-subs__input"
-                    type="text"
-                    placeholder="Your name"
-                  />
-                  <input
-                    className="form-subs__input"
-                    type="text"
-                    placeholder="Your email"
-                  />
-                  <TextArea
-                    className="form-subs__input"
-                    placeholder="Your message… 
-If you have a theme issue, please be specific. Saying that something is ‘not working’ is not helpful. Instead, you can share your URL, the issue in detail, a screenshot, what you have done, and so on. Make sure you are using the latest Ghost and theme versions."
-                  ></TextArea>
-                  <Input type="submit" value="Send message →" />
+                  <div className="content-col-1__form-contact-col">
+                    <input
+                      className="form-subs__input"
+                      type="text"
+                      placeholder="Your name"
+                    />
+                  </div>
+                  <div className="content-col-1__form-contact-col">
+                    <input
+                      className="form-subs__input"
+                      type="text"
+                      placeholder="Your email"
+                    />
+                  </div>
+                  <div className="content-col-1__form-contact-textarea">
+                    <TextArea
+                      className="form-subs__input"
+                      placeholder="Your message… 
+                    If you have a theme issue, please be specific. Saying that something is ‘not working’ is not helpful. Instead, you can share your URL, the issue in detail, a screenshot, what you have done, and so on. Make sure you are using the latest Ghost and theme versions."
+                    ></TextArea>
+                  </div>
+                  <div className="content-col-1__form-contact-submit">
+                    <Input type="submit" value="Send message →" />
+                  </div>
                 </form>
               </div>
             </div>
-            <div className="content-col-2">
+            <div className="content-col-2 p-lr-16 bg-white">
               <div className="content-col-2__note">
-                <p className="background-color-highlight">Kindly note that:)</p>
+                <p className="background-color-highlight content-col-2__note-title">
+                  Kindly note that:)
+                </p>
                 <ul>
                   <li>
                     The documentation has everything for a successful theme

@@ -31,11 +31,13 @@
     }
     &__header-left {
         width: 75%;
+        padding: 0 16px;
         & > p {
             font-size: 16px;
         }
     }
     &__header-right {
+        padding: 0 16px;
         & > img {
             width: 90px;
             border-radius: 50% 50%;
@@ -43,15 +45,23 @@
         }
     }
     &__form-contact {
-        & > form {
-            // display: flex;
-            // flex-direction: row;
-            // flex-wrap: wrap;
+        &-col {
+            padding: 0 16px;
+            width: 50%;
+            margin-bottom: 32px;
+        }
+        &-textarea {
+            padding: 0 16px;
+        }
+        &-submit {
+            padding: 0 16px;
             width: 100%;
-            & > input {
-                width: 50%;
-                // padding: 0 16px;
-            }
+        }
+        & > form {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 32px 0;
+            width: 100%;
         }
     }
 }
@@ -64,10 +74,22 @@
 
 .content-col-2 {
     &__note {
+        padding: 32px;
+        background-color: $color-background;
+        & > ul {
+            margin-left: 0;
+        }
         & > ul > li {
             font-size: 14px;
             color: $color-text-link;
             margin-bottom: 8px;
+        }
+        &-title {
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-block;
+            margin-left: 16px;
+            padding: 0 10px;
         }
     }
 }
