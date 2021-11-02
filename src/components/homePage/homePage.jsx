@@ -55,7 +55,7 @@ const HomePage = (props) => {
       <BannerContent />
       <LogoBrand />
       <Testimonial />
-      <CardTheme themeList={themeList} />
+      <CardTheme themeList={themeList} props={props} />
       <TestimonialSecond />
       <ShowcaseCard
         showCase={showCase}
