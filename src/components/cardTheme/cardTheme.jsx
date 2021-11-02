@@ -1,7 +1,8 @@
 import "./cardTheme.scss";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
-const CardTheme = ({ themesTitle, propertyId, themeList }) => {
+const CardTheme = ({ themesTitle, propertyId, themeList, props }) => {
   return (
     <div className="cardtheme__selection">
       <div className="cardtheme__selection__container">
@@ -11,10 +12,13 @@ const CardTheme = ({ themesTitle, propertyId, themeList }) => {
         <div className="cardtheme__selection__container-content">
           {themeList.map((theme) => (
             <div className="theme-content" key={theme[propertyId]}>
-              <a href="!#" className="theme-content-link">
+              <Link
+                to={props.location.pathname + "/" + theme.name.toLowerCase()}
+                className="theme-content-link"
+              >
                 <img src={theme.image} alt="" className="theme-img" />
                 <p className="theme-info">{theme.name}</p>
-              </a>
+              </Link>
             </div>
           ))}
         </div>

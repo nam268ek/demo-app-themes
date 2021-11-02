@@ -7,7 +7,7 @@ import Footer from "./../footer/footer";
 import CardTheme from "./../cardTheme/cardTheme";
 import OnTop from "../onTop/onTop";
 
-const Themes = () => {
+const Themes = (props) => {
   const [themeList, setThemeList] = useState([]);
 
   useEffect(() => {
@@ -24,6 +24,7 @@ const Themes = () => {
       <CardTheme
         themeList={themeList}
         themesTitle="Choose a Ghost theme you love"
+        props={props}
       />
       <Footer />
       <OnTop />
