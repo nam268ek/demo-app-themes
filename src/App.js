@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Switch, Route } from "react-router-dom";
-import themeApi from "./api/themeApi";
+import React from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
 
 import Blog from "./components/blog/blog";
 import Contact from "./components/contact/contact";
 import Documentation from "./components/documentation/documentation";
 import HomePage from "./components/homePage/homePage";
 import NavBar from "./components/navBar/navBar";
+import NotFound from "./components/NotFound/NotFound";
 import ShowCase from "./components/showCase/showCase";
 import ThemeItem from "./components/themeItem/themeItem";
 import Themes from "./components/themes/themes";
@@ -32,6 +32,9 @@ function App() {
           <Route path="/showcase" render={(props) => <ShowCase {...props} />} />
           <Route path="/blog" render={(props) => <Blog {...props} />} />
           <Route path="/contact" render={(props) => <Contact {...props} />} />
+          {/* <Route  path={`/:name`} render={(props) => <Blog {...props} />} /> */}
+          <Route path="/notfound" component={NotFound} />
+          <Redirect to="notfound" />
         </Switch>
       </main>
     </React.Fragment>
