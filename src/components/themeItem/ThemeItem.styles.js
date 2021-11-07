@@ -92,9 +92,7 @@ export const Note = styled.p`
   font-weight: 500;
   color: #525252;
 `;
-//   export const handleAddToCart = (themeName) => {
-//     themeApi.addToCart(themeName);
-//   };
+
 export const BoxItem = styled.p`
   font-size: 14px;
   font-weight: 500;
