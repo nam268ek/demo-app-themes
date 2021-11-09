@@ -1,4 +1,5 @@
 import "./cardPost.scss";
+import LazyLoad from "react-lazyload";
 
 const CardPost = ({ props, cardPostList }) => {
   const handleDateTime = (date) => {
@@ -27,11 +28,14 @@ const CardPost = ({ props, cardPostList }) => {
             <div key={card.id} className="cardpost-content__item">
               <a href="!#" className="content-item-link">
                 <div className="content-item-img">
-                  <img
-                    src={card.image}
-                    alt=""
-                    className="content-item-img-source"
-                  />
+                  <LazyLoad offset={-150} classNamePrefix="lazyload">
+                    <img
+                      src={card.image}
+                      alt=""
+                      decoding="async"
+                      className="content-item-img-source"
+                    />
+                  </LazyLoad>
                 </div>
                 <div className="content-item-text">
                   <h3 className="content-item-text__title">{card.title}</h3>

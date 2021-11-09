@@ -41,6 +41,9 @@ const BannerContent = () => {
           className="content-2__img"
           src="https://aspirethemes.com/images/themes/bundle/bundle_small.webp"
           alt=""
+          width="552"
+          height="345"
+          loading="eager"
         />
       </div>
     </div>

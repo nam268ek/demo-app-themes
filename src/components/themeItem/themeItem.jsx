@@ -28,9 +28,8 @@ import {
 } from "./ThemeItem.styles";
 
 const ThemeItem = (props) => {
-  const { description, name, version, price } = props;
-  const href = props.match.params.name;
-  const url = `https://aspirethemes.com/images/themes/${props.match.params.name}/home.webp`;
+  const { nameTheme } = props.match.params;
+  const { description, version, price, name, href } = props;
   const [themeList, setThemeList] = useState([]);
   const [themeSelect, setThemeSelect] = useState([]);
 
@@ -38,10 +37,12 @@ const ThemeItem = (props) => {
     // get theme list
     const getAllThemes = async () => {
       const data = await themeApi.getAll();
-      const itemSelect = data.find((item) => item.name.toLowerCase() === href);
+      const itemSelect = data.find(
+        (item) => item.name.toLowerCase() === nameTheme
+      );
       setThemeSelect(itemSelect);
       const more = data
-        .filter((item) => item.name.toLowerCase() !== href)
+        .filter((item) => item.name.toLowerCase() !== nameTheme)
         .slice(0, 4);
 
       setThemeList(more);
@@ -50,14 +51,16 @@ const ThemeItem = (props) => {
     getAllThemes();
     //scroll to top
     window.scrollTo(0, 0);
-  }, [href]);
+  }, [nameTheme]);
 
   return (
     <>
       <Layout>
         <Container>
           <Col75>
-            <ImageItem src={url} />
+            <ImageItem
+              src={`https://aspirethemes.com/images/themes/${nameTheme}/home.webp`}
+            />
           </Col75>
           <Col25>
             <Title>{themeSelect[name]}</Title>
@@ -167,6 +170,7 @@ const ThemeItem = (props) => {
         themeList={themeList}
         props={props}
         themesTitle="Other Ghost themes you might like"
+        href={href}
       />
       <Footer />
       <OnTop />

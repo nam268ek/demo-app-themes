@@ -8,7 +8,6 @@ import HomePage from "./components/homePage/homePage";
 import NavBar from "./components/navBar/navBar";
 import NotFound from "./components/NotFound/NotFound";
 import ShowCase from "./components/showCase/showCase";
-import ThemeItem from "./components/themeItem/themeItem";
 import Themes from "./components/themes/themes";
 
 function App() {
@@ -20,10 +19,6 @@ function App() {
       <main>
         <Switch>
           <Route path="/" exact render={(props) => <HomePage {...props} />} />
-          <Route
-            path="/themes/:name"
-            render={(props) => <ThemeItem {...props} />}
-          />
           <Route path="/themes" render={(props) => <Themes {...props} />} />
           <Route
             path="/documentations"
@@ -32,7 +27,6 @@ function App() {
           <Route path="/showcase" render={(props) => <ShowCase {...props} />} />
           <Route path="/blog" render={(props) => <Blog {...props} />} />
           <Route path="/contact" render={(props) => <Contact {...props} />} />
-          {/* <Route  path={`/:name`} render={(props) => <Blog {...props} />} /> */}
           <Route path="/notfound" component={NotFound} />
           <Redirect to="notfound" />
         </Switch>

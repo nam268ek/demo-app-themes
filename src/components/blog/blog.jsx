@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import Footer from "./../footer/footer";
 import CardPost from "./../cardPost/cardPost";
 import themeApi from "../../api/themeApi";

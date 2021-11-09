@@ -1,8 +1,9 @@
-import "./cardTheme.scss";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import "./cardTheme.scss";
+import LazyLoad from "react-lazyload";
 
-const CardTheme = ({ themesTitle, propertyId, themeList }) => {
+const CardTheme = ({ themesTitle, propertyId, themeList, href }) => {
   return (
     <div className="cardtheme__selection">
       <div className="cardtheme__selection__container">
@@ -13,10 +14,20 @@ const CardTheme = ({ themesTitle, propertyId, themeList }) => {
           {themeList.map((theme) => (
             <div className="theme-content" key={theme[propertyId]}>
               <Link
-                to={`/themes/${theme.name.toLowerCase()}`}
+                to={`${href}/${theme.name.toLowerCase()}`}
                 className="theme-content-link"
               >
-                <img src={theme.image} alt="" className="theme-img" />
+                <LazyLoad offset={-150} classNamePrefix="lazyload">
+                  <img
+                    src={theme.image}
+                    alt=""
+                    className="theme-img"
+                    width="504"
+                    height="284"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </LazyLoad>
                 <p className="theme-info">{theme.name}</p>
               </Link>
             </div>

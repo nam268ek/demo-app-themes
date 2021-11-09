@@ -1,11 +1,6 @@
 import styled from "styled-components";
 import Footer from "../footer/footer";
-import {
-  Container,
-  Content,
-  Layout,
-  Title,
-} from "../themeItem/ThemeItem.styles";
+import { Container, Layout } from "../themeItem/ThemeItem.styles";
 const NotFoundPage = styled.div`
   width: 100%;
   padding: 5em 16px;

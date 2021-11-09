@@ -1,5 +1,6 @@
 import { PropTypes } from "prop-types";
 import "./showcaseCard.scss";
+import LazyLoad from "react-lazyload";
 
 const ShowcaseCard = ({
   propertyId,
@@ -42,7 +43,17 @@ const ShowcaseCard = ({
           {showCase.map((item) => (
             <div key={item[propertyId]} className="showcase-template">
               <a href="!#" className="showcase-template__item">
-                <img src={item.image} alt="" className="template-item" />
+                <LazyLoad offset={-150} classNamePrefix="lazyload">
+                  <img
+                    src={item.image}
+                    alt=""
+                    className="template-item"
+                    width="354"
+                    height="265"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </LazyLoad>
               </a>
             </div>
           ))}
