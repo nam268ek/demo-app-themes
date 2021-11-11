@@ -1,33 +1,32 @@
-import styled from "styled-components";
+import { Formik, Form, FastField, ErrorMessage } from "formik";
 import Footer from "../footer/footer";
 import OnTop from "../onTop/onTop";
+import InputField from "custom-fields/InputField";
+import TextAreaField from "custom-fields/TextAreaField";
+import * as Yup from "yup";
+import Error from "components/Errors/Error";
 import "./contact.scss";
+import Success from "components/Errors/Success";
 
 const Contact = () => {
-  const TextArea = styled.textarea`
-    margin: 0 0 24px;
-    width: 743px;
-    height: 244px;
-  `;
-  const Input = styled.input`
-    padding: 16px 32px;
-    background-color: #001fff;
-    color: white;
-    font-weight: 500;
-    border: 0;
-    border-radius: 2px;
-    display: inline-block;
-
-    &:hover {
-      background-color: #04c;
-      color: white;
-    }
-
-    &:focus {
-      outline-offset: 2px;
-      outline: 2px solid #001fff;
-    }
-  `;
+  const initialValues = {
+    name: "",
+    email: "",
+    message: "",
+    button: "",
+  };
+  const validationSchema = Yup.object({
+    name: Yup.string()
+      .min(2, "Minimum 2 characters")
+      .max(20, "Must be 20 characters or less")
+      .required("Required"),
+    email: Yup.string().email("Invalid email address").required("Required"),
+    message: Yup.string().min(10, "Minimum 10 characters").required("Required"),
+  });
+  const onSubmit = (values) => {
+    // alert(JSON.stringify(values, null, 2));
+    return <Success />;
+  };
 
   return (
     <>
@@ -65,32 +64,75 @@ const Contact = () => {
                 </div>
               </div>
               <div className="content-col-1__form-contact">
-                <form>
-                  <div className="content-col-1__form-contact-col">
-                    <input
-                      className="form-subs__input"
-                      type="text"
-                      placeholder="Your name"
-                    />
-                  </div>
-                  <div className="content-col-1__form-contact-col">
-                    <input
-                      className="form-subs__input"
-                      type="text"
-                      placeholder="Your email"
-                    />
-                  </div>
-                  <div className="content-col-1__form-contact-textarea">
-                    <TextArea
-                      className="form-subs__input"
-                      placeholder="Your message… 
-                    If you have a theme issue, please be specific. Saying that something is ‘not working’ is not helpful. Instead, you can share your URL, the issue in detail, a screenshot, what you have done, and so on. Make sure you are using the latest Ghost and theme versions."
-                    ></TextArea>
-                  </div>
-                  <div className="content-col-1__form-contact-submit">
-                    <Input type="submit" value="Send message →" />
-                  </div>
-                </form>
+                <Formik
+                  initialValues={initialValues}
+                  validationSchema={validationSchema}
+                  onSubmit={onSubmit}
+                >
+                  {(formikProps) => {
+                    const { values, errors, touched } = formikProps;
+                    console.log(values, errors, touched);
+
+                    return (
+                      <Form>
+                        <div className="content-col-1__form-contact-col">
+                          <FastField
+                            name="name"
+                            component={InputField}
+                            type="text"
+                            placeholder="Your name"
+                            className="form-subs__input"
+                          />
+                          <ErrorMessage
+                            name="name"
+                            render={(msg) => (
+                              <Error title="Name" message={msg} />
+                            )}
+                          />
+                        </div>
+                        <div className="content-col-1__form-contact-col">
+                          <FastField
+                            name="email"
+                            component={InputField}
+                            type="text"
+                            placeholder="Your email"
+                            className="form-subs__input"
+                          />
+                          <ErrorMessage
+                            name="email"
+                            render={(msg) => (
+                              <Error title="Email" message={msg} />
+                            )}
+                          />
+                        </div>
+                        <div className="content-col-1__form-contact-textarea">
+                          <FastField
+                            name="message"
+                            component={TextAreaField}
+                            placeholder="Your message… 
+                            If you have a theme issue, please be specific. Saying that something is ‘not working’ is not helpful. Instead, you can share your URL, the issue in detail, a screenshot, what you have done, and so on. Make sure you are using the latest Ghost and theme versions."
+                            className="form-subs__input"
+                          />
+                          <ErrorMessage
+                            name="message"
+                            render={(msg) => (
+                              <Error title="Message" message={msg} />
+                            )}
+                          />
+                        </div>
+                        <div className="content-col-1__form-contact-submit">
+                          <FastField
+                            name="button"
+                            component={InputField}
+                            useStyled={true}
+                            type="submit"
+                            valueSubmit="Send message →"
+                          />
+                        </div>
+                      </Form>
+                    );
+                  }}
+                </Formik>
               </div>
             </div>
             <div className="content-col-2 p-lr-16 bg-white">

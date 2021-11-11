@@ -8,6 +8,7 @@ import App from "./App";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import "react-toastify/dist/ReactToastify.css";
 import "./index.scss";
 
 ReactDOM.render(
