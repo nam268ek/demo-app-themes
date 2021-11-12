@@ -6,7 +6,7 @@ import TextAreaField from "custom-fields/TextAreaField";
 import * as Yup from "yup";
 import Error from "components/Errors/Error";
 import "./contact.scss";
-import Success from "components/Errors/Success";
+import { toast } from "react-toastify";
 
 const Contact = () => {
   const initialValues = {
@@ -15,17 +15,27 @@ const Contact = () => {
     message: "",
     button: "",
   };
-  const validationSchema = Yup.object({
+
+  const validationSchema = Yup.object().shape({
     name: Yup.string()
       .min(2, "Minimum 2 characters")
       .max(20, "Must be 20 characters or less")
-      .required("Required"),
-    email: Yup.string().email("Invalid email address").required("Required"),
-    message: Yup.string().min(10, "Minimum 10 characters").required("Required"),
+      .required("This field is required!"),
+
+    email: Yup.string()
+      .email("Invalid email address")
+      .required("This field is required!"),
+
+    message: Yup.string()
+      .min(10, "Minimum 10 characters")
+      .required("This field is required!"),
   });
-  const onSubmit = (values) => {
-    // alert(JSON.stringify(values, null, 2));
-    return <Success />;
+
+  const onSubmit = (value, actions) => {
+    actions.setSubmitting(false);
+    actions.resetForm();
+    toast.configure({ theme: "colored" });
+    toast.success("Message sent successfully", { theme: "colored" });
   };
 
   return (

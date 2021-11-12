@@ -19,7 +19,7 @@ const TextArea = styled.textarea`
 `;
 
 function TextAreaField(props) {
-  const { placeholder, className, field, disabled, label } = props;
+  const { placeholder, className, field, label } = props;
   const { name, value, onChange, onBlur } = field;
   return (
     <>
@@ -29,7 +29,6 @@ function TextAreaField(props) {
         value={value}
         onChange={onChange}
         onBlur={onBlur}
-        disabled={disabled}
         className={className}
         placeholder={placeholder}
       ></TextArea>

@@ -50,16 +50,8 @@ const Input = styled.input`
 `;
 
 function InputField(props) {
-  const {
-    placeholder,
-    className,
-    field,
-    type,
-    disabled,
-    label,
-    useStyled,
-    valueSubmit,
-  } = props;
+  const { placeholder, className, field, type, label, useStyled, valueSubmit } =
+    props;
   const { name, value, onChange, onBlur } = field;
   return (
     <>
@@ -73,7 +65,6 @@ function InputField(props) {
           value={value}
           onChange={onChange}
           onBlur={onBlur}
-          disabled={disabled}
         />
       ) : (
         <Input type={type} value={valueSubmit} />
