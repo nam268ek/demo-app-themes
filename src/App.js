@@ -6,9 +6,11 @@ import Documentation from "./components/documentation/documentation";
 import HomePage from "./components/homePage/homePage";
 import NotFound from "./components/NotFound/NotFound";
 import ShowCase from "./components/showCase/showCase";
-import Themes from "./components/themes/themes";
+// import Themes from "./components/themes/themes";
+
 import Contact from "./components/contact/contact";
 import NavBar from "./components/navBar/navBar";
+import Themes from "features/Theme";
 
 function App() {
   return (

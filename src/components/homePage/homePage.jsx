@@ -1,54 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
-import BannerContent from "./../bannerContent/bannerContent";
-import LogoBrand from "./../logoBrand/logoBrand";
-import Testimonial from "./../testimonial/testimonial";
-import TestimonialSecond from "./../testimonialSecond/testimonialSecond";
-import CardTheme from "./../cardTheme/cardTheme";
-import ShowcaseCard from "./../showcaseCard/showcaseCard";
-import TestimontialThird from "./../testimontialThird/testimontialThird";
-import CardPost from "./../cardPost/cardPost";
-import Background from "./../background/background";
-import Footer from "./../footer/footer";
-import OnTop from "../onTop/onTop";
-
-import themeApi from "../../api/themeApi";
+import BannerContent from "components/bannerContent/bannerContent";
+import LogoBrand from "components/logoBrand/logoBrand";
+import Testimonial from "components/testimonial/testimonial";
+import TestimonialSecond from "components/testimonialSecond/testimonialSecond";
+import CardTheme from "components/cardTheme/cardTheme";
+import ShowcaseCard from "components/showcaseCard/showcaseCard";
+import TestimontialThird from "components/testimontialThird/testimontialThird";
+import CardPost from "components/cardPost/cardPost";
+import Background from "components/background/background";
+import Footer from "components/footer/footer";
+import OnTop from "components/onTop/onTop";
+import { useDispatch, useSelector } from "react-redux";
+import { getLimitTheme } from "features/Theme/themeSlice";
+import { getLimitShowCase } from "features/ShowCase/showCaseSlice";
+import { getLimitCardPost } from "features/CardPost/cardPostSlice";
 
 const HomePage = (props) => {
-  const [themeList, setThemeList] = useState([]);
-  const [showCase, setShowCase] = useState([]);
-  const [cardPostList, setCardPostList] = useState([]);
+  const dispatch = useDispatch();
+  const themeList = useSelector((state) => state.themes.themeList);
+  const showCase = useSelector((state) => state.showCases.showCaseList);
+  const cardPostList = useSelector((state) => state.cardPosts.cardPostList);
 
   useEffect(() => {
-    //call api get limit theme
-    const getAllTheme = async () => {
-      const params = {
-        _start: 0,
-        _limit: 4,
-      };
-      const data = await themeApi.getLimit(params);
-      setThemeList(data);
-    };
-    const getShowCase = async () => {
-      const params = {
-        _start: 0,
-        _limit: 6,
-      };
-      const data = await themeApi.getLimitShowCase(params);
-      setShowCase(data);
-    };
-    const getCardPostList = async () => {
-      const params = {
-        _start: 0,
-        _limit: 3,
-      };
-      const data = await themeApi.getCardPostListLimit(params);
-      setCardPostList(data);
-    };
-    getCardPostList();
-    getShowCase();
-    getAllTheme();
-  }, []);
+    dispatch(getLimitTheme({ _start: 0, _limit: 4 }));
+    dispatch(getLimitShowCase({ _start: 0, _limit: 6 }));
+    dispatch(getLimitCardPost({ _start: 0, _limit: 3 }));
+  }, [dispatch]);
 
   return (
     <div>

@@ -1,27 +1,15 @@
-import { useState, useEffect } from "react";
+import { Route, Switch, useRouteMatch } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-import themeApi from "./../../api/themeApi";
-
-import Footer from "./../footer/footer";
-import CardTheme from "./../cardTheme/cardTheme";
-import OnTop from "../onTop/onTop";
-import { Switch, useRouteMatch } from "react-router-dom";
-import { Route } from "react-router-dom";
-import ThemeItem from "./../themeItem/themeItem";
-import NotFound from "./../NotFound/NotFound";
+import OnTop from "components/onTop/onTop";
+import NotFound from "components/NotFound/NotFound";
+import CardTheme from "components/cardTheme/cardTheme";
+import Footer from "components/footer/footer";
+import ThemeItem from "components/themeItem/themeItem";
 
 const Themes = (props) => {
-  const [themeList, setThemeList] = useState([]);
   const match = useRouteMatch();
-  console.log(match);
-  useEffect(() => {
-    //call api get limit theme
-    const getAllTheme = async () => {
-      const data = await themeApi.getAll();
-      setThemeList(data);
-    };
-    getAllTheme();
-  }, []);
+  const themeList = useSelector((state) => state.themes.themeList);
 
   return (
     <Switch>
