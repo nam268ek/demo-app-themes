@@ -1,6 +1,5 @@
 import { PropTypes } from "prop-types";
-import { useEffect, useState } from "react";
-import themeApi from "./../../api/themeApi";
+import { useEffect } from "react";
 import Footer from "../footer/footer";
 import OnTop from "../onTop/onTop";
 import TestimonialSecond from "../testimonialSecond/testimonialSecond";
@@ -26,148 +25,147 @@ import {
   TagP,
   Title,
 } from "./ThemeItem.styles";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllTheme } from "features/Theme/themeSlice";
 
 const ThemeItem = (props) => {
+  const dispatch = useDispatch();
   const { nameTheme } = props.match.params;
-  const { description, version, price, name, href } = props;
-  const [themeList, setThemeList] = useState([]);
-  const [themeSelect, setThemeSelect] = useState([]);
+  const { description, version, price, nameProperty, href } = props;
+
+  const themeList = useSelector((state) => state.themes.themeList);
+  const themeSelect = themeList.find(
+    (item) => item.name.toLowerCase() === nameTheme
+  );
+  const moreTheme = themeList
+    .filter((item) => item.name.toLowerCase() !== nameTheme)
+    .slice(0, 4);
+
+  window.scrollTo(0, 0);
 
   useEffect(() => {
-    // get theme list
-    const getAllThemes = async () => {
-      const data = await themeApi.getAll();
-      const itemSelect = data.find(
-        (item) => item.name.toLowerCase() === nameTheme
-      );
-      setThemeSelect(itemSelect);
-      const more = data
-        .filter((item) => item.name.toLowerCase() !== nameTheme)
-        .slice(0, 4);
-
-      setThemeList(more);
-    };
-
-    getAllThemes();
-    //scroll to top
-    window.scrollTo(0, 0);
-  }, [nameTheme]);
+    dispatch(getAllTheme());
+  }, [dispatch]);
 
   return (
     <>
-      <Layout>
-        <Container>
-          <Col75>
-            <ImageItem
-              src={`https://aspirethemes.com/images/themes/${nameTheme}/home.webp`}
-            />
-          </Col75>
-          <Col25>
-            <Title>{themeSelect[name]}</Title>
-            <Description>{themeSelect[description]}</Description>
-            <Box>
-              <StyleLink primary="true" to="!#">
-                Buy Now &#9866; ${themeSelect[price]}
-              </StyleLink>
-              <StyleLink to="!#">Live Demo &#10138;</StyleLink>
-              <HighLight>One-time Purchase</HighLight>
-              <HighLight>14-Day 100% Money Back Guarantee</HighLight>
-              <Note>If you’re unhappy, get a full refund, no questions!</Note>
-            </Box>
-            <Box>
-              <BoxItem>Ghost websites built with {themeSelect[name]}</BoxItem>
-              <BoxItem>Documentation · Changelog</BoxItem>
-              <BoxItem>
-                <Item>Current Version</Item>
-                <CustomItem>{themeSelect[version]}</CustomItem>
-              </BoxItem>
-              <BoxItem>
-                <Item>Last Update</Item>
-                <CustomItem>NULL</CustomItem>
-              </BoxItem>
-              <CustomBoxItem>
-                <Item>Images Lazy Loading</Item>
-                <CustomItem>&#10003;</CustomItem>
-              </CustomBoxItem>
-            </Box>
-          </Col25>
-        </Container>
-        <Container>
-          <Content>
-            <Box className="secondary">
-              <DivImage>
-                <CustomImage src="https://res.cloudinary.com/ds6y4vgjb/image/upload/v1636026141/check_wtwl39.png" />
-              </DivImage>
-              <TagP>
-                Ghost 4.0+. Enjoy a beautiful, functional site in no time. The
-                theme supports the Ghost editor cards and delivers a stunning
-                design.
-              </TagP>
-            </Box>
-          </Content>
-          <Content>
-            <Box className="secondary">
-              <DivImage>
-                <CustomImage src="https://res.cloudinary.com/ds6y4vgjb/image/upload/v1636026141/check_wtwl39.png" />
-              </DivImage>
-              <TagP>
-                Membership support. Add membership and subscription to your
-                website for ultimate monetization. The theme comes with Ghost
-                Membership and Subscription features.
-              </TagP>
-            </Box>
-          </Content>
-          <Content>
-            <Box className="secondary">
-              <DivImage>
-                <CustomImage src="https://res.cloudinary.com/ds6y4vgjb/image/upload/v1636026141/check_wtwl39.png" />
-              </DivImage>
-              <TagP>
-                Responsive design. You’ll get a fully responsive site. The theme
-                adjusts to phone, tablet, and desktop screens of any size
-                imaginable.
-              </TagP>
-            </Box>
-          </Content>
-          <Content>
-            <Box className="secondary">
-              <DivImage>
-                <CustomImage src="https://res.cloudinary.com/ds6y4vgjb/image/upload/v1636026141/check_wtwl39.png" />
-              </DivImage>
-              <TagP>
-                Free updates. New Ghost features are added to your theme as
-                updates. These improvements come to you at no extra cost. Zero
-                stress and worry about lagging behind others.
-              </TagP>
-            </Box>
-          </Content>
-          <Content>
-            <Box className="secondary">
-              <DivImage>
-                <CustomImage src="https://res.cloudinary.com/ds6y4vgjb/image/upload/v1636026141/check_wtwl39.png" />
-              </DivImage>
-              <TagP>
-                Free support. Whenever you have any questions or face sudden
-                issues with your theme, please reach out on the contact page.
-              </TagP>
-            </Box>
-          </Content>
-          <Content>
-            <Box className="secondary">
-              <DivImage>
-                <CustomImage src="https://res.cloudinary.com/ds6y4vgjb/image/upload/v1636026141/check_wtwl39.png" />
-              </DivImage>
-              <TagP>
-                Translation ready. The theme supports German, Spanish, French,
-                Portuguese, Italian, Finnish, Dutch, Turkish, and Danish.
-              </TagP>
-            </Box>
-          </Content>
-        </Container>
-      </Layout>
+      {themeSelect && (
+        <Layout>
+          <Container>
+            <Col75>
+              <ImageItem
+                src={`https://aspirethemes.com/images/themes/${nameTheme}/home.webp`}
+              />
+            </Col75>
+            <Col25>
+              <Title>{themeSelect[nameProperty]}</Title>
+              <Description>{themeSelect[description]}</Description>
+              <Box>
+                <StyleLink primary="true" to="!#">
+                  Buy Now &#9866; ${themeSelect[price]}
+                </StyleLink>
+                <StyleLink to="!#">Live Demo &#10138;</StyleLink>
+                <HighLight>One-time Purchase</HighLight>
+                <HighLight>14-Day 100% Money Back Guarantee</HighLight>
+                <Note>If you’re unhappy, get a full refund, no questions!</Note>
+              </Box>
+              <Box>
+                <BoxItem>
+                  Ghost websites built with {themeSelect[nameProperty]}
+                </BoxItem>
+                <BoxItem>Documentation · Changelog</BoxItem>
+                <BoxItem>
+                  <Item>Current Version</Item>
+                  <CustomItem>{themeSelect[version]}</CustomItem>
+                </BoxItem>
+                <BoxItem>
+                  <Item>Last Update</Item>
+                  <CustomItem>NULL</CustomItem>
+                </BoxItem>
+                <CustomBoxItem>
+                  <Item>Images Lazy Loading</Item>
+                  <CustomItem>&#10003;</CustomItem>
+                </CustomBoxItem>
+              </Box>
+            </Col25>
+          </Container>
+          <Container>
+            <Content>
+              <Box className="secondary">
+                <DivImage>
+                  <CustomImage src="https://res.cloudinary.com/ds6y4vgjb/image/upload/v1636026141/check_wtwl39.png" />
+                </DivImage>
+                <TagP>
+                  Ghost 4.0+. Enjoy a beautiful, functional site in no time. The
+                  theme supports the Ghost editor cards and delivers a stunning
+                  design.
+                </TagP>
+              </Box>
+            </Content>
+            <Content>
+              <Box className="secondary">
+                <DivImage>
+                  <CustomImage src="https://res.cloudinary.com/ds6y4vgjb/image/upload/v1636026141/check_wtwl39.png" />
+                </DivImage>
+                <TagP>
+                  Membership support. Add membership and subscription to your
+                  website for ultimate monetization. The theme comes with Ghost
+                  Membership and Subscription features.
+                </TagP>
+              </Box>
+            </Content>
+            <Content>
+              <Box className="secondary">
+                <DivImage>
+                  <CustomImage src="https://res.cloudinary.com/ds6y4vgjb/image/upload/v1636026141/check_wtwl39.png" />
+                </DivImage>
+                <TagP>
+                  Responsive design. You’ll get a fully responsive site. The
+                  theme adjusts to phone, tablet, and desktop screens of any
+                  size imaginable.
+                </TagP>
+              </Box>
+            </Content>
+            <Content>
+              <Box className="secondary">
+                <DivImage>
+                  <CustomImage src="https://res.cloudinary.com/ds6y4vgjb/image/upload/v1636026141/check_wtwl39.png" />
+                </DivImage>
+                <TagP>
+                  Free updates. New Ghost features are added to your theme as
+                  updates. These improvements come to you at no extra cost. Zero
+                  stress and worry about lagging behind others.
+                </TagP>
+              </Box>
+            </Content>
+            <Content>
+              <Box className="secondary">
+                <DivImage>
+                  <CustomImage src="https://res.cloudinary.com/ds6y4vgjb/image/upload/v1636026141/check_wtwl39.png" />
+                </DivImage>
+                <TagP>
+                  Free support. Whenever you have any questions or face sudden
+                  issues with your theme, please reach out on the contact page.
+                </TagP>
+              </Box>
+            </Content>
+            <Content>
+              <Box className="secondary">
+                <DivImage>
+                  <CustomImage src="https://res.cloudinary.com/ds6y4vgjb/image/upload/v1636026141/check_wtwl39.png" />
+                </DivImage>
+                <TagP>
+                  Translation ready. The theme supports German, Spanish, French,
+                  Portuguese, Italian, Finnish, Dutch, Turkish, and Danish.
+                </TagP>
+              </Box>
+            </Content>
+          </Container>
+        </Layout>
+      )}
       <TestimonialSecond />
       <CardTheme
-        themeList={themeList}
+        themeList={moreTheme}
         props={props}
         themesTitle="Other Ghost themes you might like"
         href={href}
@@ -180,13 +178,13 @@ const ThemeItem = (props) => {
 
 ThemeItem.propTypes = {
   description: PropTypes.string,
-  name: PropTypes.string,
+  nameProperty: PropTypes.string,
   price: PropTypes.string,
   version: PropTypes.string,
 };
 
 ThemeItem.defaultProps = {
-  name: "name",
+  nameProperty: "name",
   description: "description",
   price: "price",
   version: "version",

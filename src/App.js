@@ -1,16 +1,14 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 
-import Blog from "./components/blog/blog";
-import Documentation from "./components/documentation/documentation";
-import HomePage from "./components/homePage/homePage";
-import NotFound from "./components/NotFound/NotFound";
-import ShowCase from "./components/showCase/showCase";
-// import Themes from "./components/themes/themes";
-
-import Contact from "./components/contact/contact";
-import NavBar from "./components/navBar/navBar";
+import HomePage from "components/homePage/homePage";
+import NotFound from "components/NotFound/NotFound";
+import NavBar from "components/navBar/navBar";
 import Themes from "features/Theme";
+import ShowCase from "features/ShowCase/components/showCase/showCase";
+import Documentation from "features/Theme/components/documentation/documentation";
+import Blog from "features/CardPost/components/blog/blog";
+import Contact from "components/Contact/contact";
 
 function App() {
   return (

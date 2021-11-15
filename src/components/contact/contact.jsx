@@ -1,12 +1,13 @@
 import { Formik, Form, FastField, ErrorMessage } from "formik";
+import { toast } from "react-toastify";
+import * as Yup from "yup";
+
 import Footer from "../footer/footer";
 import OnTop from "../onTop/onTop";
 import InputField from "custom-fields/InputField";
 import TextAreaField from "custom-fields/TextAreaField";
-import * as Yup from "yup";
 import Error from "components/Errors/Error";
 import "./contact.scss";
-import { toast } from "react-toastify";
 
 const Contact = () => {
   const initialValues = {
@@ -80,9 +81,6 @@ const Contact = () => {
                   onSubmit={onSubmit}
                 >
                   {(formikProps) => {
-                    const { values, errors, touched } = formikProps;
-                    console.log(values, errors, touched);
-
                     return (
                       <Form>
                         <div className="content-col-1__form-contact-col">

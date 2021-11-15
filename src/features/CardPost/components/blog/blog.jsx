@@ -1,20 +1,20 @@
-import React, { Fragment, useState, useEffect } from "react";
-import Footer from "./../footer/footer";
-import CardPost from "./../cardPost/cardPost";
-import themeApi from "../../api/themeApi";
-import OnTop from "../onTop/onTop";
+import React, { Fragment, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { getAllCardPosts } from "features/CardPost/cardPostSlice";
+import CardPost from "components/cardPost/cardPost";
+import Footer from "components/footer/footer";
+import OnTop from "components/onTop/onTop";
 import "./blog.scss";
 
 const Blog = (props) => {
-  const [cardPostList, setCardPostList] = useState([]);
+  const dispatch = useDispatch();
+  const { cardPostList } = useSelector((state) => state.cardPosts);
 
   useEffect(() => {
-    const getCardPostList = async () => {
-      const data = await themeApi.getCardPostList();
-      setCardPostList(data);
-    };
-    getCardPostList();
-  }, []);
+    dispatch(getAllCardPosts());
+  }, [dispatch]);
+
   return (
     <Fragment>
       <div className="gird-layout">
