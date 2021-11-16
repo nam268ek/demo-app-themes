@@ -9,6 +9,7 @@ import ShowCase from "features/ShowCase/components/showCase/showCase";
 import Documentation from "features/Theme/components/documentation/documentation";
 import Blog from "features/CardPost/components/blog/blog";
 import Contact from "components/Contact/contact";
+import Cart from "features/Cart/Cart";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/showcase" render={(props) => <ShowCase {...props} />} />
           <Route path="/blog" render={(props) => <Blog {...props} />} />
           <Route path="/contact" render={(props) => <Contact {...props} />} />
+          <Route path="/cart" render={(props) => <Cart {...props} />} />
           <Route path="/notfound" component={NotFound} />
           <Redirect to="notfound" />
         </Switch>

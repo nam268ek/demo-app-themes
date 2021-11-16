@@ -87,3 +87,38 @@ export const StyleLink = styled(NavLink)`
     outline: 2px solid #1608d6;
   }
 `;
+
+export const Cart = styled.li`
+  list-style: none;
+  line-height: 1;
+`;
+
+export const CartContent = styled.div`
+  width: 100%;
+  position: relative;
+`;
+
+export const CartLink = styled(NavLink)`
+  display: block;
+  color: #181818;
+  padding: 0 36px;
+
+  &:hover {
+    color: #181818;
+  }
+`;
+export const CartCount = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: #001fff;
+  color: #fff;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 14px;
+  font-weight: 500;
+`;

@@ -1,5 +1,6 @@
+import Menu from "components/common/navBar/menuItem";
 import React from "react";
-import Menu from "./../common/navBar/menuItem";
+import { RiShoppingCartLine } from "react-icons/ri";
 import {
   MenuButton,
   NavLogo,
@@ -9,6 +10,10 @@ import {
   Widthright,
   StyleLink,
   NavBarComponent,
+  Cart,
+  CartLink,
+  CartContent,
+  CartCount,
 } from "./navBar.styles";
 
 const NavBar = () => {
@@ -34,6 +39,7 @@ const NavBar = () => {
       toHref: "/contact",
     },
   ];
+
   return (
     <>
       <NavBarComponent>
@@ -53,6 +59,14 @@ const NavBar = () => {
               <MenuButton>
                 <StyleLink to="/getall">Get all themes</StyleLink>
               </MenuButton>
+              <Cart>
+                <CartLink to="/cart">
+                  <CartContent>
+                    <CartCount>0</CartCount>
+                    <RiShoppingCartLine size={30} />
+                  </CartContent>
+                </CartLink>
+              </Cart>
             </NavMenu>
           </nav>
         </Widthright>
