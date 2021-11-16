@@ -2,10 +2,10 @@ import { Formik, Form, FastField, ErrorMessage } from "formik";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
 
-import Footer from "../footer/footer";
-import OnTop from "../onTop/onTop";
 import InputField from "custom-fields/InputField";
 import TextAreaField from "custom-fields/TextAreaField";
+import Footer from "components/footer/footer";
+import OnTop from "components/onTop/onTop";
 import Error from "components/Errors/Error";
 import "./contact.scss";
 
