@@ -8,7 +8,7 @@ import Themes from "features/Theme";
 import ShowCase from "features/ShowCase/components/showCase/showCase";
 import Documentation from "features/Theme/components/documentation/documentation";
 import Blog from "features/CardPost/components/blog/blog";
-import Contact from "components/Contact/contact";
+import Contact from "components/Contact/Contact";
 import Cart from "features/Cart/Cart";
 
 function App() {
