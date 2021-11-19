@@ -7,7 +7,7 @@ const Menu = ({ titleList, classActive, color }) => {
       {titleList.map((item, index) => (
         <MenuItem key={index}>
           <RouteLink
-            activeClassName={classActive}
+            className={({ isActive }) => isActive && classActive}
             to={item.toHref}
             color={color}
           >

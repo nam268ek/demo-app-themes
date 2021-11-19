@@ -1,7 +1,9 @@
 import "./cardPost.scss";
 import LazyLoad from "react-lazyload";
+import { useLocation } from "react-router-dom";
 
 const CardPost = ({ props, cardPostList }) => {
+  const location = useLocation();
   const handleDateTime = (date) => {
     const dateTime = new Date(date).toLocaleDateString();
     return dateTime;
@@ -10,7 +12,7 @@ const CardPost = ({ props, cardPostList }) => {
   return (
     <div className="cardpost__gird">
       <div className="cardpost__gird-container">
-        {props.location.pathname === "/" && (
+        {location === "/" && (
           <div className="cardpost-header">
             <h2 className="cardpost-header__title">Ghost tips & tricks</h2>
             <p className="cardpost-header__info">

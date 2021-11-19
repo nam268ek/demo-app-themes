@@ -1,6 +1,7 @@
 import { PropTypes } from "prop-types";
 import "./showcaseCard.scss";
 import LazyLoad from "react-lazyload";
+import { useLocation } from "react-router-dom";
 
 const ShowcaseCard = ({
   propertyId,
@@ -10,7 +11,9 @@ const ShowcaseCard = ({
   title,
   props,
 }) => {
-  const url = props.location.pathname;
+  const a = useLocation();
+  console.log("showcase", a);
+  const url = useLocation();
   return (
     <div className="cardtheme__selection">
       <div className="cardtheme__selection__container">

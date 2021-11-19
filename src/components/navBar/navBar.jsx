@@ -1,6 +1,7 @@
 import Menu from "components/common/navBar/menuItem";
 import React from "react";
 import { RiShoppingCartLine } from "react-icons/ri";
+import { useSelector } from "react-redux";
 import {
   MenuButton,
   NavLogo,
@@ -14,34 +15,35 @@ import {
   CartLink,
   CartContent,
   CartCount,
+  Header,
 } from "./navBar.styles";
 
 const NavBar = () => {
   const titleList = [
     {
       title: "Themes",
-      toHref: "/themes",
+      toHref: "themes",
     },
     {
       title: "Documentations",
-      toHref: "/documentations",
+      toHref: "documentations",
     },
     {
       title: "Showcase",
-      toHref: "/showcase",
+      toHref: "showcase",
     },
     {
       title: "Blog",
-      toHref: "/blog",
+      toHref: "blog",
     },
     {
       title: "Contact",
-      toHref: "/contact",
+      toHref: "contact",
     },
   ];
-
+  const totalQty = useSelector((state) => state.carts.qty);
   return (
-    <>
+    <Header>
       <NavBarComponent>
         <Widthleft>
           <NavLogo>
@@ -57,12 +59,12 @@ const NavBar = () => {
                 color="#181818"
               />
               <MenuButton>
-                <StyleLink to="/getall">Get all themes</StyleLink>
+                <StyleLink to="getall">Get all themes</StyleLink>
               </MenuButton>
-              <Cart>
-                <CartLink to="/cart">
+              <Cart br="1px solid #f5f5f5;">
+                <CartLink to="cart">
                   <CartContent>
-                    <CartCount>0</CartCount>
+                    <CartCount>{totalQty}</CartCount>
                     <RiShoppingCartLine size={30} />
                   </CartContent>
                 </CartLink>
@@ -71,7 +73,7 @@ const NavBar = () => {
           </nav>
         </Widthright>
       </NavBarComponent>
-    </>
+    </Header>
   );
 };
 

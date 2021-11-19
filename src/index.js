@@ -1,15 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
+import { Provider } from "react-redux";
 
+import store from "app/store";
 import App from "./App";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "react-toastify/dist/ReactToastify.css";
-import "./index.scss";
-import { Provider } from "react-redux";
-import store from "app/store";
 
 ReactDOM.render(
   <React.StrictMode>

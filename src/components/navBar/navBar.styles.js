@@ -1,6 +1,12 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
+export const Header = styled.div`
+  background-color: #ffffff;
+  padding: 40px 0;
+  text-align: center;
+`;
+
 export const RouteLink = styled(NavLink)`
   font-weight: 500;
   font-size: 16px;
@@ -91,6 +97,7 @@ export const StyleLink = styled(NavLink)`
 export const Cart = styled.li`
   list-style: none;
   line-height: 1;
+  border-right: ${(props) => props.br || "none"};
 `;
 
 export const CartContent = styled.div`

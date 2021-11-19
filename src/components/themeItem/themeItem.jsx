@@ -1,5 +1,11 @@
 import { PropTypes } from "prop-types";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { getAllTheme } from "features/Theme/themeSlice";
+import { addToCart } from "features/Cart/cartSlice";
+import { toast } from "react-toastify";
+
 import Footer from "../footer/footer";
 import OnTop from "../onTop/onTop";
 import TestimonialSecond from "../testimonialSecond/testimonialSecond";
@@ -25,13 +31,11 @@ import {
   TagP,
   Title,
 } from "./ThemeItem.styles";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllTheme } from "features/Theme/themeSlice";
 
 const ThemeItem = (props) => {
+  const { description, version, price, nameProperty, urlParent } = props;
   const dispatch = useDispatch();
-  const { nameTheme } = props.match.params;
-  const { description, version, price, nameProperty, href } = props;
+  const { themeItem: nameTheme } = useParams();
 
   const themeList = useSelector((state) => state.themes.themeList);
   const themeSelect = themeList.find(
@@ -47,6 +51,14 @@ const ThemeItem = (props) => {
     dispatch(getAllTheme());
   }, [dispatch]);
 
+  const handleAddToCart = (e, item) => {
+    e.preventDefault();
+    const product = { ...item, qty: 1 };
+    const action = addToCart(product);
+    dispatch(action);
+    toast.configure({ theme: "colored", autoClose: 3000 });
+    toast.success("Successfully", { theme: "colored", autoClose: 3000 });
+  };
   return (
     <>
       {themeSelect && (
@@ -61,10 +73,19 @@ const ThemeItem = (props) => {
               <Title>{themeSelect[nameProperty]}</Title>
               <Description>{themeSelect[description]}</Description>
               <Box>
-                <StyleLink primary="true" to="!#">
+                <StyleLink
+                  primary="true"
+                  to=""
+                  onClick={() => handleAddToCart(themeSelect)}
+                >
                   Buy Now &#9866; ${themeSelect[price]}
                 </StyleLink>
-                <StyleLink to="!#">Live Demo &#10138;</StyleLink>
+                <StyleLink
+                  to=""
+                  onClick={(e) => handleAddToCart(e, themeSelect)}
+                >
+                  Add to cart &#10138;
+                </StyleLink>
                 <HighLight>One-time Purchase</HighLight>
                 <HighLight>14-Day 100% Money Back Guarantee</HighLight>
                 <Note>If you’re unhappy, get a full refund, no questions!</Note>
@@ -166,9 +187,8 @@ const ThemeItem = (props) => {
       <TestimonialSecond />
       <CardTheme
         themeList={moreTheme}
-        props={props}
         themesTitle="Other Ghost themes you might like"
-        href={href}
+        urlParent={urlParent}
       />
       <Footer />
       <OnTop />
