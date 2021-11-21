@@ -2,6 +2,7 @@ import Footer from "components/footer/footer";
 import OnTop from "components/onTop/onTop";
 import React from "react";
 import { useSelector } from "react-redux";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 import {
   Container,
   Layout,
@@ -16,8 +17,7 @@ import {
 } from "./Cart.styles";
 
 import CartItem from "./components/CartItem/CartItem";
-
-Cart.propTypes = {};
+import "./style.css";
 
 function Cart(props) {
   const themeList = useSelector((state) => state.carts.products);
@@ -31,8 +31,14 @@ function Cart(props) {
             <CustomDiv padding="0 30px">
               <Title>Cart</Title>
             </CustomDiv>
-            {themeList &&
-              themeList.map((item) => <CartItem key={item.id} item={item} />)}
+            <TransitionGroup>
+              {themeList &&
+                themeList.map((item) => (
+                  <CSSTransition key={item.id} classNames="fade" timeout={500}>
+                    <CartItem item={item} />
+                  </CSSTransition>
+                ))}
+            </TransitionGroup>
           </Col>
           <Col w={1 / 3}>
             <CustomDiv padding="0 30px">

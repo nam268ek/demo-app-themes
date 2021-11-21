@@ -79,7 +79,7 @@ function CartItem({ item }) {
   };
 
   return (
-    <>
+    <div>
       <Item>
         <ThemeLink to={`/themes/${name.toLowerCase()}`}>
           <Preview>
@@ -117,7 +117,7 @@ function CartItem({ item }) {
         </CartInfo>
       </Item>
       <Hr margin="0 30px 32px 30px" />
-    </>
+    </div>
   );
 }
 
