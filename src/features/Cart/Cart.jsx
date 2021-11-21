@@ -1,7 +1,7 @@
 import Footer from "components/footer/footer";
 import OnTop from "components/onTop/onTop";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import {
   Container,
   Layout,
@@ -15,16 +15,14 @@ import {
   TitlePrice,
 } from "./Cart.styles";
 
-import { useState, useEffect } from "react";
 import CartItem from "./components/CartItem/CartItem";
 
 Cart.propTypes = {};
 
 function Cart(props) {
-  const dispatch = useDispatch();
   const themeList = useSelector((state) => state.carts.products);
-  // const cart = useSelector((state) => state.products.find(item=> ));
-  console.log("cart:", themeList);
+  const total = useSelector((state) => state.carts.total);
+
   return (
     <>
       <Layout>
@@ -33,7 +31,8 @@ function Cart(props) {
             <CustomDiv padding="0 30px">
               <Title>Cart</Title>
             </CustomDiv>
-            <CartItem themeList={themeList} />
+            {themeList &&
+              themeList.map((item) => <CartItem key={item.id} item={item} />)}
           </Col>
           <Col w={1 / 3}>
             <CustomDiv padding="0 30px">
@@ -48,7 +47,7 @@ function Cart(props) {
               >
                 <CustomTitle padding="0 16px">Total</CustomTitle>
                 <Price>
-                  <TitlePrice>$1000,00</TitlePrice>
+                  <TitlePrice>${total}</TitlePrice>
                 </Price>
               </CustomDiv>
               <Hr margin="0 30px 32px 30px" />

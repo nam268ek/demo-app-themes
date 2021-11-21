@@ -64,7 +64,7 @@ const NavBar = () => {
               <Cart br="1px solid #f5f5f5;">
                 <CartLink to="cart">
                   <CartContent>
-                    <CartCount>{totalQty}</CartCount>
+                    {totalQty > 0 && <CartCount>{totalQty}</CartCount>}
                     <RiShoppingCartLine size={30} />
                   </CartContent>
                 </CartLink>

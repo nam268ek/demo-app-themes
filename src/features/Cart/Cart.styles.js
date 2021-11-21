@@ -91,7 +91,7 @@ export const CustomDiv = styled.div`
   padding: ${(props) => props.padding || "0"};
   margin: ${(props) => props.margin || "0"};
 `;
-export const Qty = styled.input`
+export const Qty = styled.input.attrs({ type: "number" })`
   outline: none;
   width: 40px;
   height: 26px;
@@ -100,6 +100,14 @@ export const Qty = styled.input`
   border-radius: 0;
   border-left: 0;
   border-right: 0;
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  ::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
   &:visited {
     border: 1px solid #ced4da;
   }

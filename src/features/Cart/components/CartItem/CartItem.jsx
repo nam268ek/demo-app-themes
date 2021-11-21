@@ -1,5 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 import {
   AboutTheme,
   Button,
@@ -19,73 +20,103 @@ import {
   Item,
 } from "features/Cart/Cart.styles";
 import {
-  inCreaseQty,
   deCreaseQty,
   removeFormCart,
+  addToCart,
+  getTotal,
+  updateItem,
 } from "features/Cart/cartSlice";
-import { useDispatch, useSelector } from "react-redux";
 
-CartItem.propTypes = {};
-
-function CartItem({ themeList }) {
+function CartItem({ item }) {
+  const { name, price, image, id, qty, description } = item;
+  const [valueQty, setValueQty] = useState(qty);
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.carts.products);
-  const handleValue = ({ id }) => {
-    const item = cart.find((item) => item.id === id);
-    return item.qty;
+
+  useEffect(() => {
+    dispatch(getTotal());
+  }, [dispatch]);
+
+  const handleOnChangeQty = (e) => {
+    setValueQty(e.target.value);
   };
-  console.log("themeList", themeList);
+
+  const handleOnBlurQty = (e, item) => {
+    const value = Math.max(
+      Number(1),
+      Math.min(Number(10), Number(e.target.value))
+    );
+
+    toast.configure();
+    Number(e.target.value) > 10
+      ? toast.warn(`Maximum quantity is 10`)
+      : Number(e.target.value) < 1 && toast.warn(`Minimum quantity is 1`);
+
+    const update = {
+      ...item,
+      qty: value,
+    };
+
+    setValueQty(value);
+    dispatch(updateItem(update));
+    dispatch(getTotal());
+  };
+
+  const handleAddToCart = (item) => {
+    setValueQty(valueQty + 1);
+    dispatch(addToCart(item));
+    dispatch(getTotal());
+  };
+
+  const handleRemoveQty = (item) => {
+    setValueQty(valueQty - 1);
+    dispatch(deCreaseQty(item));
+    dispatch(getTotal());
+  };
+
+  const handleRemoveItem = (item) => {
+    dispatch(removeFormCart(item));
+    dispatch(getTotal());
+  };
+
   return (
     <>
-      {themeList &&
-        themeList.map((item) => (
-          <>
-            <Item>
-              <ThemeLink to={`/themes/${item.name.toLowerCase()}`}>
-                <Preview>
-                  <PreviewImg
-                    src={item.image}
-                    alt={item.name}
-                    width="159px"
-                    height="145px"
-                  />
-                </Preview>
-              </ThemeLink>
-              <CartInfo>
-                <Desc>
-                  <NameTheme>{item.name}</NameTheme>
-                  <AboutTheme>{item.description}</AboutTheme>
-                  <CustomDiv>
-                    <Label>Quantity</Label>
-                    <Button btlr onClick={() => dispatch(inCreaseQty(item))}>
-                      +
-                    </Button>
-                    <Qty
-                      type="text"
-                      id={item.id}
-                      name={item.name}
-                      // onChange={handleInputValue}
-                      value={handleValue(item)}
-                    />
-                    <Button btrr onClick={() => dispatch(deCreaseQty(item))}>
-                      -
-                    </Button>
-                    <Remove
-                      type="submit"
-                      onClick={() => dispatch(removeFormCart(item))}
-                    >
-                      Remove
-                    </Remove>
-                  </CustomDiv>
-                </Desc>
-                <Price>
-                  <TitlePrice>${item.price}</TitlePrice>
-                </Price>
-              </CartInfo>
-            </Item>
-            <Hr margin="0 30px 32px 30px" />
-          </>
-        ))}
+      <Item>
+        <ThemeLink to={`/themes/${name.toLowerCase()}`}>
+          <Preview>
+            <PreviewImg src={image} alt={name} width="159px" height="145px" />
+          </Preview>
+        </ThemeLink>
+        <CartInfo>
+          <Desc>
+            <NameTheme>{name}</NameTheme>
+            <AboutTheme>{description}</AboutTheme>
+            <CustomDiv>
+              <Label>Quantity</Label>
+              <Button btlr onClick={() => handleAddToCart(item)}>
+                +
+              </Button>
+              <Qty
+                type="number"
+                id={id}
+                name={name}
+                onChange={handleOnChangeQty}
+                onBlur={(e) => handleOnBlurQty(e, item)}
+                value={valueQty}
+              />
+              <Button btrr onClick={() => handleRemoveQty(item)}>
+                -
+              </Button>
+              <Remove type="submit" onClick={() => handleRemoveItem(item)}>
+                Remove
+              </Remove>
+            </CustomDiv>
+          </Desc>
+          <Price>
+            <TitlePrice>${price}</TitlePrice>
+          </Price>
+        </CartInfo>
+      </Item>
+      <Hr margin="0 30px 32px 30px" />
     </>
   );
 }
