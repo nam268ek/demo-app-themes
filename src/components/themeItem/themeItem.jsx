@@ -1,7 +1,7 @@
 import { PropTypes } from "prop-types";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getAllTheme } from "features/Theme/themeSlice";
 import { addToCart } from "features/Cart/cartSlice";
 import { toast } from "react-toastify";
@@ -33,8 +33,9 @@ import {
 } from "./ThemeItem.styles";
 
 const ThemeItem = (props) => {
-  const { description, version, price, nameProperty, urlParent } = props;
+  const { description, version, price, nameProperty } = props;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { themeItem: nameTheme } = useParams();
 
   const themeList = useSelector((state) => state.themes.themeList);
@@ -59,6 +60,19 @@ const ThemeItem = (props) => {
     toast.configure({ theme: "colored", autoClose: 3000 });
     toast.success("Successfully", { theme: "colored", autoClose: 3000 });
   };
+
+  const handleNavigateToCart = (e, item) => {
+    e.preventDefault();
+    const product = { ...item, qty: 1 };
+    const action = addToCart(product);
+    dispatch(action);
+
+    navigate("/cart");
+  };
+
+  const urlImage =
+    "https://res.cloudinary.com/ds6y4vgjb/image/upload/v1636026141/check_wtwl39.png";
+
   return (
     <>
       {themeSelect && (
@@ -76,7 +90,7 @@ const ThemeItem = (props) => {
                 <StyleLink
                   primary="true"
                   to=""
-                  onClick={() => handleAddToCart(themeSelect)}
+                  onClick={(e) => handleNavigateToCart(e, themeSelect)}
                 >
                   Buy Now &#9866; ${themeSelect[price]}
                 </StyleLink>
@@ -114,7 +128,7 @@ const ThemeItem = (props) => {
             <Content>
               <Box className="secondary">
                 <DivImage>
-                  <CustomImage src="https://res.cloudinary.com/ds6y4vgjb/image/upload/v1636026141/check_wtwl39.png" />
+                  <CustomImage src={urlImage} />
                 </DivImage>
                 <TagP>
                   Ghost 4.0+. Enjoy a beautiful, functional site in no time. The
@@ -126,7 +140,7 @@ const ThemeItem = (props) => {
             <Content>
               <Box className="secondary">
                 <DivImage>
-                  <CustomImage src="https://res.cloudinary.com/ds6y4vgjb/image/upload/v1636026141/check_wtwl39.png" />
+                  <CustomImage src={urlImage} />
                 </DivImage>
                 <TagP>
                   Membership support. Add membership and subscription to your
@@ -138,7 +152,7 @@ const ThemeItem = (props) => {
             <Content>
               <Box className="secondary">
                 <DivImage>
-                  <CustomImage src="https://res.cloudinary.com/ds6y4vgjb/image/upload/v1636026141/check_wtwl39.png" />
+                  <CustomImage src={urlImage} />
                 </DivImage>
                 <TagP>
                   Responsive design. You’ll get a fully responsive site. The
@@ -150,7 +164,7 @@ const ThemeItem = (props) => {
             <Content>
               <Box className="secondary">
                 <DivImage>
-                  <CustomImage src="https://res.cloudinary.com/ds6y4vgjb/image/upload/v1636026141/check_wtwl39.png" />
+                  <CustomImage src={urlImage} />
                 </DivImage>
                 <TagP>
                   Free updates. New Ghost features are added to your theme as
@@ -162,7 +176,7 @@ const ThemeItem = (props) => {
             <Content>
               <Box className="secondary">
                 <DivImage>
-                  <CustomImage src="https://res.cloudinary.com/ds6y4vgjb/image/upload/v1636026141/check_wtwl39.png" />
+                  <CustomImage src={urlImage} />
                 </DivImage>
                 <TagP>
                   Free support. Whenever you have any questions or face sudden
@@ -173,7 +187,7 @@ const ThemeItem = (props) => {
             <Content>
               <Box className="secondary">
                 <DivImage>
-                  <CustomImage src="https://res.cloudinary.com/ds6y4vgjb/image/upload/v1636026141/check_wtwl39.png" />
+                  <CustomImage src={urlImage} />
                 </DivImage>
                 <TagP>
                   Translation ready. The theme supports German, Spanish, French,
@@ -188,7 +202,6 @@ const ThemeItem = (props) => {
       <CardTheme
         themeList={moreTheme}
         themesTitle="Other Ghost themes you might like"
-        urlParent={urlParent}
       />
       <Footer />
       <OnTop />

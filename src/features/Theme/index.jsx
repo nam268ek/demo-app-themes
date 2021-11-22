@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useRef } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 import { getAllTheme } from "./themeSlice";
 
 import OnTop from "components/onTop/onTop";
@@ -11,10 +11,7 @@ import NotFound from "components/NotFound/NotFound";
 
 const Themes = () => {
   const dispatch = useDispatch();
-  const { pathname } = useLocation();
-  const { current: href } = useRef(pathname);
   const themeList = useSelector((state) => state.themes.themeList);
-
   useEffect(() => {
     dispatch(getAllTheme());
   }, [dispatch]);
@@ -28,14 +25,13 @@ const Themes = () => {
             <CardTheme
               themeList={themeList}
               themesTitle="Choose a Ghost theme you love"
-              urlParent={href}
             />
             <Footer />
             <OnTop />
           </>
         }
       />
-      <Route path=":themeItem" element={<ThemeItem urlParent={href} />} />
+      <Route path=":themeItem" element={<ThemeItem />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

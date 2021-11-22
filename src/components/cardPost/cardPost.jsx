@@ -1,9 +1,10 @@
-import "./cardPost.scss";
 import LazyLoad from "react-lazyload";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
+import "./cardPost.scss";
 
 const CardPost = ({ props, cardPostList }) => {
-  const location = useLocation();
+  const { pathname } = useLocation();
+
   const handleDateTime = (date) => {
     const dateTime = new Date(date).toLocaleDateString();
     return dateTime;
@@ -12,23 +13,23 @@ const CardPost = ({ props, cardPostList }) => {
   return (
     <div className="cardpost__gird">
       <div className="cardpost__gird-container">
-        {location === "/" && (
+        {pathname === "/" && (
           <div className="cardpost-header">
             <h2 className="cardpost-header__title">Ghost tips & tricks</h2>
             <p className="cardpost-header__info">
               <span className="info">
                 Find knowledge and advice to make your Ghost site better.
               </span>
-              <a href="!#" className="info-link">
+              <Link to="!#" className="info-link">
                 Read more posts
-              </a>
+              </Link>
             </p>
           </div>
         )}
         <div className="cardpost-content">
           {cardPostList.map((card) => (
             <div key={card.id} className="cardpost-content__item">
-              <a href="!#" className="content-item-link">
+              <Link to="!#" className="content-item-link">
                 <div className="content-item-img">
                   <LazyLoad offset={-150} classNamePrefix="lazyload">
                     <img
@@ -46,7 +47,7 @@ const CardPost = ({ props, cardPostList }) => {
                     {handleDateTime(card.datetime)}
                   </time>
                 </div>
-              </a>
+              </Link>
             </div>
           ))}
         </div>

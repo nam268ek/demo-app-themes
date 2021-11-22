@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import LazyLoad from "react-lazyload";
 import "./cardTheme.scss";
 
-const CardTheme = ({ themesTitle, propertyId, themeList, urlParent }) => {
+const CardTheme = ({ themesTitle, propertyId, themeList }) => {
   return (
     <div className="cardtheme__selection">
       <div className="cardtheme__selection__container">
@@ -14,7 +14,7 @@ const CardTheme = ({ themesTitle, propertyId, themeList, urlParent }) => {
           {themeList.map((theme) => (
             <div className="theme-content" key={theme[propertyId]}>
               <Link
-                to={`${urlParent}/${theme.name.toLowerCase()}`}
+                to={`/themes/${theme.name.toLowerCase()}`}
                 className="theme-content-link"
               >
                 <LazyLoad offset={-150} classNamePrefix="lazyload">

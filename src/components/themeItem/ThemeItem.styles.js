@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 export const Layout = styled.div`
@@ -53,7 +53,7 @@ export const Box = styled.div`
   background-color: ${(props) =>
     props.className === "secondary" ? "#fafafa" : "#fff"};
 `;
-export const StyleLink = styled(Link)`
+export const StyleLink = styled(NavLink)`
   padding: 16px 32px;
   background-color: ${(props) => (props.primary ? "#001fff" : "#ffffff")};
   color: ${(props) => (props.primary ? "#ffffff" : "#001fff")};

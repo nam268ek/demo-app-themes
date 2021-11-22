@@ -1,7 +1,7 @@
 import { PropTypes } from "prop-types";
 import "./showcaseCard.scss";
 import LazyLoad from "react-lazyload";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const ShowcaseCard = ({
   propertyId,
@@ -11,9 +11,8 @@ const ShowcaseCard = ({
   title,
   props,
 }) => {
-  const a = useLocation();
-  console.log("showcase", a);
   const url = useLocation();
+
   return (
     <div className="cardtheme__selection">
       <div className="cardtheme__selection__container">
@@ -26,26 +25,26 @@ const ShowcaseCard = ({
             inspired!
           </p>
           {url === "/" && (
-            <a href="!#" className="text-secondary-link">
+            <Link to="!#" className="text-secondary-link">
               Explore more examples
-            </a>
+            </Link>
           )}
         </div>
         <div className="showcase__btn--small p-lr-16">
           {themeList.map((item) => (
-            <a
+            <Link
               key={item[propertyId]}
-              href="!#"
+              to="!#"
               className="showcase__btn--small-link"
             >
               {item[propertyName]}
-            </a>
+            </Link>
           ))}
         </div>
         <div className="cardtheme__selection__container-content">
           {showCase.map((item) => (
             <div key={item[propertyId]} className="showcase-template">
-              <a href="!#" className="showcase-template__item">
+              <Link to="!#" className="showcase-template__item">
                 <LazyLoad offset={-150} classNamePrefix="lazyload">
                   <img
                     src={item.image}
@@ -57,7 +56,7 @@ const ShowcaseCard = ({
                     decoding="async"
                   />
                 </LazyLoad>
-              </a>
+              </Link>
             </div>
           ))}
         </div>

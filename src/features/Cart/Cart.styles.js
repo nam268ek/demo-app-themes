@@ -10,7 +10,7 @@ export const Container = styled.div`
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
-  display: flex;
+  display: ${(props) => (props.flex ? "flex" : "block")};
 `;
 
 export const Col = styled.div`
@@ -175,7 +175,6 @@ export const TitlePrice = styled.h2`
   color: #181818;
   margin: 0;
   height: fit-content;
-  padding: 0 16px;
 `;
 
 export const ThemeLink = styled(Link)`
@@ -192,7 +191,7 @@ export const Hr = styled.hr`
 `;
 export const CustomBtn = styled(Remove)`
   height: 100%;
-  width: 100%;
+  width: ${(props) => props.width || "100%"};
   display: inline-block;
   text-align: center;
   margin: 0;
@@ -224,4 +223,20 @@ export const CustomTitle = styled(Title)`
   padding: ${(props) => props.padding || "0"};
   margin: ${(props) => props.margin || "0"};
   background-color: ${(props) => props.backgroundColor || "white"};
+  text-align: ${(props) => props.textAlign || "left"};
+  border: ${(props) => props.border || "none"};
+`;
+
+export const CustomImage = styled.img`
+  /* width: 100%;
+  height: 100%; */
+  object-fit: contain;
+  object-position: top;
+`;
+export const DivImage = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding-top: 16px;
+  /* padding-bottom: 30%; */
 `;
