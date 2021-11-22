@@ -10,6 +10,7 @@ import Blog from "features/CardPost/components/blog/blog";
 import Contact from "components/Contact/Contact";
 import Cart from "features/Cart/Cart";
 import Themes from "features/Theme";
+import ShowCaseDetail from "features/ShowCase/components/ShowCaseDetail/ShowCaseDetail";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="contact" element={<Contact />} />
           <Route path="cart" element={<Cart />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/detail" element={<ShowCaseDetail />} />
         </Routes>
       </main>
     </>

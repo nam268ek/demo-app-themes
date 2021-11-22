@@ -1,49 +1,80 @@
+import { Link } from "react-router-dom";
+import * as yup from "yup";
 import "./footer.scss";
+import { toast } from "react-toastify";
+import { useState } from "react";
 
 const Footer = () => {
+  const [email, setEmail] = useState("");
+
+  const handleOnChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    const schema = yup.object().shape({
+      email: yup.string().email(),
+    });
+    //validate email
+    schema.isValid({ email: e.target[0].value }).then((value) => {
+      toast.configure({
+        theme: "colored",
+        autoClose: 3000,
+      });
+
+      if (value) {
+        toast.success("Thank you for subscribing!");
+        setEmail("");
+      } else {
+        toast.error("Please enter a valid email address");
+      }
+    });
+  };
+
   return (
     <footer>
       <div className="footer__gird">
         <div className="footer-container-sosial">
           <div className="sosial-col-1">
-            <a href="!#" className="footer-sosial-link">
+            <Link to="!#" className="footer-sosial-link">
               About
-            </a>
-            <a href="!#" className="footer-sosial-link">
+            </Link>
+            <Link to="!#" className="footer-sosial-link">
               Twitter
-            </a>
-            <a href="!#" className="footer-sosial-link">
+            </Link>
+            <Link to="!#" className="footer-sosial-link">
               Github
-            </a>
-            <a href="!#" className="footer-sosial-link">
+            </Link>
+            <Link to="!#" className="footer-sosial-link">
               Loom
-            </a>
-            <a href="!#" className="footer-sosial-link">
+            </Link>
+            <Link to="!#" className="footer-sosial-link">
               Youtube
-            </a>
-            <a href="!#" className="footer-sosial-link">
+            </Link>
+            <Link to="!#" className="footer-sosial-link">
               Blog RSS Feed
-            </a>
+            </Link>
           </div>
           <div className="sosial-col-2">
-            <a href="!#" className="footer-sosial-link">
+            <Link to="!#" className="footer-sosial-link">
               Affiliate
-            </a>
-            <a href="!#" className="footer-sosial-link">
+            </Link>
+            <Link to="!#" className="footer-sosial-link">
               Changelogs
-            </a>
-            <a href="!#" className="footer-sosial-link">
+            </Link>
+            <Link to="!#" className="footer-sosial-link">
               Ghost Tips & Tricks
-            </a>
-            <a href="!#" className="footer-sosial-link">
+            </Link>
+            <Link to="!#" className="footer-sosial-link">
               Ghost Insprire
-            </a>
-            <a href="!#" className="footer-sosial-link">
+            </Link>
+            <Link to="!#" className="footer-sosial-link">
               Ghost(Pro) Hosting
-            </a>
+            </Link>
           </div>
           <div className="sosial-col-3">
-            <form action="" className="form-subs">
+            <form className="form-subs" onSubmit={handleOnSubmit}>
               <p className="form-subs__title">
                 Subscribe to receive Ghost resources, new themes, and updates.
               </p>
@@ -51,6 +82,8 @@ const Footer = () => {
                 className="form-subs__input"
                 type="text"
                 placeholder="Your email"
+                value={email}
+                onChange={handleOnChange}
               />
             </form>
           </div>
@@ -60,12 +93,12 @@ const Footer = () => {
             <div className="footer-content">
               <p className="footer-copy-text">© 2021 Aspire Themes</p>
               <div className="footer-copy-link">
-                <a href="!#" className="faq">
+                <Link to="!#" className="faq">
                   FAQ
-                </a>
-                <a href="!#" className="terms">
+                </Link>
+                <Link to="!#" className="terms">
                   Terms
-                </a>
+                </Link>
               </div>
             </div>
           </div>
