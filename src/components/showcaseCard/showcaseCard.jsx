@@ -1,7 +1,7 @@
 import { PropTypes } from "prop-types";
-import "./showcaseCard.scss";
 import LazyLoad from "react-lazyload";
 import { Link, useLocation } from "react-router-dom";
+import "./showcaseCard.scss";
 
 const ShowcaseCard = ({
   propertyId,
@@ -11,10 +11,10 @@ const ShowcaseCard = ({
   title,
   props,
 }) => {
-  const url = useLocation();
+  const { pathname: url } = useLocation();
 
   return (
-    <div className="cardtheme__selection">
+    <div className={url === "/" ? "cardtheme__selection" : ""}>
       <div className="cardtheme__selection__container">
         <div className="cardtheme__selection__container-title">
           <h1 className="theme-lastest mb-0">{title}</h1>
@@ -34,7 +34,7 @@ const ShowcaseCard = ({
           {themeList.map((item) => (
             <Link
               key={item[propertyId]}
-              to="!#"
+              to={`/showcase/${item[propertyName].toLowerCase()}`}
               className="showcase__btn--small-link"
             >
               {item[propertyName]}

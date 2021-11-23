@@ -12,7 +12,7 @@ Error.defaultProps = {
 
 function Error({ title, message }) {
   toast.error(`${title}: ${message}`, { theme: "colored" });
-  return <ToastContainer autoClose={5000} />;
+  return <ToastContainer autoClose={3000} />;
 }
 
 export default Error;

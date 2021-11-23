@@ -1,27 +1,35 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import LazyLoad from "react-lazyload";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllShowCase } from "features/ShowCase/showCaseSlice";
-import { getAllTheme } from "features/Theme/themeSlice";
+import { getDetail } from "features/ShowCase/showCaseSlice";
+import Footer from "components/footer/footer";
+import OnTop from "components/onTop/onTop";
 
 ShowCaseDetail.propTypes = {};
 
-function ShowCaseDetail(props) {
+function ShowCaseDetail({ name }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { showCaseList: listItems } = useSelector((state) => state.showCases);
+  const { detail: params } = useParams();
+  const listItems = useSelector((state) =>
+    state.showCases.detail.filter((item) => item.name.toLowerCase() === params)
+  );
 
   useEffect(() => {
-    dispatch(getAllShowCase());
-    dispatch(getAllTheme());
-  }, [dispatch]);
+    !listItems && dispatch(getDetail());
+  }, [dispatch, listItems]);
 
   const handleNavigate = (e) => {
     e.preventDefault();
-    navigate(`/themes/${props.name.toLowerCase()}`, { replace: true });
+    navigate(`/themes/${params}`, { replace: true });
+  };
+
+  const handleGoBack = (e) => {
+    e.preventDefault();
+    navigate(`/showcase`, { replace: true });
   };
 
   return (
@@ -29,14 +37,14 @@ function ShowCaseDetail(props) {
       <Layout>
         <Container>
           <CustomDiv>
-            <StyleLink to="" onClick={navigate(1)}>
+            <StyleLink to="" onClick={handleGoBack} padding="0 16px">
               &#8592; Back to Showcase
             </StyleLink>
-            <CustomDiv primary>
-              <StyleLink primary to="" onClick={handleNavigate}>
-                {props.name}
+            <CustomDiv primary="true" padding="0 16px">
+              <StyleLink primary="true" to="" onClick={handleNavigate}>
+                {listItems[0].name}
               </StyleLink>
-              <Span primary>&#9866;</Span>
+              <Span primary="true">&#9866;</Span>
               <Span> Showcase</Span>
             </CustomDiv>
           </CustomDiv>
@@ -60,6 +68,8 @@ function ShowCaseDetail(props) {
           </Content>
         </Container>
       </Layout>
+      <Footer />
+      <OnTop />
     </>
   );
 }
@@ -83,6 +93,7 @@ const CustomDiv = styled.div`
   align-items: ${(props) => (props.primary ? "baseline" : "unset")};
   width: 100%;
   margin: ${(props) => (props.primary ? "0 0 24px 0" : "0 0 0 0")};
+  padding: ${(props) => props.padding || "unset"};
 `;
 const Content = styled.div`
   display: flex;
@@ -105,6 +116,7 @@ const StyleLink = styled(Link)`
   display: block;
   text-decoration: ${(props) => (props.primary ? "underline" : "none")};
   text-underline-offset: ${(props) => (props.primary ? "4px" : "0px")};
+  padding: ${(props) => props.padding || "unset"};
 
   &:hover {
     color: #001fff;

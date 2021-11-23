@@ -10,7 +10,7 @@ import Blog from "features/CardPost/components/blog/blog";
 import Contact from "components/Contact/Contact";
 import Cart from "features/Cart/Cart";
 import Themes from "features/Theme";
-import ShowCaseDetail from "features/ShowCase/components/ShowCaseDetail/ShowCaseDetail";
+import SignIn from "components/SignIn/SignIn";
 
 function App() {
   return (
@@ -21,12 +21,12 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="themes/*" element={<Themes />} />
           <Route path="documentations" element={<Documentation />} />
-          <Route path="showcase" element={<ShowCase />} />
+          <Route path="showcase/*" element={<ShowCase />} />
           <Route path="blog" element={<Blog />} />
           <Route path="contact" element={<Contact />} />
           <Route path="cart" element={<Cart />} />
           <Route path="*" element={<NotFound />} />
-          <Route path="/detail" element={<ShowCaseDetail />} />
+          <Route path="signin" element={<SignIn />} />
         </Routes>
       </main>
     </>

@@ -9,6 +9,11 @@ export const getAllShowCase = createAsyncThunk(
   }
 );
 
+export const getDetail = createAsyncThunk("themes/getDetail", async () => {
+  const data = await themeApi.getDetailShowCase();
+  return data;
+});
+
 export const getLimitShowCase = createAsyncThunk(
   "themes/getLimitShowCase",
   async (params) => {
@@ -21,6 +26,7 @@ const showCaseSlice = createSlice({
   name: "showCases",
   initialState: {
     showCaseList: [],
+    detail: [],
   },
   extraReducers: {
     [getAllShowCase.fulfilled]: (state, action) => {
@@ -28,6 +34,9 @@ const showCaseSlice = createSlice({
     },
     [getLimitShowCase.fulfilled]: (state, action) => {
       state.showCaseList = action.payload;
+    },
+    [getDetail.fulfilled]: (state, action) => {
+      state.detail = action.payload;
     },
   },
 });

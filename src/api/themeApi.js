@@ -5,10 +5,10 @@ const themeApi = {
     const url = "/themes";
     return axiosClient.get(url);
   },
-  getId: (id) => {
-    const url = "/themes";
-    return axiosClient.get(url);
-  },
+  // getId: (id) => {
+  //   const url = "/themes";
+  //   return axiosClient.get(url);
+  // },
   getLimit: (params) => {
     const url = "/themes";
     return axiosClient.get(url, { params });
@@ -20,6 +20,10 @@ const themeApi = {
   getLimitShowCase: (params) => {
     const url = "/showcase";
     return axiosClient.get(url, { params });
+  },
+  getDetailShowCase: () => {
+    const url = "/detail";
+    return axiosClient.get(url);
   },
   getCardPostList: () => {
     const url = "/cardposts";

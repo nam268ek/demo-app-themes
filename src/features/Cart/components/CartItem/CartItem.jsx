@@ -48,8 +48,9 @@ function CartItem({ item }) {
 
     toast.configure();
     Number(e.target.value) > 10
-      ? toast.warn(`Maximum quantity is 10`)
-      : Number(e.target.value) < 1 && toast.warn(`Minimum quantity is 1`);
+      ? toast.warn(`Maximum quantity is 10`, { theme: "colored" })
+      : Number(e.target.value) < 1 &&
+        toast.warn(`Minimum quantity is 1`, { theme: "colored" });
 
     const update = {
       ...item,
@@ -62,15 +63,19 @@ function CartItem({ item }) {
   };
 
   const handleAddToCart = (item) => {
-    setValueQty(valueQty + 1);
-    dispatch(addToCart(item));
-    dispatch(getTotal());
+    if (valueQty < 10) {
+      setValueQty(valueQty + 1);
+      dispatch(addToCart(item));
+      dispatch(getTotal());
+    }
   };
 
   const handleRemoveQty = (item) => {
-    setValueQty(valueQty - 1);
-    dispatch(deCreaseQty(item));
-    dispatch(getTotal());
+    if (valueQty > 1) {
+      setValueQty(valueQty - 1);
+      dispatch(deCreaseQty(item));
+      dispatch(getTotal());
+    }
   };
 
   const handleRemoveItem = (item) => {
