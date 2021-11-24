@@ -7,7 +7,6 @@ import OnTop from "components/onTop/onTop";
 import CardTheme from "components/cardTheme/cardTheme";
 import Footer from "components/footer/footer";
 import ThemeItem from "components/themeItem/themeItem";
-import NotFound from "components/NotFound/NotFound";
 
 const Themes = () => {
   const dispatch = useDispatch();
@@ -32,7 +31,6 @@ const Themes = () => {
         }
       />
       <Route path=":themeItem" element={<ThemeItem />} />
-      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

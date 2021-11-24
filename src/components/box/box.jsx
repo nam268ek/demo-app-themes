@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 import "./box.scss";
 
@@ -15,10 +16,10 @@ const Box = (props) => {
             {props.themeList.map((item) => (
               <div key={item.id} className="box-body__container__card">
                 <h2 className="card-item">
-                  <a href="!#" className="card-item-link">
+                  <Link to="" className="card-item-link">
                     {item.name}
                     <sup className="card-item-version">({item.version})</sup>
-                  </a>
+                  </Link>
                 </h2>
               </div>
             ))}

@@ -1,13 +1,12 @@
-import { Fragment, useEffect } from "react";
-import ShowcaseCard from "../../../../components/showcaseCard/showcaseCard";
-import OnTop from "../../../../components/onTop/onTop";
-import Footer from "../../../../components/footer/footer";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllShowCase, getDetail } from "features/ShowCase/showCaseSlice";
 import { getAllTheme } from "features/Theme/themeSlice";
 import { Route, Routes } from "react-router-dom";
 import ShowCaseDetail from "../ShowCaseDetail/ShowCaseDetail";
-import NotFound from "components/NotFound/NotFound";
+import ShowcaseCard from "components/showcaseCard/showcaseCard";
+import Footer from "components/footer/footer";
+import OnTop from "components/onTop/onTop";
 
 const ShowCase = (props) => {
   const dispatch = useDispatch();
@@ -39,7 +38,6 @@ const ShowCase = (props) => {
           }
         />
         <Route path=":detail" element={<ShowCaseDetail />} />
-        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

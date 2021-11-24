@@ -10,21 +10,27 @@ import OnTop from "components/onTop/onTop";
 
 ShowCaseDetail.propTypes = {};
 
-function ShowCaseDetail({ name }) {
+function ShowCaseDetail() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { detail: params } = useParams();
   const listItems = useSelector((state) =>
     state.showCases.detail.filter((item) => item.name.toLowerCase() === params)
   );
+  const isItemsExist = listItems.length > 0 ? listItems : false;
 
   useEffect(() => {
-    !listItems && dispatch(getDetail());
-  }, [dispatch, listItems]);
+    const handleValue = async () => {
+      const { payload: data } = await dispatch(getDetail());
+      const isExist = data.find((item) => item.name.toLowerCase() === params);
+      !isExist && navigate(`/not-found`, { replace: true });
+    };
+    handleValue();
+  }, [dispatch, params, navigate]);
 
   const handleNavigate = (e) => {
     e.preventDefault();
-    navigate(`/themes/${params}`, { replace: true });
+    listItems && navigate(`/themes/${params}`, { replace: true });
   };
 
   const handleGoBack = (e) => {
@@ -34,40 +40,42 @@ function ShowCaseDetail({ name }) {
 
   return (
     <>
-      <Layout>
-        <Container>
-          <CustomDiv>
-            <StyleLink to="" onClick={handleGoBack} padding="0 16px">
-              &#8592; Back to Showcase
-            </StyleLink>
-            <CustomDiv primary="true" padding="0 16px">
-              <StyleLink primary="true" to="" onClick={handleNavigate}>
-                {listItems[0].name}
+      {isItemsExist && (
+        <Layout>
+          <Container>
+            <CustomDiv>
+              <StyleLink to="" onClick={handleGoBack} padding="0 16px">
+                &#8592; Back to Showcase
               </StyleLink>
-              <Span primary="true">&#9866;</Span>
-              <Span> Showcase</Span>
-            </CustomDiv>
-          </CustomDiv>
-          <Content>
-            {listItems.map((item) => (
-              <Item key={item.id}>
-                <StyleLink to="">
-                  <LazyLoad offset={-150} classNamePrefix="lazyload">
-                    <Image
-                      src={item.image}
-                      alt=""
-                      width="354"
-                      height="265"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </LazyLoad>
+              <CustomDiv primary="true" padding="0 16px">
+                <StyleLink primary="true" to="" onClick={handleNavigate}>
+                  {listItems[0].name}
                 </StyleLink>
-              </Item>
-            ))}
-          </Content>
-        </Container>
-      </Layout>
+                <Span primary="true">&#9866;</Span>
+                <Span> Showcase</Span>
+              </CustomDiv>
+            </CustomDiv>
+            <Content>
+              {listItems.map((item) => (
+                <Item key={item.id}>
+                  <StyleLink to="">
+                    <LazyLoad offset={-150} classNamePrefix="lazyload">
+                      <Image
+                        src={item.image}
+                        alt=""
+                        width="354"
+                        height="265"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </LazyLoad>
+                  </StyleLink>
+                </Item>
+              ))}
+            </Content>
+          </Container>
+        </Layout>
+      )}
       <Footer />
       <OnTop />
     </>

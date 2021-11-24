@@ -36,12 +36,16 @@ const ThemeItem = (props) => {
   const { description, version, price, nameProperty } = props;
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const MAX_QTY = 10;
   const { themeItem: nameTheme } = useParams();
 
   const themeList = useSelector((state) => state.themes.themeList);
+  const products = useSelector((state) => state.carts.products);
+
   const themeSelect = themeList.find(
     (item) => item.name.toLowerCase() === nameTheme
   );
+
   const moreTheme = themeList
     .filter((item) => item.name.toLowerCase() !== nameTheme)
     .slice(0, 4);
@@ -49,27 +53,55 @@ const ThemeItem = (props) => {
   window.scrollTo(0, 0);
 
   useEffect(() => {
-    dispatch(getAllTheme());
-  }, [dispatch]);
+    const handleValue = async () => {
+      const { payload: data } = await dispatch(getAllTheme());
+      const isExist = data.find(
+        (item) => item.name.toLowerCase() === nameTheme
+      );
+      !isExist && navigate(`/not-found`, { replace: true });
+    };
+    handleValue();
+  }, [dispatch, nameTheme, navigate]);
 
   const handleAddToCart = (e, item) => {
     e.preventDefault();
-    const product = { ...item, qty: 1 };
-    const action = addToCart(product);
-    dispatch(action);
-    toast.configure({ theme: "colored", autoClose: 3000 });
-    toast.success("Successfully", { theme: "colored", autoClose: 3000 });
+    const itemSelect = products.find((product) => product.id === item.id);
+    const isItemExist = itemSelect ? itemSelect : false;
+
+    if (isItemExist.qty < MAX_QTY || !isItemExist) {
+      //dispath action add to cart
+      const product = { ...item, qty: 1 };
+      const action = addToCart(product);
+      dispatch(action);
+      //show toast message
+      toast.configure({ theme: "colored", autoClose: 3000 });
+      toast.success("Successfully", { theme: "colored", autoClose: 3000 });
+    } else {
+      //show toast message
+      toast.configure();
+      toast.warn(`Maximum quantity is ${MAX_QTY}`, { theme: "colored" });
+    }
   };
 
   const handleNavigateToCart = (e, item) => {
     e.preventDefault();
-    const product = { ...item, qty: 1 };
-    const action = addToCart(product);
-    dispatch(action);
+    const itemSelect = products.find((product) => product.id === item.id);
+    const isItemExist = itemSelect ? itemSelect : false;
 
-    navigate("/cart");
+    if (isItemExist.qty < MAX_QTY || !isItemExist) {
+      //dispath action add to cart
+      const product = { ...item, qty: 1 };
+      const action = addToCart(product);
+      dispatch(action);
+      navigate("/cart"); // navigate to cart
+    } else {
+      //show toast message
+      toast.configure();
+      toast.warn(`Maximum quantity is ${MAX_QTY}`, { theme: "colored" });
+    }
   };
 
+  //url image default icon
   const urlImage =
     "https://res.cloudinary.com/ds6y4vgjb/image/upload/v1636026141/check_wtwl39.png";
 

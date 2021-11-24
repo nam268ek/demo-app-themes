@@ -37,39 +37,39 @@ const Footer = () => {
       <div className="footer__gird">
         <div className="footer-container-sosial">
           <div className="sosial-col-1">
-            <Link to="!#" className="footer-sosial-link">
+            <Link to="" className="footer-sosial-link">
               About
             </Link>
-            <Link to="!#" className="footer-sosial-link">
+            <Link to="" className="footer-sosial-link">
               Twitter
             </Link>
-            <Link to="!#" className="footer-sosial-link">
+            <Link to="" className="footer-sosial-link">
               Github
             </Link>
-            <Link to="!#" className="footer-sosial-link">
+            <Link to="" className="footer-sosial-link">
               Loom
             </Link>
-            <Link to="!#" className="footer-sosial-link">
+            <Link to="" className="footer-sosial-link">
               Youtube
             </Link>
-            <Link to="!#" className="footer-sosial-link">
+            <Link to="" className="footer-sosial-link">
               Blog RSS Feed
             </Link>
           </div>
           <div className="sosial-col-2">
-            <Link to="!#" className="footer-sosial-link">
+            <Link to="" className="footer-sosial-link">
               Affiliate
             </Link>
-            <Link to="!#" className="footer-sosial-link">
+            <Link to="" className="footer-sosial-link">
               Changelogs
             </Link>
-            <Link to="!#" className="footer-sosial-link">
+            <Link to="" className="footer-sosial-link">
               Ghost Tips & Tricks
             </Link>
-            <Link to="!#" className="footer-sosial-link">
+            <Link to="" className="footer-sosial-link">
               Ghost Insprire
             </Link>
-            <Link to="!#" className="footer-sosial-link">
+            <Link to="" className="footer-sosial-link">
               Ghost(Pro) Hosting
             </Link>
           </div>
@@ -93,10 +93,10 @@ const Footer = () => {
             <div className="footer-content">
               <p className="footer-copy-text">© 2021 Aspire Themes</p>
               <div className="footer-copy-link">
-                <Link to="!#" className="faq">
+                <Link to="" className="faq">
                   FAQ
                 </Link>
-                <Link to="!#" className="terms">
+                <Link to="" className="terms">
                   Terms
                 </Link>
               </div>

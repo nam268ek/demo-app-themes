@@ -1,6 +1,6 @@
 import { PropTypes } from "prop-types";
 import LazyLoad from "react-lazyload";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./showcaseCard.scss";
 
 const ShowcaseCard = ({
@@ -9,9 +9,14 @@ const ShowcaseCard = ({
   propertyName,
   themeList,
   title,
-  props,
 }) => {
   const { pathname: url } = useLocation();
+  const navigate = useNavigate();
+
+  const handleNavigate = (e) => {
+    e.preventDefault();
+    navigate("/themes", { replace: true });
+  };
 
   return (
     <div className={url === "/" ? "cardtheme__selection" : ""}>
@@ -44,7 +49,11 @@ const ShowcaseCard = ({
         <div className="cardtheme__selection__container-content">
           {showCase.map((item) => (
             <div key={item[propertyId]} className="showcase-template">
-              <Link to="!#" className="showcase-template__item">
+              <Link
+                to=""
+                className="showcase-template__item"
+                onClick={handleNavigate}
+              >
                 <LazyLoad offset={-150} classNamePrefix="lazyload">
                   <img
                     src={item.image}
