@@ -25,6 +25,8 @@ export const Content = styled.div`
 `;
 export const Title = styled.h1`
   font-size: 54px;
+  line-height: 1.2;
+  margin-bottom: 8px;
   font-weight: 800;
   background-color: #910630;
   background-image: linear-gradient(150deg, #3803ca, #f1731e);
@@ -32,7 +34,7 @@ export const Title = styled.h1`
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 
-  @media (min-width: 1024px) {
+  @media (max-width: 1023px) {
     font-size: 45px;
   }
 
