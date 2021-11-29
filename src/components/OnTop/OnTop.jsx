@@ -4,6 +4,7 @@ import styled, { keyframes } from "styled-components";
 
 const OnTop = () => {
   const [onTop, setOnTop] = useState(0);
+
   useEffect(() => {
     //handle on top
     const handleOnTop = () => {
