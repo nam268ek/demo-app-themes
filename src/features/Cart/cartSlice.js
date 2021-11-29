@@ -39,6 +39,11 @@ const cartSlice = createSlice({
         return total + item.qty;
       }, 0);
     },
+    checkOut: (state) => {
+      state.products = [];
+      state.qty = 0;
+      state.total = 0;
+    },
     getTotal: (state) => {
       state.total = state.products.reduce((total, item) => {
         return total + item.price * item.qty;
@@ -48,6 +53,12 @@ const cartSlice = createSlice({
 });
 
 const { reducer, actions } = cartSlice;
-export const { addToCart, removeFormCart, deCreaseQty, getTotal, updateItem } =
-  actions;
+export const {
+  addToCart,
+  removeFormCart,
+  deCreaseQty,
+  getTotal,
+  updateItem,
+  checkOut,
+} = actions;
 export default reducer;

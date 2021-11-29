@@ -1,13 +1,23 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import * as yup from "yup";
-
 import { getAllCardPosts } from "features/CardPost/cardPostSlice";
-import CardPost from "components/cardPost/cardPost";
-import Footer from "components/footer/footer";
-import OnTop from "components/onTop/onTop";
-import "./blog.scss";
+import { Container } from "globalStyles";
+import {
+  Button,
+  Content,
+  CustomCol,
+  Form,
+  Input,
+  Layout,
+  Span,
+  StyleLink,
+  TagP,
+  TitleH1,
+  Block,
+} from "./blog.styles";
+import CardPost from "../CardPost/CardPost";
 
 const Blog = (props) => {
   const [email, setEmail] = useState("");
@@ -40,37 +50,38 @@ const Blog = (props) => {
   };
 
   return (
-    <Fragment>
-      <div className="gird-layout">
-        <div className="gird-layout__container">
-          <div className="gird-layout__container-content">
-            <div className="content-col-1">
-              <h1>
-                Blog <span> &minus; </span> <a href="!#">RSS Feed</a>
-              </h1>
-              <p>Subscribe to receive Ghost resources and new updates.</p>
-            </div>
-            <div className="content-col-2">
-              <form onSubmit={handleOnSubmit}>
-                <input
-                  className="form-subs__input br-rt-rb-0 b-r-0"
-                  type="text"
-                  placeholder="Email Address"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <button type="submit" className="form-subs__btn">
-                  Subscribe
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
+    <>
+      <Layout>
+        <Container>
+          <Block>
+            <Content>
+              <CustomCol>
+                <TitleH1>
+                  Blog
+                  <Span>&minus;</Span>
+                  <StyleLink>RSS Feed</StyleLink>
+                </TitleH1>
+                <TagP>
+                  Subscribe to receive Ghost resources and new updates.
+                </TagP>
+              </CustomCol>
+              <CustomCol>
+                <Form onSubmit={handleOnSubmit}>
+                  <Input
+                    type="text"
+                    placeholder="Email Address"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  ></Input>
+                  <Button type="submit">Subscribe</Button>
+                </Form>
+              </CustomCol>
+            </Content>
+          </Block>
+        </Container>
+      </Layout>
       <CardPost cardPostList={cardPostList} props={props} />
-      <Footer />
-      <OnTop />
-    </Fragment>
+    </>
   );
 };
 

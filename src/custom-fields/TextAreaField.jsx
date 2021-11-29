@@ -14,8 +14,13 @@ TextAreaField.defaultProps = {
 
 const TextArea = styled.textarea`
   margin: 0 0 24px;
-  width: 743px;
-  height: 244px;
+  width: 100%;
+  min-height: 244px;
+  padding: 16px 20px;
+  border: 1px solid #d2d2d7;
+  border-radius: 3px;
+  line-height: 1.5;
+  font-size: 100%;
 `;
 
 function TextAreaField(props) {

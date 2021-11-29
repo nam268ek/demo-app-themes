@@ -4,9 +4,7 @@ import { getAllShowCase, getDetail } from "features/ShowCase/showCaseSlice";
 import { getAllTheme } from "features/Theme/themeSlice";
 import { Route, Routes } from "react-router-dom";
 import ShowCaseDetail from "../ShowCaseDetail/ShowCaseDetail";
-import ShowcaseCard from "components/showcaseCard/showcaseCard";
-import Footer from "components/footer/footer";
-import OnTop from "components/onTop/onTop";
+import ShowcaseCard from "../ShowCaseCard/ShowCaseCard";
 
 const ShowCase = (props) => {
   const dispatch = useDispatch();
@@ -32,8 +30,6 @@ const ShowCase = (props) => {
                 title="Showcase"
                 props={props}
               />
-              <Footer />
-              <OnTop />
             </>
           }
         />

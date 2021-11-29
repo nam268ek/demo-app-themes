@@ -1,40 +1,49 @@
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 import LazyLoad from "react-lazyload";
-import "./cardTheme.scss";
+import {
+  Layout,
+  Header,
+  Title,
+  Content,
+  Item,
+  Image,
+  StyleLink,
+  Info,
+  PlaceHolder,
+} from "./CardTheme.styles";
+import { Container } from "globalStyles";
+import { useLocation } from "react-router-dom";
 
 const CardTheme = ({ themesTitle, propertyId, themeList }) => {
+  const { pathname: url } = useLocation();
+
   return (
-    <div className="cardtheme__selection">
-      <div className="cardtheme__selection__container">
-        <div className="cardtheme__selection__container-title">
-          <h1 className="theme-lastest">{themesTitle}</h1>
-        </div>
-        <div className="cardtheme__selection__container-content">
+    <Layout isExist={url}>
+      <Container>
+        <Header>
+          <Title>{themesTitle}</Title>
+        </Header>
+        <Content>
           {themeList.map((theme) => (
-            <div className="theme-content" key={theme[propertyId]}>
-              <Link
-                to={`/themes/${theme.name.toLowerCase()}`}
-                className="theme-content-link"
-              >
-                <LazyLoad offset={-150} classNamePrefix="lazyload">
-                  <img
+            <Item key={theme[propertyId]}>
+              <StyleLink to={`/themes/${theme.name.toLowerCase()}`}>
+                <LazyLoad offset={-150} placeholder={<PlaceHolder />}>
+                  <Image
                     src={theme.image}
-                    alt=""
-                    className="theme-img"
+                    alt={theme.name}
                     width="504"
                     height="284"
                     loading="lazy"
                     decoding="async"
                   />
                 </LazyLoad>
-                <p className="theme-info">{theme.name}</p>
-              </Link>
-            </div>
+                <Info>{theme.name}</Info>
+              </StyleLink>
+            </Item>
           ))}
-        </div>
-      </div>
-    </div>
+        </Content>
+      </Container>
+    </Layout>
   );
 };
 

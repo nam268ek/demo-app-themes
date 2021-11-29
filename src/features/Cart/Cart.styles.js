@@ -3,23 +3,30 @@ import styled from "styled-components";
 
 export const Layout = styled.div`
   width: 100%;
+  height: 100%;
+  min-height: 61vh;
 `;
 
 export const Container = styled.div`
-  /* padding: 0 14px; */
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
-  display: ${(props) => (props.flex ? "flex" : "block")};
+  ${(props) => (props.flex ? "display: flex; flex-wrap: wrap;" : "block")};
 `;
 
-export const Col = styled.div`
-  width: ${(props) =>
-    props.w === 2 / 3
-      ? `calc(100% * 2/3)`
-      : props.w === 1 / 3
-      ? `calc(100%/3)`
-      : `100%`};
+export const ContentCheckOut = styled.div`
+  width: calc(100% * 1 / 3);
+
+  @media (max-width: 1023px) {
+    width: 100%;
+  }
+`;
+export const ContentCart = styled.div`
+  width: calc(100% * 2 / 3);
+
+  @media (max-width: 1023px) {
+    width: 100%;
+  }
 `;
 export const Title = styled.h1`
   font-size: 22px;
@@ -59,11 +66,19 @@ export const CartInfo = styled.div`
   width: calc(100% * 3 / 4);
   margin-bottom: 16px;
   padding: 0 16px;
+
+  @media (max-width: 1023px) {
+    width: 100%;
+  }
 `;
 export const Desc = styled.div`
-  width: calc(100% * 2 / 3);
+  width: 100%;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 1023px) {
+    width: 100%;
+  }
 `;
 export const Price = styled.div`
   width: calc(100% / 3);
@@ -75,13 +90,17 @@ export const NameTheme = styled.h1`
   font-weight: 600;
   line-height: 1.5;
   margin: 0;
+  display: flex;
+  justify-content: space-between;
 `;
 export const AboutTheme = styled.p`
   font-size: 16px;
   font-weight: 400;
   color: rgb(117, 117, 117);
   text-overflow: ellipsis;
-  height: 70px;
+  height: 100%;
+  max-height: 85px;
+  overflow: hidden;
 `;
 export const CustomDiv = styled.div`
   display: flex;
@@ -90,6 +109,12 @@ export const CustomDiv = styled.div`
   flex-direction: ${(props) => props.flexDirection || "row"};
   padding: ${(props) => props.padding || "0"};
   margin: ${(props) => props.margin || "0"};
+  ${(props) =>
+    props.qty &&
+    `
+    align-items: center;
+    padding-top: 10px;
+  `}
 `;
 export const Qty = styled.input.attrs({ type: "number" })`
   outline: none;
@@ -144,6 +169,7 @@ export const Label = styled.label`
   font-weight: 400;
   color: rgb(117, 117, 117);
   padding-right: 16px;
+  height: 100%;
 `;
 export const Button = styled.button`
   color: #181818;
@@ -159,6 +185,7 @@ export const Button = styled.button`
   text-align: center;
   width: 30px;
   height: 26px;
+
   &:hover {
     background-color: #001fff;
     color: #ffffff;
@@ -168,7 +195,7 @@ export const Button = styled.button`
     border-bottom-right-radius: ${(props) => (props.btrr ? "2.1px" : "0")};
   }
 `;
-export const TitlePrice = styled.h2`
+export const TitlePrice = styled.p`
   font-size: 22px;
   font-weight: 600;
   line-height: 1.5;
@@ -184,10 +211,18 @@ export const ThemeLink = styled(Link)`
   padding: 0 16px;
   width: calc(100% * 1 / 4);
   margin-bottom: 16px;
+
+  @media (max-width: 640px) {
+    display: none;
+  }
 `;
 export const Hr = styled.hr`
-  margin: ${(props) => props.margin || "0"};
-  padding: ${(props) => props.padding || "0"};
+  margin: 0 30px 32px;
+  padding: 0;
+  height: 1px;
+  background-color: #e6e6e6;
+  border: 0;
+  opacity: 0.55;
 `;
 export const CustomBtn = styled(Remove)`
   height: 100%;
@@ -228,8 +263,9 @@ export const CustomTitle = styled(Title)`
 `;
 
 export const CustomImage = styled.img`
-  /* width: 100%;
-  height: 100%; */
+  width: 100%;
+  max-width: 443px;
+  height: fit-content;
   object-fit: contain;
   object-position: top;
 `;
@@ -238,5 +274,4 @@ export const DivImage = styled.div`
   justify-content: center;
   width: 100%;
   padding-top: 16px;
-  /* padding-bottom: 30%; */
 `;

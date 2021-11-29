@@ -1,16 +1,16 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { useNavigate } from "react-router-dom";
-
-import Footer from "components/footer/footer";
-import OnTop from "components/onTop/onTop";
+import { toast } from "react-toastify";
 import CartItem from "./components/CartItem/CartItem";
+import { checkOut } from "./cartSlice";
 
 import {
   Container,
   Layout,
-  Col,
+  ContentCart,
+  ContentCheckOut,
   Title,
   CustomBtn,
   CustomDiv,
@@ -23,14 +23,21 @@ import {
 } from "./Cart.styles";
 import "./style.css";
 
-function Cart(props) {
+function Cart() {
   const themeList = useSelector((state) => state.carts.products);
   const total = useSelector((state) => state.carts.total);
   const qtyValue = useSelector((state) => state.carts.qty);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleNavigate = () => {
     navigate("/themes", { replace: true });
+  };
+
+  const handleCheckOut = () => {
+    dispatch(checkOut());
+    toast.configure();
+    toast.success("Checkout Success", { theme: "colored", autoClose: 3000 });
   };
 
   return (
@@ -64,7 +71,7 @@ function Cart(props) {
           </Container>
         ) : (
           <Container flex>
-            <Col w={2 / 3}>
+            <ContentCart>
               <CustomDiv padding="0 30px">
                 <Title>Cart</Title>
               </CustomDiv>
@@ -81,8 +88,8 @@ function Cart(props) {
                     </CSSTransition>
                   ))}
               </TransitionGroup>
-            </Col>
-            <Col w={1 / 3}>
+            </ContentCart>
+            <ContentCheckOut>
               <CustomDiv padding="0 30px">
                 <Title>Summary</Title>
               </CustomDiv>
@@ -98,22 +105,20 @@ function Cart(props) {
                     <TitlePrice>${total}</TitlePrice>
                   </Price>
                 </CustomDiv>
-                <Hr margin="0 30px 32px 30px" />
+                <Hr />
                 <CustomDiv
                   flexDirection="column"
                   justifyContent="space-between"
                   alignItems="center"
                   padding="0 46px"
                 >
-                  <CustomBtn>Checkout</CustomBtn>
+                  <CustomBtn onClick={handleCheckOut}>Checkout</CustomBtn>
                 </CustomDiv>
               </div>
-            </Col>
+            </ContentCheckOut>
           </Container>
         )}
       </Layout>
-      <Footer />
-      <OnTop />
     </>
   );
 }

@@ -1,6 +1,11 @@
 import styled from "styled-components";
-import Footer from "../footer/footer";
-import { Container, Layout } from "../themeItem/ThemeItem.styles";
+import { Container } from "globalStyles";
+
+const Layout = styled.div`
+  width: 100%;
+  padding: 0;
+  margin: 0;
+`;
 const NotFoundPage = styled.div`
   width: 100%;
   padding: 5em 16px;
@@ -10,30 +15,27 @@ const NotFoundPage = styled.div`
   flex-direction: column;
 `;
 const TitleError = styled.h1`
-  width: 50%;
   text-align: center;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-
   position: relative;
   text-transform: uppercase;
-  text-shadow: -15px 5px 20px #82878f
+  text-shadow: -15px 5px 20px #82878f;
   color: #191919;
   letter-spacing: -0.05em;
-  font-family: "Anton", Arial, sans-serif;
+  font-family: Anton, Arial, sans-serif;
   user-select: none;
   text-transform: uppercase;
-  font-size: 150px;
+  font-size: 20vw;
   transition: all 0.25s ease-out;
   letter-spacing: 16px;
+  font-weight: 500;
+  line-height: 1.2;
 
   &:hover {
     text-shadow: -16px 6px 15px #ced0d3;
   }
 `;
+
 const TagH2 = styled.h2`
-  width: 50%;
   text-align: center;
 `;
 const NotFound = () => {
@@ -47,7 +49,6 @@ const NotFound = () => {
           </NotFoundPage>
         </Container>
       </Layout>
-      <Footer />
     </>
   );
 };

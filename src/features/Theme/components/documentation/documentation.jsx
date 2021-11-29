@@ -1,10 +1,7 @@
 import { Fragment, useEffect } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTheme } from "features/Theme/themeSlice";
-import Box from "components/box/box";
-import Footer from "components/footer/footer";
-import OnTop from "components/onTop/onTop";
+import Box from "components/Box/Box";
 
 const Documentation = () => {
   const dispatch = useDispatch();
@@ -17,8 +14,6 @@ const Documentation = () => {
   return (
     <Fragment>
       <Box themeList={themeList} />
-      <Footer />
-      <OnTop />
     </Fragment>
   );
 };

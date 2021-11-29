@@ -48,6 +48,18 @@ const Input = styled.input`
     outline: 2px solid #001fff;
   }
 `;
+const InputPrimary = styled.input`
+  ${(props) =>
+    props.type === "text" &&
+    `
+  padding: 16px 20px;
+  width: 100%;
+  border-radius: 3px;
+  border: 1px solid #d2d2d7;
+  resize: vertical;
+  font-size: 100%;
+  `}
+`;
 
 function InputField(props) {
   const { placeholder, className, field, type, label, useStyled, valueSubmit } =
@@ -57,7 +69,7 @@ function InputField(props) {
     <>
       {label && <label htmlFor={name}>{label}</label>}
       {!useStyled ? (
-        <input
+        <InputPrimary
           className={className}
           type={type}
           placeholder={placeholder}

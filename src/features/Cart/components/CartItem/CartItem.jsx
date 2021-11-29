@@ -12,7 +12,6 @@ import {
   NameTheme,
   Preview,
   PreviewImg,
-  Price,
   Qty,
   Remove,
   ThemeLink,
@@ -93,9 +92,12 @@ function CartItem({ item }) {
         </ThemeLink>
         <CartInfo>
           <Desc>
-            <NameTheme>{name}</NameTheme>
+            <NameTheme>
+              {name}
+              <TitlePrice>${price}</TitlePrice>
+            </NameTheme>
             <AboutTheme>{description}</AboutTheme>
-            <CustomDiv>
+            <CustomDiv qty="true">
               <Label>Quantity</Label>
               <Button btlr onClick={() => handleAddToCart(item)}>
                 +
@@ -116,9 +118,6 @@ function CartItem({ item }) {
               </Remove>
             </CustomDiv>
           </Desc>
-          <Price>
-            <TitlePrice>${price}</TitlePrice>
-          </Price>
         </CartInfo>
       </Item>
       <Hr margin="0 30px 32px 30px" />

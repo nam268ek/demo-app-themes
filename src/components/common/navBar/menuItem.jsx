@@ -1,4 +1,4 @@
-import { MenuItem, RouteLink } from "../../navBar/navBar.styles";
+import { MenuItem, RouteLink } from "features/Navbar/NavBar.styles";
 import { PropTypes } from "prop-types";
 
 const Menu = ({ titleList, classActive, color }) => {

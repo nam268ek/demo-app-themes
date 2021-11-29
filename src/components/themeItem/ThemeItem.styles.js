@@ -6,29 +6,37 @@ export const Layout = styled.div`
   padding: 0;
   margin: 0;
 `;
-export const Container = styled.div`
-  max-width: 1200px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 16px;
+export const LayoutItem = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   margin-bottom: 32px;
+
+  @media (max-width: 1023px) {
+    flex-direction: column;
+  }
 `;
 export const Col75 = styled.div`
   width: calc(100% - (100% / 3));
   padding: 0 16px;
   margin: 0;
+
+  @media (max-width: 1023px) {
+    width: 100%;
+  }
 `;
 export const Col25 = styled.div`
   width: calc(100% / 3);
   padding: 0 16px;
   margin: 0;
+
+  @media (max-width: 1023px) {
+    width: 100%;
+  }
 `;
 export const ImageItem = styled.img`
   width: 100%;
-  object-fit: cover;
+  object-fit: contain;
   background-color: #fafafa;
 `;
 
@@ -121,6 +129,10 @@ export const Content = styled.div`
   width: 33.33%;
   padding: 0 16px;
   display: flex;
+
+  @media (max-width: 1023px) {
+    width: 100%;
+  }
 `;
 export const DivImage = styled.div`
   width: 100%;

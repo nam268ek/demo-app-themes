@@ -2,11 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { getAllTheme } from "./themeSlice";
-
-import OnTop from "components/onTop/onTop";
-import CardTheme from "components/cardTheme/cardTheme";
-import Footer from "components/footer/footer";
-import ThemeItem from "components/themeItem/themeItem";
+import CardTheme from "components/CardTheme/CardTheme";
+import ThemeItem from "components/ThemeItem/ThemeItem";
 
 const Themes = () => {
   const dispatch = useDispatch();
@@ -25,8 +22,6 @@ const Themes = () => {
               themeList={themeList}
               themesTitle="Choose a Ghost theme you love"
             />
-            <Footer />
-            <OnTop />
           </>
         }
       />
