@@ -29,6 +29,7 @@ function Cart() {
   const qtyValue = useSelector((state) => state.carts.qty);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const nodeRef = React.useRef(null);
 
   const handleNavigate = () => {
     navigate("/themes", { replace: true });
@@ -80,6 +81,7 @@ function Cart() {
                   themeList.map((item) => (
                     <CSSTransition
                       key={item.id}
+                      nodeRef={nodeRef}
                       classNames="fade"
                       timeout={500}
                       unmountOnExit

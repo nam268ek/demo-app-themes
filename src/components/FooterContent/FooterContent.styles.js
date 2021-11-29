@@ -14,6 +14,8 @@ export const Colum = styled.div`
   align-items: flex-start;
   width: 33.33%;
   padding-bottom: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
 
   @media (max-width: 768px) {
     width: 50%;
@@ -41,8 +43,7 @@ export const Input = styled.input`
   border-radius: 3px;
 `;
 export const Copy = styled.div`
-  padding: 14px 0;
-  border-top: 1px solid #e5e5e5;
+  padding: 14px 16px;
 `;
 export const Content = styled.div`
   display: flex;
@@ -60,4 +61,11 @@ export const CopyLink = styled.div`
 export const Form = styled.form``;
 export const TagP = styled.p`
   margin-bottom: 16px;
+`;
+export const Hr = styled.hr`
+  background-color: #e5e5e5;
+  width: 100%;
+  height: 1px;
+  margin-bottom: 16px;
+  opacity: 0.2;
 `;

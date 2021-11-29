@@ -14,6 +14,7 @@ import {
   CopyLink,
   StyleLink,
   ColumLink,
+  Hr,
 } from "./FooterContent.styles";
 
 const FooterContent = () => {
@@ -80,6 +81,9 @@ const FooterContent = () => {
       </Container>
       <Container>
         <Copy>
+          <Content>
+            <Hr />
+          </Content>
           <Content>
             <CopyText>© 2021 Aspire Themes</CopyText>
             <CopyLink>
