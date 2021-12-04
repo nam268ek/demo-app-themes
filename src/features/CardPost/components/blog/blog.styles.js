@@ -56,13 +56,7 @@ export const Input = styled.input`
   border-right: 0;
 
   &:hover {
-    background-color: #04c;
-    color: white;
-  }
-
-  &:focus {
-    outline: 2px solid #001fff !important;
-    outline-offset: 2px;
+    border: 1px solid #d2d2d7;
   }
 `;
 export const Button = styled.button`
