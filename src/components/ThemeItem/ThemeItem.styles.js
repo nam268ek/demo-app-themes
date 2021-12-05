@@ -109,6 +109,7 @@ export const BoxItem = styled.p`
   width: 100%;
   border-block-end: inherit;
   padding-bottom: 16px;
+  padding-top: 16px;
 `;
 export const Item = styled.span`
   display: flex;
