@@ -3,10 +3,11 @@ import NotFound from "components/NotFound/NotFound";
 import OnTop from "components/OnTop/OnTop";
 import Blog from "features/CardPost/components/blog/blog";
 import Cart from "features/Cart/Cart";
+import Login from "features/Login/Login";
 import Contact from "features/pages/Contact/Contact";
 import HomePage from "features/pages/HomePage";
 import ShowCase from "features/ShowCase/components/showCase/showCase";
-import SignIn from "features/SignIn/SignIn";
+import Register from "features/Register/Register";
 import Themes from "features/Theme";
 import Documentation from "features/Theme/components/documentation/documentation";
 import React, { useState } from "react";
@@ -36,7 +37,8 @@ function App() {
             <Route path="contact" element={<Contact />} />
             <Route path="cart" element={<Cart />} />
             <Route path="*" element={<NotFound />} />
-            <Route path="signin" element={<SignIn />} />
+            <Route path="register" element={<Register />} />
+            <Route path="login" element={<Login />} />
           </Routes>
         </Main>
         <Footer>

@@ -39,6 +39,7 @@ export const TitleH2 = styled.h2`
   justify-content: center;
   padding-bottom: 20px;
   width: 100%;
+  column-gap: 5px;
 `;
 export const StyleLink = styled(Link)`
   font-size: 16px;
@@ -50,16 +51,43 @@ export const StyleLink = styled(Link)`
 `;
 export const CustomDiv = styled.div`
   display: flex;
-  flex-direction: ${(props) => (props.primary ? "row" : "column")};
-  justify-content: ${(props) => (props.primary ? "unset" : "center")};
-  align-items: center;
-  width: ${(props) =>
-    props.primary ? "100%" : props.w0 ? "auto" : props.w50 && "50%"};
-  margin-bottom: ${(props) => props.m0 && "0"};
-  margin: ${(props) => (props.primary ? "0 0 16px 0" : "0 0 0 0")};
-  padding-right: ${(props) => props.pr || "0 0 0 0"};
-  padding-top: ${(props) => props.pt || "0 0 0 0"};
-  padding-bottom: ${(props) => props.pb || "0 0 0 0"};
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-bottom: 16px;
+  ${({ primary }) =>
+    primary &&
+    `
+    flex-direction: row;
+    width: 100%;
+    margin-bottom: 16px;
+  `}
+  ${({ mb0 }) =>
+    mb0 &&
+    `
+    margin-bottom: 0;
+  `}
+  ${({ w50 }) =>
+    w50 &&
+    `
+    width: 50%;
+    margin: 0;
+  `}
+   ${({ row }) =>
+    row &&
+    `
+    column-gap: 8px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  `}
+   ${({ term }) =>
+    term &&
+    `
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+  `}
 `;
 export const Form = styled.form`
   width: 100%;
@@ -68,6 +96,7 @@ export const Input = styled.input`
   border-radius: 5px;
   border: 1px solid #d4d4d4;
   padding: 10px 0;
+  font-size: 100%;
   padding-left: 14px;
   width: ${(props) => (props.secondary ? "50%" : "100%")};
   border-top-right-radius: ${(props) => props.one && "0"};
@@ -95,7 +124,7 @@ export const Button = styled.button`
   text-align: center;
   font-size: 16px;
   justify-content: center;
-  margin-bottom: 32px;
+  margin-bottom: 22px;
 
   &:hover {
     color: white;
@@ -120,5 +149,19 @@ export const TagP = styled.p`
   color: #525252;
   margin: 0;
   padding-left: 14px;
-  padding-bottom: 32px;
+  width: 100%;
+`;
+export const MessageError = styled.p`
+  font-size: 16px;
+  font-weight: 500;
+  color: #04c;
+  margin: 0;
+  padding-top: 5px;
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+`;
+export const Span = styled.span`
+  padding: 0;
+  margin: 0;
 `;

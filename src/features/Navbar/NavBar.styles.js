@@ -130,7 +130,7 @@ export const StyleLink = styled(Link)`
     background-color: #f5f5f5;
     text-decoration: none;
   }
-  &:focus {
+  &:active {
     outline-offset: 2px;
     outline: 2px solid #1608d6;
   }

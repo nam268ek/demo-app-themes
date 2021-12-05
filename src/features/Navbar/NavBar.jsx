@@ -3,6 +3,7 @@ import { Container } from "globalStyles";
 import React from "react";
 import { RiShoppingCartLine } from "react-icons/ri";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import {
   MenuButton,
   NavLogo,
@@ -45,6 +46,11 @@ const NavBar = ({ handleClickOpen }) => {
   ];
   const totalQty = useSelector((state) => state.carts.qty);
 
+  const handleNote = () => {
+    toast.configure();
+    toast.info("Feature under construction.", { theme: "colored" });
+  };
+
   return (
     <Header>
       <Container>
@@ -64,7 +70,9 @@ const NavBar = ({ handleClickOpen }) => {
                   color="#181818"
                 />
                 <MenuButton>
-                  <StyleLink to="getall">Get all themes</StyleLink>
+                  <StyleLink to="login" onClick={handleNote}>
+                    Login &#10072; Register
+                  </StyleLink>
                 </MenuButton>
                 <Cart>
                   <CartLink to="cart">

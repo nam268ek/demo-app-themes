@@ -69,3 +69,7 @@ export const Hr = styled.hr`
   margin-bottom: 16px;
   opacity: 0.2;
 `;
+export const Line = styled(Hr)`
+  margin-bottom: 40px;
+  opacity: 0.12;
+`;

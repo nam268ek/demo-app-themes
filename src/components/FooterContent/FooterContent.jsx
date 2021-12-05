@@ -15,6 +15,7 @@ import {
   StyleLink,
   ColumLink,
   Hr,
+  Line,
 } from "./FooterContent.styles";
 
 const FooterContent = () => {
@@ -47,6 +48,7 @@ const FooterContent = () => {
 
   return (
     <Layout>
+      <Line />
       <Container>
         <ColumLink>
           <Colum>
