@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Container } from "globalStyles";
 import { BiErrorCircle } from "react-icons/bi";
 import { useForm } from "react-hook-form";
@@ -17,11 +16,8 @@ import {
   Button,
   MessageError,
   Span,
-  TagP,
   StyleLink,
 } from "../Register/Register.styles";
-
-Login.propTypes = {};
 
 const loginSchema = yup.object().shape({
   userName: yup.string().required("Username is required"),

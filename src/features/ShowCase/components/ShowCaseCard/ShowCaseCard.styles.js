@@ -95,6 +95,7 @@ export const Image = styled.img`
   max-height: 265px;
   height: 100%;
   object-fit: cover;
+  display: block;
 `;
 export const placeHolderShimmer = keyframes`
 0% {
