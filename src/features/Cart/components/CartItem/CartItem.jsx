@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import {
   AboutTheme,
@@ -24,6 +24,7 @@ import {
   addToCart,
   getTotal,
   updateItem,
+  asyncProductForUser,
 } from "features/Cart/cartSlice";
 
 function CartItem({ item }) {
@@ -31,9 +32,24 @@ function CartItem({ item }) {
   const [valueQty, setValueQty] = useState(qty);
   const dispatch = useDispatch();
 
+  const { user, token } = useSelector((state) => state.login);
+  const { products, total } = useSelector((state) => state.carts);
+
   useEffect(() => {
     dispatch(getTotal());
-  }, [dispatch]);
+
+    // handle async item cart for user
+    const handleAsyncProductToUser = async () => {
+      const asyncProducts = {
+        userId: user,
+        products,
+        total,
+      };
+      await dispatch(asyncProductForUser(asyncProducts));
+    };
+    token && handleAsyncProductToUser();
+
+  }, [dispatch, token, user, products, total]);
 
   const handleOnChangeQty = (e) => {
     setValueQty(e.target.value);

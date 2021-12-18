@@ -6,13 +6,13 @@ import Cart from "features/Cart/Cart";
 import Login from "features/Login/Login";
 import Contact from "features/pages/Contact/Contact";
 import HomePage from "features/pages/HomePage";
-import ShowCase from "features/ShowCase/components/showCase/showCase";
 import Register from "features/Register/Register";
+import ShowCase from "features/ShowCase/components/showCase/showCase";
 import Themes from "features/Theme";
 import Documentation from "features/Theme/components/documentation/documentation";
 import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import { Canvas, Main, Footer } from "./App.styles";
+import { Canvas, Footer, Main } from "./App.styles";
 import NavBar from "./features/Navbar/NavBar";
 import Global from "./globalStyles";
 

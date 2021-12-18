@@ -1,25 +1,30 @@
+import { yupResolver } from "@hookform/resolvers/yup";
+import { postRegister } from "features/Login/loginSlice";
+import { Container } from "globalStyles";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
-import { Container } from "globalStyles";
 import { BiErrorCircle } from "react-icons/bi";
+import { BsFillCheckCircleFill } from "react-icons/bs";
+import { FaTimesCircle } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import * as yup from "yup";
 import {
-  Layout,
+  Button,
+  CheckBox,
   Content,
-  Title,
-  TitleH2,
   CustomDiv,
   Form,
   Input,
-  Button,
-  CheckBox,
-  TagP,
-  StyleLink,
+  Layout,
   MessageError,
   Span,
+  StyleLink,
+  TagP,
+  Title,
+  TitleH2,
+  Loader,
 } from "./Register.styles";
 
 Register.propTypes = {};
@@ -40,6 +45,9 @@ const registerSchema = yup.object().shape({
 
 function Register() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { error, token } = useSelector((state) => state.login);
+
   const {
     register,
     handleSubmit,
@@ -51,30 +59,75 @@ function Register() {
 
   useEffect(() => {
     if (isSubmitSuccessful) {
-      reset({
-        userName: "",
-        password: "",
-        email: "",
-        firstName: "",
-        lastName: "",
-        terms: false,
-      });
+      if (token.length > 0) {
+        toast.configure();
+        const id = toast.info("Please wait...", {
+          position: toast.POSITION.TOP_CENTER,
+          style: { backgroundColor: "#f8f8f8", fontWeight: "500" },
+          autoClose: false,
+          icon: <Loader />,
+        });
+
+        setTimeout(() => {
+          // reset({
+          //   userName: "",
+          //   password: "",
+          //   email: "",
+          //   firstName: "",
+          //   lastName: "",
+          //   terms: false,
+          // });
+          toast.update(id, {
+            position: toast.POSITION.TOP_CENTER,
+            type: toast.TYPE.SUCCESS,
+            icon: <BsFillCheckCircleFill size={25} />,
+            render: "Register success",
+            autoClose: 2000,
+            style: {
+              color: "#fff",
+              backgroundColor: "#07bc0c",
+              fontWeight: "500",
+            },
+          });
+
+          //redirect to login after registeter success
+          navigate("/login", { replace: true });
+        }, 1500);
+      }
+      if (token.length === 0) {
+        toast.configure();
+        const id = toast.info("Please wait...", {
+          position: toast.POSITION.TOP_CENTER,
+          style: { backgroundColor: "#f8f8f8", fontWeight: "500" },
+          autoClose: false,
+          icon: <Loader />,
+        });
+
+        setTimeout(() => {
+          return toast.update(id, {
+            position: toast.POSITION.TOP_CENTER,
+            type: toast.TYPE.ERROR,
+            icon: <FaTimesCircle size={25} />,
+            render: error,
+            autoClose: 2000,
+            style: {
+              color: "#fff",
+              backgroundColor: "#e74c3c",
+              fontWeight: "500",
+            },
+          });
+        }, 1500);
+      }
     }
-  }, [reset, isSubmitSuccessful, navigate]);
+  }, [reset, isSubmitSuccessful, error, token, navigate]);
 
   const handleNavigate = (e) => {
     e.preventDefault();
     navigate("/login", { replace: true });
   };
 
-  const onSubmitRegister = (data, e) => {
-    toast.configure();
-    toast.success("Register success", { theme: "colored", autoClose: 3000 });
-
-    setTimeout(() => {
-      e.preventDefault();
-      navigate("/login");
-    }, 1500);
+  const onSubmitRegister = async (data, e) => {
+    await dispatch(postRegister(data));
   };
 
   const onError = (errors, e) => console.log("error:", errors, e);
@@ -94,6 +147,7 @@ function Register() {
             <CustomDiv>
               <Input
                 placeholder="User name"
+                value="test"
                 {...register("userName", { required: true })}
               />
               {errors.userName && (
@@ -107,6 +161,7 @@ function Register() {
               <CustomDiv w50>
                 <Input
                   placeholder="First name"
+                  value="testName"
                   {...register("firstName", { required: true })}
                 />
                 {errors.firstName && (
@@ -119,6 +174,7 @@ function Register() {
               <CustomDiv w50>
                 <Input
                   placeholder="Last name"
+                  value="testName"
                   {...register("lastName", { required: true })}
                 />
                 {errors.lastName && (
@@ -132,6 +188,7 @@ function Register() {
             <CustomDiv>
               <Input
                 placeholder="Email"
+                value="namnguyenexe@gmail.com"
                 {...register("email", { required: true })}
               />
               {errors.email && (
@@ -144,6 +201,7 @@ function Register() {
             <CustomDiv>
               <Input
                 type="password"
+                value="123456"
                 placeholder="Password"
                 {...register("password", { required: true })}
               />
@@ -159,6 +217,7 @@ function Register() {
               <CheckBox
                 type="checkbox"
                 id="terms"
+                checked={true}
                 {...register("terms", { required: true })}
               />
               <TagP>

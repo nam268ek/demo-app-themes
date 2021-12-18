@@ -10,9 +10,12 @@ import { saveState } from "localState/localStorage";
 import { debounce } from "lodash";
 
 store.subscribe(
-  debounce(() => {
+  () => {
     saveState(store.getState());
-  }, 800)
+  }
+  // debounce(() => {
+
+  // }, 800)
 );
 
 ReactDOM.render(

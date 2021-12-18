@@ -1,6 +1,7 @@
 import LazyLoad from "react-lazyload";
 import { useLocation } from "react-router-dom";
 import { Container } from "globalStyles";
+import { PropTypes } from "prop-types";
 import {
   Header,
   Title,
@@ -19,7 +20,7 @@ import {
   LinkPrimary,
 } from "./CardPost.styles";
 
-const CardPost = ({ cardPostList }) => {
+const CardPost = ({ cardPostList, propertyId }) => {
   const { pathname } = useLocation();
 
   const handleDateTime = (date) => {
@@ -42,7 +43,7 @@ const CardPost = ({ cardPostList }) => {
       )}
       <Content>
         {cardPostList.map((card) => (
-          <Item key={card.id}>
+          <Item key={card[propertyId]}>
             <StyleLink to="">
               <ImageItem>
                 <LazyLoad offset={-150} placeholder={<PlaceHolder />}>
@@ -60,6 +61,15 @@ const CardPost = ({ cardPostList }) => {
       </Content>
     </Container>
   );
+};
+
+CardPost.propTypes = {
+  cardPostList: PropTypes.array,
+};
+
+CardPost.defaultProps = {
+  cardPostList: [],
+  propertyId: "_id",
 };
 
 export default CardPost;

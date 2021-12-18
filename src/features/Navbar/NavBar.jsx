@@ -1,8 +1,9 @@
 import Menu from "components/common/navBar/menuItem";
+import { logOut } from "features/Login/loginSlice";
 import { Container } from "globalStyles";
 import React from "react";
 import { RiShoppingCartLine } from "react-icons/ri";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import {
   MenuButton,
@@ -19,6 +20,12 @@ import {
   CartCount,
   Header,
   Icon,
+  User,
+  Image,
+  UserLink,
+  DropDown,
+  LinkItem,
+  Hr,
 } from "./NavBar.styles";
 
 const NavBar = ({ handleClickOpen }) => {
@@ -45,11 +52,42 @@ const NavBar = ({ handleClickOpen }) => {
     },
   ];
   const totalQty = useSelector((state) => state.carts.qty);
+  const isUser = useSelector((state) => state.login.token);
+
+  const [isOpen, setIsOpen] = React.useState(false);
+  const dispatch = useDispatch();
+  const showMenuRef = React.useRef(null);
 
   const handleNote = () => {
     toast.configure();
-    toast.info("Feature under construction.", { theme: "colored" });
+    // toast.info("Feature under construction.", { theme: "colored" });
   };
+
+  const handleMenu = (e) => {
+    e.preventDefault();
+    setIsOpen(!isOpen);
+  };
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    toast.configure();
+
+    setIsOpen(false);
+    dispatch(logOut());
+  };
+
+  React.useEffect(() => {
+    // handle click outside close menu
+    const handleClickOutside = (e) => {
+      if (showMenuRef.current && !showMenuRef.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+    isUser && window.addEventListener("click", handleClickOutside);
+    return () => {
+      window.removeEventListener("click", handleClickOutside);
+    };
+  }, [isUser]);
 
   return (
     <Header>
@@ -69,11 +107,13 @@ const NavBar = ({ handleClickOpen }) => {
                   classActive="actived"
                   color="#181818"
                 />
-                <MenuButton>
-                  <StyleLink to="login" onClick={handleNote}>
-                    Login &#10072; Register
-                  </StyleLink>
-                </MenuButton>
+                {!isUser && (
+                  <MenuButton>
+                    <StyleLink to="login" onClick={handleNote}>
+                      Login &#10072; Register
+                    </StyleLink>
+                  </MenuButton>
+                )}
                 <Cart>
                   <CartLink to="cart">
                     <CartContent>
@@ -82,6 +122,24 @@ const NavBar = ({ handleClickOpen }) => {
                     </CartContent>
                   </CartLink>
                 </Cart>
+                {isUser && (
+                  <User>
+                    <UserLink to="" ref={showMenuRef} onClick={handleMenu}>
+                      <Image
+                        width={35}
+                        height={35}
+                        src="https://res.cloudinary.com/ds6y4vgjb/image/upload/v1638839543/icons8-user-64_igxpij.png"
+                      />
+                    </UserLink>
+                    <DropDown isOpen={isOpen}>
+                      <LinkItem to="">Personal</LinkItem>
+                      <Hr />
+                      <LinkItem to="" onClick={handleLogout}>
+                        Logout
+                      </LinkItem>
+                    </DropDown>
+                  </User>
+                )}
               </NavMenu>
             </nav>
           </Widthright>

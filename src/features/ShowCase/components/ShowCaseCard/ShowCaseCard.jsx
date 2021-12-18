@@ -87,7 +87,7 @@ ShowcaseCard.propTypes = {
   propertyName: PropTypes.string,
 };
 ShowcaseCard.defaultProps = {
-  propertyId: "id",
+  propertyId: "_id",
   propertyName: "name",
   showCase: [],
   themeList: [],

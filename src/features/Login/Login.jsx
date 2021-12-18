@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container } from "globalStyles";
 import { BiErrorCircle } from "react-icons/bi";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
+import { getLogin } from "./loginSlice";
+import { asyncCartFromDatabase } from "features/Cart/cartSlice";
+import { useDispatch } from "react-redux";
+
 import {
   Layout,
   Content,
@@ -18,14 +22,37 @@ import {
   Span,
   StyleLink,
 } from "../Register/Register.styles";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const loginSchema = yup.object().shape({
-  userName: yup.string().required("Username is required"),
+  email: yup.string().email("Email is invalid").required("Email is required"),
   password: yup.string().required("Password is required"),
 });
 
-function Login(props) {
+function Login() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const accessToken = useSelector((state) => state.login.token);
+
+  useEffect(() => {
+    if (accessToken) {
+      navigate("/", { replace: true });
+      toast.configure();
+      toast.success("Login success", {
+        position: toast.POSITION.TOP_CENTER,
+        theme: "colored",
+        autoClose: 2000,
+      });
+
+      //async cart from database
+      const handleAsyncCartFromDatabase = async () => {
+        await dispatch(asyncCartFromDatabase());
+      };
+      accessToken && handleAsyncCartFromDatabase();
+    }
+  }, [accessToken, navigate, dispatch]);
+
   const {
     register,
     handleSubmit,
@@ -39,8 +66,8 @@ function Login(props) {
     navigate("/register", { replace: true });
   };
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    await dispatch(getLogin(data));
   };
 
   const onError = (error) => {
@@ -62,19 +89,21 @@ function Login(props) {
           <Form onSubmit={handleSubmit(onSubmit, onError)}>
             <CustomDiv>
               <Input
-                placeholder="User name"
-                {...register("userName", { required: true })}
+                placeholder="Email"
+                value="namnguyenexe@gmail.com"
+                {...register("email", { required: true })}
               />
-              {errors.userName && (
+              {errors.email && (
                 <MessageError>
                   <BiErrorCircle style={{ color: "#04c" }} size={18} />
-                  {errors.userName.message}
+                  {errors.email.message}
                 </MessageError>
               )}
             </CustomDiv>
             <CustomDiv>
               <Input
                 type="password"
+                value="123456"
                 placeholder="Password"
                 {...register("password", { required: true })}
               />

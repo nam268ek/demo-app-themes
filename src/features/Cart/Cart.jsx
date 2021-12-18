@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import CartItem from "./components/CartItem/CartItem";
-import { checkOut } from "./cartSlice";
+import { checkOut, asyncProductForUser } from "./cartSlice";
 
 import {
   Container,
@@ -25,11 +25,29 @@ import "./style.css";
 
 function Cart() {
   const themeList = useSelector((state) => state.carts.products);
-  const total = useSelector((state) => state.carts.total);
-  const qtyValue = useSelector((state) => state.carts.qty);
+  const { user, token } = useSelector((state) => state.login);
+  const {
+    products,
+    total,
+    qty: qtyValue,
+  } = useSelector((state) => state.carts);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const nodeRef = React.useRef(null);
+
+  useEffect(() => {
+    // handle async item cart for user in database
+    const handleAsyncProductToUser = async () => {
+      const asyncProducts = {
+        userId: user,
+        products,
+        total,
+      };
+      await dispatch(asyncProductForUser(asyncProducts));
+    };
+    token && handleAsyncProductToUser();
+  }, [dispatch, token, user, products, total]);
 
   const handleNavigate = () => {
     navigate("/themes", { replace: true });
@@ -38,7 +56,11 @@ function Cart() {
   const handleCheckOut = () => {
     dispatch(checkOut());
     toast.configure();
-    toast.success("Checkout Success", { theme: "colored", autoClose: 3000 });
+    toast.success("Checkout Success", {
+      theme: "colored",
+      autoClose: 3000,
+      position: toast.POSITION.TOP_CENTER,
+    });
   };
 
   return (
@@ -55,7 +77,7 @@ function Cart() {
                 <CustomImage
                   src="https://res.cloudinary.com/ds6y4vgjb/image/upload/v1637585017/undraw_empty_cart_co35_pvhcna.svg"
                   height="295px"
-                  width="443px"
+                  width="265px"
                 />
               </DivImage>
               <CustomTitle
@@ -77,18 +99,17 @@ function Cart() {
                 <Title>Cart</Title>
               </CustomDiv>
               <TransitionGroup>
-                {themeList &&
-                  themeList.map((item) => (
-                    <CSSTransition
-                      key={item.id}
-                      nodeRef={nodeRef}
-                      classNames="fade"
-                      timeout={500}
-                      unmountOnExit
-                    >
-                      <CartItem item={item} />
-                    </CSSTransition>
-                  ))}
+                {themeList?.map((item) => (
+                  <CSSTransition
+                    key={item.id}
+                    nodeRef={nodeRef}
+                    classNames="fade"
+                    timeout={500}
+                    unmountOnExit
+                  >
+                    <CartItem item={item} />
+                  </CSSTransition>
+                ))}
               </TransitionGroup>
             </ContentCart>
             <ContentCheckOut>

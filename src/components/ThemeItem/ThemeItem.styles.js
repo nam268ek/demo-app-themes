@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export const Layout = styled.div`
   width: 100%;
@@ -43,10 +43,12 @@ export const ImageItem = styled.img`
 export const Title = styled.h1`
   font-size: 32px;
   font-weight: 600;
+  margin-bottom: 16px;
 `;
 export const Description = styled.p`
   font-size: 16px;
   line-height: 1.5;
+  margin-bottom: 16px;
 `;
 export const Box = styled.div`
   display: flex;
@@ -61,11 +63,29 @@ export const Box = styled.div`
   background-color: ${(props) =>
     props.className === "secondary" ? "#fafafa" : "#fff"};
 `;
-export const StyleLink = styled(NavLink)`
+
+export const spin = keyframes`
+  0% {
+    transform: rotate(0); }
+  100% {
+    transform: rotate(360deg); } 
+`;
+export const Loader = styled.div`
+  height: 1em;
+  width: 1em;
+  position: relative;
+  display: inline-block;
+  border: 2px solid;
+  border-radius: 50%;
+  border-right-color: #0019c700;
+  animation: ${spin} 0.6s linear infinite;
+`;
+
+export const StyleLink = styled.button`
   padding: 16px 32px;
   background-color: ${(props) => (props.primary ? "#001fff" : "#ffffff")};
   color: ${(props) => (props.primary ? "#ffffff" : "#001fff")};
-  font-weight: ${(props) => (props.primary ? "600" : "400")};
+  font-weight: ${(props) => (props.primary ? "600" : "500")};
   border: 1px solid #001fff;
   border-radius: 2px;
   display: block;
@@ -73,7 +93,20 @@ export const StyleLink = styled(NavLink)`
   text-align: center;
   width: 100%;
   text-decoration: none;
+  font-size: 16px;
 
+  display: flex;
+  justify-content: center;
+  column-gap: 5px;
+  align-items: center;
+  cursor: pointer;
+
+  ${(props) =>
+    props.disabled &&
+    `
+    cursor: not-allowed;
+    opacity: 0.5;
+  `}
   &:hover {
     background-color: ${(props) => (props.primary ? "#04c" : "#fafafa")};
     color: ${(props) => (props.primary ? "#ffffff" : "#001fff")};

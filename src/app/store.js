@@ -1,8 +1,10 @@
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import themesReducer from "features/Theme/themeSlice";
-import showCasesReducer from "features/ShowCase/showCaseSlice";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import cardPostsReducer from "features/CardPost/cardPostSlice";
 import cartReducer from "features/Cart/cartSlice";
+import loginReducer from "features/Login/loginSlice";
+import registerReducer from "features/Register/registerSlice";
+import showCasesReducer from "features/ShowCase/showCaseSlice";
+import themesReducer from "features/Theme/themeSlice";
 import { loadState } from "localState/localStorage";
 
 const reducers = combineReducers({
@@ -10,6 +12,8 @@ const reducers = combineReducers({
   showCases: showCasesReducer,
   cardPosts: cardPostsReducer,
   carts: cartReducer,
+  login: loginReducer,
+  register: registerReducer,
 });
 
 export default configureStore({

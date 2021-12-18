@@ -98,8 +98,7 @@ export const AboutTheme = styled.p`
   font-weight: 400;
   color: rgb(117, 117, 117);
   text-overflow: ellipsis;
-  height: 100%;
-  max-height: 85px;
+  height: 45px;
   overflow: hidden;
 `;
 export const CustomDiv = styled.div`
@@ -125,6 +124,9 @@ export const Qty = styled.input.attrs({ type: "number" })`
   border-radius: 0;
   border-left: 0;
   border-right: 0;
+  font-size: 100%;
+  font-weight: 500;
+
   ::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
@@ -185,6 +187,8 @@ export const Button = styled.button`
   text-align: center;
   width: 30px;
   height: 26px;
+  font-size: 16px;
+  font-weight: 400;
 
   &:hover {
     background-color: #001fff;
@@ -264,7 +268,7 @@ export const CustomTitle = styled(Title)`
 
 export const CustomImage = styled.img`
   width: 100%;
-  max-width: 443px;
+  max-width: 265px;
   height: fit-content;
   object-fit: contain;
   object-position: top;

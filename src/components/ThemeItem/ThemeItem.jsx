@@ -1,9 +1,9 @@
 import { PropTypes } from "prop-types";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { getAllTheme } from "features/Theme/themeSlice";
-import { addToCart } from "features/Cart/cartSlice";
+import { addToCart, asyncProductForUser } from "features/Cart/cartSlice";
 import { toast } from "react-toastify";
 import FeedBackSecond from "components/FeedBack/FeedBackSecond";
 import { Container } from "globalStyles";
@@ -27,18 +27,23 @@ import {
   StyleLink,
   TagP,
   Title,
+  Loader,
 } from "./ThemeItem.styles";
 import CardTheme from "components/CardTheme/CardTheme";
 
-const ThemeItem = (props) => {
-  const { description, version, price, nameProperty } = props;
+const ThemeItem = ({ description, version, price, nameProperty }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState({
+    loadingNavigate: false,
+    loadingAddToCart: false,
+  });
   const MAX_QTY = 10;
   const { themeItem: nameTheme } = useParams();
 
   const themeList = useSelector((state) => state.themes.themeList);
-  const products = useSelector((state) => state.carts.products);
+  const { user, token } = useSelector((state) => state.login);
+  const { products, total } = useSelector((state) => state.carts);
 
   const themeSelect = themeList.find(
     (item) => item.name.toLowerCase() === nameTheme
@@ -51,6 +56,7 @@ const ThemeItem = (props) => {
   window.scrollTo(0, 0);
 
   useEffect(() => {
+    //reload page get all theme
     const handleValue = async () => {
       const { payload: data } = await dispatch(getAllTheme());
       const isExist = data.find(
@@ -58,44 +64,80 @@ const ThemeItem = (props) => {
       );
       !isExist && navigate(`/not-found`, { replace: true });
     };
-    handleValue();
-  }, [dispatch, nameTheme, navigate]);
+    // handle async item cart for user in database
+    const handleAsyncProductToUser = async () => {
+      const asyncProducts = {
+        userId: user,
+        products,
+        total,
+      };
+      await dispatch(asyncProductForUser(asyncProducts));
+    };
 
+    handleValue();
+    token && handleAsyncProductToUser();
+  }, [dispatch, nameTheme, navigate, user, products, total, token]);
+
+  //===================================================
   const handleAddToCart = (e, item) => {
     e.preventDefault();
-    const itemSelect = products.find((product) => product.id === item.id);
+    const itemSelect = products.find((product) => product._id === item._id);
     const isItemExist = itemSelect ? itemSelect : false;
 
     if (isItemExist.qty < MAX_QTY || !isItemExist) {
+      //set Loading...
+      setLoading({ ...loading, loadingAddToCart: true });
       //dispath action add to cart
-      const product = { ...item, qty: 1 };
-      const action = addToCart(product);
+      const productItem = { ...item, qty: 1 };
+      const action = addToCart(productItem);
       dispatch(action);
-      //show toast message
+
       toast.configure({ theme: "colored", autoClose: 3000 });
-      toast.success("Successfully", { theme: "colored", autoClose: 3000 });
+      toast.success("Successfully", {
+        position: toast.POSITION.TOP_CENTER,
+        theme: "colored",
+        autoClose: 3000,
+      });
+
+      setTimeout(
+        () => setLoading({ ...loading, loadingAddToCart: false }),
+        800
+      );
     } else {
       //show toast message
       toast.configure();
-      toast.warn(`Maximum quantity is ${MAX_QTY}`, { theme: "colored" });
+      toast.warn(`Maximum quantity is ${MAX_QTY}`, {
+        theme: "colored",
+        position: toast.POSITION.TOP_CENTER,
+      });
     }
   };
 
+  //===================================================
   const handleNavigateToCart = (e, item) => {
     e.preventDefault();
-    const itemSelect = products.find((product) => product.id === item.id);
+    const itemSelect = products.find((product) => product._id === item._id);
     const isItemExist = itemSelect ? itemSelect : false;
 
     if (isItemExist.qty < MAX_QTY || !isItemExist) {
+      setLoading({ ...loading, loadingNavigate: true });
       //dispath action add to cart
       const product = { ...item, qty: 1 };
       const action = addToCart(product);
       dispatch(action);
-      navigate("/cart"); // navigate to cart
+
+      // navigate to cart
+      setTimeout(() => {
+        navigate("/cart");
+        setLoading({ ...loading, loadingNavigate: false });
+      }, 800);
     } else {
       //show toast message
       toast.configure();
-      toast.warn(`Maximum quantity is ${MAX_QTY}`, { theme: "colored" });
+      toast.warn(`Maximum quantity is ${MAX_QTY}`, {
+        theme: "colored",
+        position: toast.POSITION.TOP_CENTER,
+      });
     }
   };
 
@@ -122,19 +164,33 @@ const ThemeItem = (props) => {
                     primary="true"
                     to=""
                     onClick={(e) => handleNavigateToCart(e, themeSelect)}
+                    disabled={loading.loadingNavigate}
                   >
-                    Buy Now &#9866; ${themeSelect[price]}
+                    {loading.loadingNavigate ? (
+                      <>
+                        <Loader /> Loading...
+                      </>
+                    ) : (
+                      `Buy Now – $${themeSelect[price]}`
+                    )}
                   </StyleLink>
                   <StyleLink
                     to=""
                     onClick={(e) => handleAddToCart(e, themeSelect)}
+                    disabled={loading.loadingAddToCart}
                   >
-                    Add to cart &#10138;
+                    {loading.loadingAddToCart ? (
+                      <>
+                        <Loader /> Loading...
+                      </>
+                    ) : (
+                      `Add to cart ➚`
+                    )}
                   </StyleLink>
                   <HighLight>One-time Purchase</HighLight>
                   <HighLight>14-Day 100% Money Back Guarantee</HighLight>
                   <Note>
-                    If you’re unhappy, get a full refund, no questions!
+                    If you're unhappy, get a full refund, no questions!
                   </Note>
                 </Box>
                 <Box>

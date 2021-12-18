@@ -116,6 +116,64 @@ export const MenuButton = styled.li`
     justify-content: center;
   }
 `;
+
+export const User = styled.li`
+  list-style: none;
+  line-height: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+`;
+export const UserLink = styled(Link)`
+  width: 100%;
+  padding: 0 36px;
+  text-decoration: none;
+  display: block;
+  position: relative;
+`;
+export const Image = styled.img`
+  display: block;
+  width: 100%;
+  max-width: 35px;
+  height: 35px;
+  object-fit: cover;
+  border-radius: 50%;
+`;
+export const DropDown = styled.div`
+  display: ${(props) => (props.isOpen ? "flex" : "none")};
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 40px;
+  flex-direction: column;
+  background-color: white;
+  width: 100%;
+  border: 1px solid #d6d6d66b;
+  border-radius: 4px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+`;
+export const LinkItem = styled(Link)`
+  text-decoration: none;
+  font-size: 16px;
+  color: #181818;
+  font-weight: 600;
+  padding: 14px 0;
+
+  &:hover {
+    background-color: #001fff;
+    color: #f3f3f3;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
+`;
+export const Hr = styled.hr`
+  height: 1px;
+  background-color: #d6d6d6;
+  border: 0;
+  opacity: 0.3;
+`;
 export const StyleLink = styled(Link)`
   display: block;
   border: 1px solid #1608d6;

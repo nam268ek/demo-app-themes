@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export const Layout = styled.div`
   display: flex;
@@ -164,4 +164,21 @@ export const MessageError = styled.p`
 export const Span = styled.span`
   padding: 0;
   margin: 0;
+`;
+export const spin = keyframes`
+  0% {
+    transform: rotate(0); }
+  100% {
+    transform: rotate(360deg); } 
+`;
+export const Loader = styled.div`
+  height: 1.2em;
+  width: 1.2em;
+  color: rgba(90, 90, 90, 0.2);
+  position: relative;
+  display: inline-block;
+  border: 3.5px solid;
+  border-radius: 50%;
+  border-right-color: #5a5a5a;
+  animation: ${spin} 0.6s linear infinite;
 `;

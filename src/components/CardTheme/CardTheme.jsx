@@ -55,7 +55,7 @@ CardTheme.propTypes = {
 
 CardTheme.defaultProps = {
   themesTitle: "Lastest Ghost themes",
-  propertyId: "id",
+  propertyId: "_id",
   themeList: [],
 };
 export default CardTheme;
