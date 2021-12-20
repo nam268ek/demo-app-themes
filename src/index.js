@@ -7,16 +7,10 @@ import App from "./App";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "react-toastify/dist/ReactToastify.css";
 import { saveState } from "localState/localStorage";
-import { debounce } from "lodash";
 
-store.subscribe(
-  () => {
-    saveState(store.getState());
-  }
-  // debounce(() => {
-
-  // }, 800)
-);
+store.subscribe(() => {
+  saveState(store.getState());
+});
 
 ReactDOM.render(
   <React.StrictMode>

@@ -7,6 +7,8 @@ import { addToCart, asyncProductForUser } from "features/Cart/cartSlice";
 import { toast } from "react-toastify";
 import FeedBackSecond from "components/FeedBack/FeedBackSecond";
 import { Container } from "globalStyles";
+import jwt_decode from "jwt-decode";
+
 import {
   Box,
   BoxItem,
@@ -30,10 +32,12 @@ import {
   Loader,
 } from "./ThemeItem.styles";
 import CardTheme from "components/CardTheme/CardTheme";
+import { logOut } from "features/Login/loginSlice";
 
 const ThemeItem = ({ description, version, price, nameProperty }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const [loading, setLoading] = useState({
     loadingNavigate: false,
     loadingAddToCart: false,
@@ -64,6 +68,7 @@ const ThemeItem = ({ description, version, price, nameProperty }) => {
       );
       !isExist && navigate(`/not-found`, { replace: true });
     };
+
     // handle async item cart for user in database
     const handleAsyncProductToUser = async () => {
       const asyncProducts = {
@@ -71,12 +76,38 @@ const ThemeItem = ({ description, version, price, nameProperty }) => {
         products,
         total,
       };
+
       await dispatch(asyncProductForUser(asyncProducts));
     };
 
-    handleValue();
-    token && handleAsyncProductToUser();
+    //handle redirect login if token expired
+
+    handleValue(); //get all theme
+    checkExpireToken() && handleAsyncProductToUser();
   }, [dispatch, nameTheme, navigate, user, products, total, token]);
+
+  //===================================================
+  const checkExpireToken = () => {
+    if (token) {
+      const expire = jwt_decode(token).exp;
+
+      // Check token expire
+      if (Date.now() >= expire * 1000) {
+        dispatch(logOut());
+        setTimeout(() => {
+          toast.info("Session has expired.", {
+            position: toast.POSITION.TOP_CENTER,
+            theme: "colored",
+            autoClose: 3000,
+          });
+          navigate("/login", { replace: true });
+        }, 1500);
+        return false;
+      }
+      return true;
+    }
+    return false;
+  };
 
   //===================================================
   const handleAddToCart = (e, item) => {
@@ -87,10 +118,13 @@ const ThemeItem = ({ description, version, price, nameProperty }) => {
     if (isItemExist.qty < MAX_QTY || !isItemExist) {
       //set Loading...
       setLoading({ ...loading, loadingAddToCart: true });
+
       //dispath action add to cart
       const productItem = { ...item, qty: 1 };
       const action = addToCart(productItem);
       dispatch(action);
+
+      checkExpireToken();
 
       toast.configure({ theme: "colored", autoClose: 3000 });
       toast.success("Successfully", {

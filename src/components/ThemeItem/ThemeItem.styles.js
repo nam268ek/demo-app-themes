@@ -1,4 +1,3 @@
-import { NavLink } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 
 export const Layout = styled.div`
