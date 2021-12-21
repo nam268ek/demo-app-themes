@@ -38,10 +38,12 @@ const ThemeItem = ({ description, version, price, nameProperty }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [expToken, setExpToken] = useState(false);
   const [loading, setLoading] = useState({
     loadingNavigate: false,
     loadingAddToCart: false,
   });
+
   const MAX_QTY = 10;
   const { themeItem: nameTheme } = useParams();
 
@@ -80,33 +82,27 @@ const ThemeItem = ({ description, version, price, nameProperty }) => {
       await dispatch(asyncProductForUser(asyncProducts));
     };
 
-    //handle redirect login if token expired
-
     handleValue(); //get all theme
-    checkExpireToken() && handleAsyncProductToUser();
-  }, [dispatch, nameTheme, navigate, user, products, total, token]);
+
+    // if token exist & token id not expire => sync item cart to database
+    expToken && handleAsyncProductToUser();
+  }, [dispatch, nameTheme, navigate, user, products, total, expToken]);
 
   //===================================================
-  const checkExpireToken = () => {
-    if (token) {
-      const expire = jwt_decode(token).exp;
-
-      // Check token expire
-      if (Date.now() >= expire * 1000) {
-        dispatch(logOut());
-        setTimeout(() => {
-          toast.info("Session has expired.", {
-            position: toast.POSITION.TOP_CENTER,
-            theme: "colored",
-            autoClose: 3000,
-          });
-          navigate("/login", { replace: true });
-        }, 1500);
-        return false;
-      }
-      return true;
-    }
-    return false;
+  const checkExpireToken = (token) => {
+    const expire = jwt_decode(token).exp;
+    //check token expire
+    if (Date.now() >= expire * 1000) {
+      dispatch(logOut());
+      setTimeout(() => {
+        toast.info("Session has expired.", {
+          position: toast.POSITION.TOP_CENTER,
+          theme: "colored",
+          autoClose: 3000,
+        });
+        navigate("/login", { replace: true });
+      }, 1500);
+    } else setExpToken(true); //token is not expire
   };
 
   //===================================================
@@ -124,7 +120,7 @@ const ThemeItem = ({ description, version, price, nameProperty }) => {
       const action = addToCart(productItem);
       dispatch(action);
 
-      checkExpireToken();
+      token && checkExpireToken(token); //check token expire
 
       toast.configure({ theme: "colored", autoClose: 3000 });
       toast.success("Successfully", {
