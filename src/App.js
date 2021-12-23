@@ -15,6 +15,7 @@ import { Route, Routes } from "react-router-dom";
 import { Canvas, Footer, Main } from "./App.styles";
 import NavBar from "./features/Navbar/NavBar";
 import Global from "./globalStyles";
+import User from './features/User/User';
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -39,6 +40,7 @@ function App() {
             <Route path="*" element={<NotFound />} />
             <Route path="register" element={<Register />} />
             <Route path="login" element={<Login />} />
+            <Route path="user" element={<User />} />
           </Routes>
         </Main>
         <Footer>

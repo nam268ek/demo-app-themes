@@ -5,6 +5,7 @@ import React from "react";
 import { RiShoppingCartLine } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import {
   MenuButton,
   NavLogo,
@@ -51,8 +52,9 @@ const NavBar = ({ handleClickOpen }) => {
       toHref: "contact",
     },
   ];
+  const navigate = useNavigate();
   const totalQty = useSelector((state) => state.carts.qty);
-  const isUser = useSelector((state) => state.login.token);
+  const { user, token: isUser } = useSelector((state) => state.login);
 
   const [isOpen, setIsOpen] = React.useState(false);
   const dispatch = useDispatch();
@@ -88,6 +90,12 @@ const NavBar = ({ handleClickOpen }) => {
       window.removeEventListener("click", handleClickOutside);
     };
   }, [isUser]);
+
+  //handle click personal infomation
+  const handleNavigate = (e) => {
+    e.preventDefault();
+    navigate(`/user`, { replace: true });
+  };
 
   return (
     <Header>
@@ -132,7 +140,9 @@ const NavBar = ({ handleClickOpen }) => {
                       />
                     </UserLink>
                     <DropDown isOpen={isOpen}>
-                      <LinkItem to="">Personal</LinkItem>
+                      <LinkItem to="" onClick={handleNavigate}>
+                        Personal
+                      </LinkItem>
                       <Hr />
                       <LinkItem to="" onClick={handleLogout}>
                         Logout
