@@ -1,5 +1,4 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { postRegister } from "features/Login/loginSlice";
 import { Container } from "globalStyles";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -26,6 +25,7 @@ import {
   TitleH2,
   Loader,
 } from "./Register.styles";
+import { postRegister } from "./registerSlice";
 
 Register.propTypes = {};
 
@@ -46,7 +46,7 @@ const registerSchema = yup.object().shape({
 function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { error, token } = useSelector((state) => state.login);
+  const { message } = useSelector((state) => state.register);
 
   const {
     register,
@@ -59,7 +59,7 @@ function Register() {
 
   useEffect(() => {
     if (isSubmitSuccessful) {
-      if (token.length > 0) {
+      if (message.code === 200) {
         toast.configure();
         const id = toast.info("Please wait...", {
           position: toast.POSITION.TOP_CENTER,
@@ -67,7 +67,6 @@ function Register() {
           autoClose: false,
           icon: <Loader />,
         });
-
         setTimeout(() => {
           // reset({
           //   userName: "",
@@ -89,12 +88,10 @@ function Register() {
               fontWeight: "500",
             },
           });
-
           //redirect to login after registeter success
           navigate("/login", { replace: true });
         }, 1500);
-      }
-      if (token.length === 0) {
+      } else {
         toast.configure();
         const id = toast.info("Please wait...", {
           position: toast.POSITION.TOP_CENTER,
@@ -102,13 +99,12 @@ function Register() {
           autoClose: false,
           icon: <Loader />,
         });
-
         setTimeout(() => {
           return toast.update(id, {
             position: toast.POSITION.TOP_CENTER,
             type: toast.TYPE.ERROR,
             icon: <FaTimesCircle size={25} />,
-            render: error,
+            render: message.message,
             autoClose: 2000,
             style: {
               color: "#fff",
@@ -119,7 +115,7 @@ function Register() {
         }, 1500);
       }
     }
-  }, [reset, isSubmitSuccessful, error, token, navigate]);
+  }, [reset, isSubmitSuccessful, message, navigate]);
 
   const handleNavigate = (e) => {
     e.preventDefault();
@@ -147,7 +143,6 @@ function Register() {
             <CustomDiv>
               <Input
                 placeholder="User name"
-                value="test"
                 {...register("userName", { required: true })}
               />
               {errors.userName && (
@@ -161,7 +156,6 @@ function Register() {
               <CustomDiv w50>
                 <Input
                   placeholder="First name"
-                  value="testName"
                   {...register("firstName", { required: true })}
                 />
                 {errors.firstName && (
@@ -174,7 +168,6 @@ function Register() {
               <CustomDiv w50>
                 <Input
                   placeholder="Last name"
-                  value="testName"
                   {...register("lastName", { required: true })}
                 />
                 {errors.lastName && (
@@ -188,7 +181,6 @@ function Register() {
             <CustomDiv>
               <Input
                 placeholder="Email"
-                value="namnguyenexe@gmail.com"
                 {...register("email", { required: true })}
               />
               {errors.email && (
@@ -201,7 +193,6 @@ function Register() {
             <CustomDiv>
               <Input
                 type="password"
-                value="123456"
                 placeholder="Password"
                 {...register("password", { required: true })}
               />
@@ -217,7 +208,6 @@ function Register() {
               <CheckBox
                 type="checkbox"
                 id="terms"
-                checked={true}
                 {...register("terms", { required: true })}
               />
               <TagP>

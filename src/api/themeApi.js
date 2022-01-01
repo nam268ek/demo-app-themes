@@ -1,6 +1,17 @@
 import axiosClient from "./axiosClient";
 //get theme api
 const themeApi = {
+  getUser: (id) => {
+    return axiosClient.get(`/user/${id}`);
+  },
+  updateUser: (params) => {
+    const url = "/user/update";
+    return axiosClient.put(url, { params });
+  },
+  updatePassword: (params) => {
+    const url = "/user/update-pass";
+    return axiosClient.put(url, { params });
+  },
   getLogin: (params) => {
     const url = "/login";
     return axiosClient.post(url, { params });
@@ -44,7 +55,23 @@ const themeApi = {
   asyncCartFromDatabase: () => {
     const url = "/cart";
     return axiosClient.get(url);
-  }
+  },
+  checkOutPurchase: (params) => {
+    const url = "/checkout";
+    return axiosClient.post(url, { params });
+  },
+  getDataPurchase: () => {
+    const url = "/checkout";
+    return axiosClient.get(url);
+  },
+  uploadFile: (formData) => {
+    const url = "/image-upload";
+    return axiosClient.post(url, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  },
 };
 
 export default themeApi;

@@ -5,6 +5,7 @@ export const getLogin = createAsyncThunk("themes/getLogin", async (params) => {
   const data = await themeApi.getLogin(params).catch((err) => {
     return err.response.data;
   });
+  console.log(data);
   return data;
 });
 
@@ -22,7 +23,7 @@ const loginSlice = createSlice({
   name: "login",
   initialState: {
     user: [],
-    token: "",
+    token: [],
     errorMessage: "",
     isFetching: false,
     isSuccess: false,
@@ -35,14 +36,21 @@ const loginSlice = createSlice({
     },
   },
   extraReducers: {
+    [getLogin.pending]: (state) => {
+      state.errorMessage = "";
+    },
     [getLogin.fulfilled]: (state, action) => {
-      if (action.payload.auth) {
-        state.token = action.payload.auth;
-        state.user = action.payload._id;
+      if (action.payload.code === 200) {
+        state.token = {
+          token: action.payload.data.token,
+          refreshToken: action.payload.data.refreshToken,
+        };
+
+        state.user = action.payload.data._id;
         state.error = "";
       }
-      if (action.payload.message) {
-        state.error = action.payload.message;
+      if (action.payload.code === 401) {
+        state.errorMessage = action.payload.message;
       }
     },
     [postRegister.pending]: (state, action) => {

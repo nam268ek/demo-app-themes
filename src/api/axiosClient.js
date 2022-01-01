@@ -1,11 +1,12 @@
 import axios from "axios";
 import queryString from "query-string";
-
+import ValidateToken from "./auth";
 //config .env for production
 const apiUrl =
   process.env.NODE_ENV === "production"
     ? process.env.REACT_APP_PROD_API_URL
     : process.env.REACT_APP_DEV_API_URL;
+
 //config axios client
 const axiosClient = axios.create({
   baseURL: apiUrl,
@@ -15,30 +16,12 @@ const axiosClient = axios.create({
   paramsSerializer: (params) => queryString.stringify(params),
 });
 
-
-const getToken = async () => {
-  const localStore = localStorage.getItem("state");
-  const state = JSON.parse(localStore);
-  const token = state.login.token;
-
-  //No loged in user
-  if (!token) return null;
-
-  //Loged in user
-  return new Promise((resolve, reject) => {
-    const waitTimer = setTimeout(() => {
-      reject(null);
-      console.log("token expired");
-    }, 5000);
-
-    resolve(token);
-    clearTimeout(waitTimer);
-  });
-};
-
 axiosClient.interceptors.request.use(async (config) => {
   //add token to header
-  const token = await getToken();
+  const token = await ValidateToken.getToken();
+
+  ValidateToken.requestApiToken(token);
+  
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -46,14 +29,13 @@ axiosClient.interceptors.request.use(async (config) => {
 });
 
 axiosClient.interceptors.response.use(
-  async (response) => {
-    if (response && response.data) {
-      return response.data;
+  async (res) => {
+    if (res && res.data) {
+      return res.data;
     }
-    return response;
+    return res;
   },
-  (error) => {
-    //handel error
+  async (error) => {
     throw error;
   }
 );

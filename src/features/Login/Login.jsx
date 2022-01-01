@@ -34,6 +34,7 @@ function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const accessToken = useSelector((state) => state.login.token);
+  const { errorMessage } = useSelector((state) => state.login);
 
   useEffect(() => {
     if (accessToken) {
@@ -51,7 +52,18 @@ function Login() {
       };
       accessToken && handleAsyncCartFromDatabase();
     }
-  }, [accessToken, navigate, dispatch]);
+    const handleErrorMessage = () => {
+      if (errorMessage) {
+        toast.configure();
+        toast.error(errorMessage, {
+          position: toast.POSITION.TOP_CENTER,
+          theme: "colored",
+          autoClose: 2000,
+        });
+      }
+    };
+    handleErrorMessage();
+  }, [accessToken, navigate, dispatch, errorMessage]);
 
   const {
     register,
@@ -90,7 +102,6 @@ function Login() {
             <CustomDiv>
               <Input
                 placeholder="Email"
-                value="namnguyenexe@gmail.com"
                 {...register("email", { required: true })}
               />
               {errors.email && (
@@ -103,7 +114,6 @@ function Login() {
             <CustomDiv>
               <Input
                 type="password"
-                value="123456"
                 placeholder="Password"
                 {...register("password", { required: true })}
               />

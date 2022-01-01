@@ -1,18 +1,5 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { PieChart, Pie, Sector, ResponsiveContainer } from "recharts";
-
-const data = [
-  { name: "Ubud", value: 400 },
-  { name: "Krabi", value: 300 },
-  { name: "Penang", value: 300 },
-  { name: "Hue", value: 200 },
-  { name: "Melaka", value: 200 },
-  { name: "Nubia", value: 200 },
-  { name: "Sinai", value: 200 },
-  { name: "East", value: 200 },
-  { name: "Asprire", value: 200 },
-  { name: "Maxima", value: 200 },
-];
 
 const renderActiveShape = (props) => {
   const RADIAN = Math.PI / 180;
@@ -87,14 +74,29 @@ const renderActiveShape = (props) => {
   );
 };
 
-function Chart() {
+function Chart({ listItem }) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [data, setData] = useState([]);
   const onPieEnter = useCallback(
     (_, index) => {
       setActiveIndex(index);
     },
     [setActiveIndex]
   );
+
+  useEffect(() => {
+    const handleData = () => {
+      const data = listItem?.map((item) => {
+        return {
+          name: item.themeName,
+          value: item.total,
+        };
+      });
+      setData(data);
+    };
+    handleData();
+  }, [listItem]);
+
 
   return (
     <ResponsiveContainer width="100%" height="100%">
@@ -107,7 +109,8 @@ function Chart() {
           cy={100}
           innerRadius={40}
           outerRadius={55}
-          fill="#8884d8"
+          // fill="#8884d8"
+          fill="#2a6cf0"
           dataKey="value"
           onMouseEnter={onPieEnter}
         />

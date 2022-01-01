@@ -4,7 +4,7 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import CartItem from "./components/CartItem/CartItem";
-import { checkOut, asyncProductForUser } from "./cartSlice";
+import { asyncProductForUser, checkOutPurchase } from "./cartSlice";
 
 import {
   Container,
@@ -54,7 +54,11 @@ function Cart() {
   };
 
   const handleCheckOut = () => {
-    dispatch(checkOut());
+
+    // handle check out
+    const item = { userId: user, products, total };
+    dispatch(checkOutPurchase(item));
+
     toast.configure();
     toast.success("Checkout Success", {
       theme: "colored",

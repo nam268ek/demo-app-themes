@@ -1,0 +1,14 @@
+.ReactModal__Overlay {
+  opacity: 0;
+  transition: all 0.2s ease-out;
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+  transition: all 0.2s ease-out;
+}
+
+.ReactModal__Overlay--before-close {
+  opacity: 0;
+  transition: all 0.2s ease-out;
+}

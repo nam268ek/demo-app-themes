@@ -6,6 +6,7 @@ import { RiShoppingCartLine } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 import {
   MenuButton,
   NavLogo,
@@ -28,8 +29,17 @@ import {
   LinkItem,
   Hr,
 } from "./NavBar.styles";
+import { getDataPurchase, getUser } from "features/User/userSlice";
+import jwt_decode from "jwt-decode";
 
-const NavBar = ({ handleClickOpen }) => {
+NavBar.propTypes = {};
+
+NavBar.defaultProps = {
+  urlAvatar:
+    "https://res.cloudinary.com/ds6y4vgjb/image/upload/v1638839543/icons8-user-64_igxpij.png",
+};
+
+function NavBar({ handleClickOpen, urlAvatar }) {
   const titleList = [
     {
       title: "Themes",
@@ -54,7 +64,9 @@ const NavBar = ({ handleClickOpen }) => {
   ];
   const navigate = useNavigate();
   const totalQty = useSelector((state) => state.carts.qty);
-  const { user, token: isUser } = useSelector((state) => state.login);
+  const { user: userId, token: isUser } = useSelector((state) => state.login);
+  const { user } = useSelector((state) => state.users);
+  const { data } = user;
 
   const [isOpen, setIsOpen] = React.useState(false);
   const dispatch = useDispatch();
@@ -76,9 +88,30 @@ const NavBar = ({ handleClickOpen }) => {
 
     setIsOpen(false);
     dispatch(logOut());
+    localStorage.clear();
   };
 
   React.useEffect(() => {
+    //handle get user
+    // const checkExpireToken = async () => {
+    //   if (isUser) {
+    //     const expire = jwt_decode(isUser).exp;
+    //     //check token expire
+    //     if (Date.now() >= expire * 1000) {
+    //       dispatch(logOut());
+    //       setTimeout(() => {
+    //         toast.info("Session has expired.", {
+    //           position: toast.POSITION.TOP_CENTER,
+    //           theme: "colored",
+    //           autoClose: 3000,
+    //         });
+    //         navigate("/login", { replace: true });
+    //       }, 1500);
+    //     } else await dispatch(getUser(userId));
+    //   }
+    // };
+    // checkExpireToken();
+
     // handle click outside close menu
     const handleClickOutside = (e) => {
       if (showMenuRef.current && !showMenuRef.current.contains(e.target)) {
@@ -89,11 +122,13 @@ const NavBar = ({ handleClickOpen }) => {
     return () => {
       window.removeEventListener("click", handleClickOutside);
     };
-  }, [isUser]);
+  }, [isUser, userId, dispatch, navigate]);
 
   //handle click personal infomation
   const handleNavigate = (e) => {
     e.preventDefault();
+    //get data purchase
+    dispatch(getDataPurchase());
     navigate(`/user`, { replace: true });
   };
 
@@ -136,7 +171,7 @@ const NavBar = ({ handleClickOpen }) => {
                       <Image
                         width={35}
                         height={35}
-                        src="https://res.cloudinary.com/ds6y4vgjb/image/upload/v1638839543/icons8-user-64_igxpij.png"
+                        src={data?.avatar || urlAvatar}
                       />
                     </UserLink>
                     <DropDown isOpen={isOpen}>
@@ -157,8 +192,6 @@ const NavBar = ({ handleClickOpen }) => {
       </Container>
     </Header>
   );
-};
-
-NavBar.propTypes = {};
+}
 
 export default NavBar;

@@ -22,6 +22,16 @@ export const asyncCartFromDatabase = createAsyncThunk(
   }
 );
 
+export const checkOutPurchase = createAsyncThunk(
+  "themes/checkOutPurchase",
+  async (params) => {
+    const data = await themeApi.checkOutPurchase(params).catch((err) => {
+      return err.response.data;
+    });
+    return data;
+  }
+);
+
 const cartSlice = createSlice({
   name: "carts",
   initialState: {
@@ -85,6 +95,11 @@ const cartSlice = createSlice({
     },
   },
   extraReducers: {
+    [checkOutPurchase.fulfilled]: (state, action) => {
+      state.products = [];
+      state.qty = 0;
+      state.total = 0;
+    },
     [asyncProductForUser.fulfilled]: (state, action) => {
       // if (action.payload) state.products = action.payload;
     },

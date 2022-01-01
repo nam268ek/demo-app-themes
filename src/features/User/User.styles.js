@@ -1,5 +1,6 @@
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { Widthleft } from './../Navbar/NavBar.styles';
 
 export const Layout = styled.div`
   display: flex;
@@ -34,14 +35,15 @@ export const MyOrders = styled.div`
 export const BoxInfoOrders = styled.div`
   /* box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
     rgba(27, 31, 35, 0.15) 0px 0px 0px 1px; */
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 `;
 export const BoxInfoPersonal = styled.div`
   width: calc(100% / 3);
   padding: 16px 16px 40px 16px;
+  transition: all 0.3s ease-in-out;
   /* box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
     rgba(27, 31, 35, 0.15) 0px 0px 0px 1px; */
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   margin-bottom: 16px;
   ${(props) =>
     props.full &&
@@ -154,23 +156,33 @@ export const Total = styled.div`
 export const Monney = styled.p`
   font-size: 30px;
   font-weight: 500;
+
+  font-family: "Roboto", sans-serif;
 `;
 export const DivChart = styled.div`
   width: 75%;
   height: 212px;
 `;
 export const TableOrders = styled.table`
-  width: 100%;
+  /* width: 100%; */
   border-spacing: 0;
+  /*width:100%; */
+  width: 100%;
+
+  /* Decoration */
+
 `;
 export const TrOrder = styled.tr`
   /* margin: 0; */
+ 
 `;
 export const TdOrder = styled.td`
   padding: 10px 15px;
   border: 1px solid #eff0f5;
   border-width: 0 0 1px;
+  //----------
 `;
+
 export const ThOrder = styled.th`
   text-align: left;
   padding: 16px 15px;
@@ -179,6 +191,7 @@ export const ThOrder = styled.th`
   color: #424242;
   border-width: 0 0 1px;
   background-color: #fafafa;
+  //-------------
 
   ${(props) =>
     props.special &&
@@ -186,11 +199,74 @@ export const ThOrder = styled.th`
     padding: 16px 0;
     padding-left: 35px;
   `}
+ `;
+export const DivImage = styled.div`
+  ${(props) =>
+    props.avatar &&
+    `
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    padding: 16px;
+
+  `}
 `;
-export const DivImage = styled.div``;
 export const Image = styled.img`
   width: 100%;
   max-width: 80px;
   display: block;
   object-fit: cover;
+
+  ${(props) =>
+    props.avatar &&
+    `max-width: 100%;
+    height: 100%;
+    cursor: pointer;
+    border-radius: 50%;
+
+    &:hover {
+      opacity: 0.8;
+      transition: all 0.2s ease-in-out;
+    }
+  `}
+
+  ${(props) =>
+    props.detail &&
+    `
+    width: 80px;
+    height: 55px;
+  `}
+`;
+export const Avatar = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+`;
+export const Info = styled.div`
+  width: 100%;
+`;
+export const Upload = styled.input.attrs({ type: "file" })`
+  visibility: hidden;
+  display: none;
+`;
+export const NameAvatar = styled.p`
+  font-size: 16px;
+  font-weight: 500;
+  color: #424242;
+  text-align: center;
+  width: 100%;
+  padding: 16px 0;
+`;
+export const TBody = styled.tbody`
+  /* display: block;
+  position: relative;
+  width: 100%; */
+`;
+export const Thead = styled.thead`
+  /* background-color: #f1f1f1;
+  position: relative;
+  display: block;
+  width: 100%; */
+  /* overflow-y: scroll; */
 `;
