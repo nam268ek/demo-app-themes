@@ -9,6 +9,17 @@ export const getLogin = createAsyncThunk("themes/getLogin", async (params) => {
   return data;
 });
 
+export const refreshToken = createAsyncThunk(
+  "themes/refreshToken",
+  async (params) => {
+    const data = await themeApi.refreshToken(params).catch((err) => {
+      return err.response.data;
+    });
+    console.log(data);
+    return data;
+  }
+);
+
 export const postRegister = createAsyncThunk(
   "themes/postRegister",
   async (params) => {
@@ -23,7 +34,7 @@ const loginSlice = createSlice({
   name: "login",
   initialState: {
     user: [],
-    token: [],
+    auth: [],
     errorMessage: "",
     isFetching: false,
     isSuccess: false,
@@ -32,16 +43,17 @@ const loginSlice = createSlice({
   reducers: {
     logOut: (state) => {
       state.user = [];
-      state.token = "";
+      state.auth = [];
     },
   },
   extraReducers: {
+    //-------------login-----------------
     [getLogin.pending]: (state) => {
       state.errorMessage = "";
     },
     [getLogin.fulfilled]: (state, action) => {
       if (action.payload.code === 200) {
-        state.token = {
+        state.auth = {
           token: action.payload.data.token,
           refreshToken: action.payload.data.refreshToken,
         };
@@ -53,18 +65,29 @@ const loginSlice = createSlice({
         state.errorMessage = action.payload.message;
       }
     },
+    // ---------refresh token request-----------------
+    [refreshToken.rejected]: (state, action) => {
+      if (action.payload.code === 200) {
+        state.auth = action.payload.data;
+      }
+      if (action.payload.code === 401) {
+        state.errorMessage = action.payload.message;
+      }
+    },
+    // ----------register request------------------
     [postRegister.pending]: (state, action) => {
       state.error = "";
     },
     [postRegister.fulfilled]: (state, action) => {
       if (action.payload.auth) {
-        state.token = action.payload;
+        state.auth = action.payload;
         state.error = "";
       }
       if (action.payload.message) {
         state.error = action.payload.message;
       }
     },
+    //--------------------------------------
   },
 });
 const { actions, reducer } = loginSlice;

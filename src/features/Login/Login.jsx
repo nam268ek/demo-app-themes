@@ -24,6 +24,7 @@ import {
 } from "../Register/Register.styles";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import ValidateToken from "api/auth";
 
 const loginSchema = yup.object().shape({
   email: yup.string().email("Email is invalid").required("Email is required"),
@@ -33,25 +34,34 @@ const loginSchema = yup.object().shape({
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const accessToken = useSelector((state) => state.login.token);
+  const { token } = useSelector((state) => state.login.auth);
   const { errorMessage } = useSelector((state) => state.login);
+  const [isUser, setIsUser] = React.useState(false);
 
   useEffect(() => {
-    if (accessToken) {
-      navigate("/", { replace: true });
-      toast.configure();
-      toast.success("Login success", {
-        position: toast.POSITION.TOP_CENTER,
-        theme: "colored",
-        autoClose: 2000,
-      });
+    //check token is valid and not expired
+    const handleCheckToken = async () => {
+      if (token) {
+        const tokenExpire = await ValidateToken.checkExpireToken();
+        //note: if tokenExpire is false => token is not expire
+        if (!tokenExpire) {
+          setIsUser(true);
+          toast.configure();
+          toast.success("Login success", {
+            position: toast.POSITION.TOP_CENTER,
+            theme: "colored",
+            autoClose: 2000,
+          });
+        }
+      }
+    };
+    handleCheckToken();
+    //async cart from database
+    const handleAsyncCartFromDatabase = async () => {
+      await dispatch(asyncCartFromDatabase());
+    };
+    isUser && handleAsyncCartFromDatabase();
 
-      //async cart from database
-      const handleAsyncCartFromDatabase = async () => {
-        await dispatch(asyncCartFromDatabase());
-      };
-      accessToken && handleAsyncCartFromDatabase();
-    }
     const handleErrorMessage = () => {
       if (errorMessage) {
         toast.configure();
@@ -63,7 +73,7 @@ function Login() {
       }
     };
     handleErrorMessage();
-  }, [accessToken, navigate, dispatch, errorMessage]);
+  }, [isUser, dispatch, errorMessage, token]);
 
   const {
     register,
@@ -132,4 +142,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default React.memo(Login);

@@ -1,8 +1,6 @@
 import styled, { createGlobalStyle } from "styled-components";
 
-const Global = createGlobalStyle`
-    @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,100&display=swap');
-    
+const Global = createGlobalStyle`    
     * {
         margin: 0;
         padding: 0;

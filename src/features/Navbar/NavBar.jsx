@@ -31,6 +31,7 @@ import {
 } from "./NavBar.styles";
 import { getDataPurchase, getUser } from "features/User/userSlice";
 import jwt_decode from "jwt-decode";
+import ValidateToken from "api/auth";
 
 NavBar.propTypes = {};
 
@@ -64,11 +65,12 @@ function NavBar({ handleClickOpen, urlAvatar }) {
   ];
   const navigate = useNavigate();
   const totalQty = useSelector((state) => state.carts.qty);
-  const { user: userId, token: isUser } = useSelector((state) => state.login);
-  const { user } = useSelector((state) => state.users);
-  const { data } = user;
+  const { data } = useSelector((state) => state.users.user);
+  const { token } = useSelector((state) => state.login.auth);
 
   const [isOpen, setIsOpen] = React.useState(false);
+  const [isUser, setIsUser] = React.useState(false);
+
   const dispatch = useDispatch();
   const showMenuRef = React.useRef(null);
 
@@ -87,30 +89,22 @@ function NavBar({ handleClickOpen, urlAvatar }) {
     toast.configure();
 
     setIsOpen(false);
+    setIsUser(false);
     dispatch(logOut());
     localStorage.clear();
   };
 
   React.useEffect(() => {
-    //handle get user
-    // const checkExpireToken = async () => {
-    //   if (isUser) {
-    //     const expire = jwt_decode(isUser).exp;
-    //     //check token expire
-    //     if (Date.now() >= expire * 1000) {
-    //       dispatch(logOut());
-    //       setTimeout(() => {
-    //         toast.info("Session has expired.", {
-    //           position: toast.POSITION.TOP_CENTER,
-    //           theme: "colored",
-    //           autoClose: 3000,
-    //         });
-    //         navigate("/login", { replace: true });
-    //       }, 1500);
-    //     } else await dispatch(getUser(userId));
-    //   }
-    // };
-    // checkExpireToken();
+    // check token is valid and expire token
+    const handleCheckToken = async () => {
+      if (token) {
+        const tokenExpire = await ValidateToken.checkExpireToken();
+        //note: if tokenExpire is false => token is not expire
+        !tokenExpire && setIsUser(true);
+        
+      }
+    };
+    handleCheckToken();
 
     // handle click outside close menu
     const handleClickOutside = (e) => {
@@ -119,10 +113,9 @@ function NavBar({ handleClickOpen, urlAvatar }) {
       }
     };
     isUser && window.addEventListener("click", handleClickOutside);
-    return () => {
-      window.removeEventListener("click", handleClickOutside);
-    };
-  }, [isUser, userId, dispatch, navigate]);
+    //clean up
+    return () => window.removeEventListener("click", handleClickOutside);
+  }, [isUser, token, dispatch]);
 
   //handle click personal infomation
   const handleNavigate = (e) => {

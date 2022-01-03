@@ -16,6 +16,10 @@ const themeApi = {
     const url = "/login";
     return axiosClient.post(url, { params });
   },
+  refreshToken: (params) => {
+    const url = "/auth/refresh";
+    return axiosClient.post(url, { params });
+  },
   postRegister: (params) => {
     const url = "/register";
     return axiosClient.post(url, { params });

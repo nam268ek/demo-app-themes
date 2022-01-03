@@ -54,7 +54,6 @@ function Cart() {
   };
 
   const handleCheckOut = () => {
-
     // handle check out
     const item = { userId: user, products, total };
     dispatch(checkOutPurchase(item));

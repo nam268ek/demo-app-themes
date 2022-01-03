@@ -18,11 +18,14 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.request.use(async (config) => {
   //add token to header
-  const token = await ValidateToken.getToken();
+  const tokenStore = await ValidateToken.getToken();
 
-  ValidateToken.requestApiToken(token);
-  
-  if (token) {
+  if (tokenStore) {
+    //refresh token if expired
+    await ValidateToken.requestApiToken(tokenStore);
+    //get new token
+    const token = await ValidateToken.getToken();
+    //add token to header
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
