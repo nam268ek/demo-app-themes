@@ -11,8 +11,8 @@ const Box = (props) => {
       </Container>
       <Container>
         <BoxContent>
-          {props.themeList.map((item) => (
-            <Card key={item.id}>
+          {props.themeList.map((item, index) => (
+            <Card key={index}>
               <StyleLink to={`/docs/${item.id}`}>
                 {item.name}
                 <Version>{item.version}</Version>

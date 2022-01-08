@@ -49,7 +49,8 @@ import { CSSTransition } from "react-transition-group";
 import NumberFormat from "react-number-format";
 import TableScrollbar from "react-table-scrollbar";
 import "./transition.css";
-import { getDataPurchase } from './userSlice';
+import { getDataPurchase } from "./userSlice";
+import ValidateToken from "api/auth";
 
 User.propTypes = {
   user: PropTypes.object,
@@ -62,6 +63,55 @@ User.defaultProps = {
 };
 
 function User() {
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const { user: info, checkout } = useSelector((state) => state.users);
+  const [listItem, setListItem] = useState();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const nodeRef = useRef(null);
+  //user is login
+  const [isUser, setIsUser] = useState(false);
+
+  useEffect(() => {
+    //handle redirect to login
+    const handleRedirect = async () => {
+      const token = await ValidateToken.getToken();
+      if (token) {
+        const tokenExpired = await ValidateToken.checkExpireToken();
+        // token expired return false => not expired
+        tokenExpired ? navigate("/login", { replace: true }) : setIsUser(true);
+      } else navigate("/login", { replace: true });
+    };
+    handleRedirect();
+
+    //if user is login => get data purchase
+    isUser && dispatch(getDataPurchase());
+    //==================
+  }, [navigate, dispatch, isUser]);
+
+  useEffect(() => {
+    //handle detail render
+    const handleOrderDetail = () => {
+      // const { data } = checkout;
+      var orderList = [];
+      if (checkout.length > 0) {
+        for (const item of checkout) {
+          for (const prod of item.products) {
+            orderList.push({
+              _id: item._id,
+              dateAt: item.createdAt,
+              themeName: prod.name,
+              total: prod.price * prod.qty,
+              urlHref: prod.image,
+            });
+          }
+        }
+      }
+      return setListItem(orderList);
+    };
+    handleOrderDetail();
+  }, [checkout]);
+
   //Modal
   const customStyles = {
     content: {
@@ -80,64 +130,9 @@ function User() {
     },
   };
 
-  const [modalIsOpen, setIsOpen] = React.useState(false);
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function closeModal() {
+  const closeModal = () => {
     setIsOpen(false);
-  }
-  // const data = [];
-  const { token } = useSelector((state) => state.login);
-  const { user, checkout } = useSelector((state) => state.users);
-  const { data: info } = user;
-  const [listItem, setListItem] = useState();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const nodeRef = useRef(null);
-
-  useEffect(() => {
-
-    //handle redirect to login 
-    const handleRedirect = () => {
-      if (!token) {
-        navigate("/login");
-      }
-    };
-
-    // handle get checkout
-    const handleGetCheckout = () => {
-      if (!checkout) {
-        dispatch(getDataPurchase());
-      }
-    };
-    handleGetCheckout();
-
-    //==================
-    //handle detail render
-    const handleOrderDetail = () => {
-      const { data } = checkout;
-      var orderList = [];
-
-      if (data) {
-        for (const item of data) {
-          for (const prod of item.products) {
-            orderList.push({
-              _id: item._id,
-              dateAt: item.createdAt,
-              themeName: prod.name,
-              total: prod.price * prod.qty,
-              urlHref: prod.image,
-            });
-          }
-        }
-      }
-      return setListItem(orderList);
-    };
-    handleOrderDetail();
-  }, [navigate, token, checkout, dispatch]);
-
+  };
   //===============================
   const handleChangeProfile = () => {
     setIsOpen(true);
@@ -154,7 +149,6 @@ function User() {
         total += item.total;
       }
     }
-
     return (
       <NumberFormat
         value={total}
@@ -165,7 +159,6 @@ function User() {
       />
     );
   };
-
   return (
     <Container>
       <Layout>

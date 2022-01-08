@@ -6,7 +6,6 @@ import registerReducer from "features/Register/registerSlice";
 import showCasesReducer from "features/ShowCase/showCaseSlice";
 import themesReducer from "features/Theme/themeSlice";
 import usersReducer from "features/User/userSlice";
-import { loadState } from "localState/localStorage";
 
 const reducers = combineReducers({
   themes: themesReducer,
@@ -20,5 +19,4 @@ const reducers = combineReducers({
 
 export default configureStore({
   reducer: reducers,
-  preloadedState: loadState(),
 });

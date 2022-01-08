@@ -9,10 +9,10 @@ export const getLogin = createAsyncThunk("themes/getLogin", async (params) => {
   return data;
 });
 
-export const refreshToken = createAsyncThunk(
-  "themes/refreshToken",
+export const getRefreshToken = createAsyncThunk(
+  "themes/getRefreshToken",
   async (params) => {
-    const data = await themeApi.refreshToken(params).catch((err) => {
+    const data = await themeApi.getRefreshToken(params).catch((err) => {
       return err.response.data;
     });
     console.log(data);
@@ -34,7 +34,6 @@ const loginSlice = createSlice({
   name: "login",
   initialState: {
     user: [],
-    auth: [],
     errorMessage: "",
     isFetching: false,
     isSuccess: false,
@@ -43,35 +42,31 @@ const loginSlice = createSlice({
   reducers: {
     logOut: (state) => {
       state.user = [];
-      state.auth = [];
+      // remove token and refresh_token from localStorage
+      localStorage.clear();
     },
+    setUser: (state, action) => {
+      state.user = action.payload;
+    }
   },
   extraReducers: {
     //-------------login-----------------
     [getLogin.pending]: (state) => {
       state.errorMessage = "";
     },
-    [getLogin.fulfilled]: (state, action) => {
-      if (action.payload.code === 200) {
-        state.auth = {
-          token: action.payload.data.token,
-          refreshToken: action.payload.data.refreshToken,
-        };
+    [getLogin.fulfilled]: (state, { payload }) => {
+      if (payload.code === 200) {
+        localStorage.setItem("token", JSON.stringify(payload.data.token));
+        localStorage.setItem(
+          "refresh_token",
+          JSON.stringify(payload.data.refreshToken)
+        );
 
-        state.user = action.payload.data._id;
+        state.user = payload.data._id;
         state.error = "";
       }
-      if (action.payload.code === 401) {
-        state.errorMessage = action.payload.message;
-      }
-    },
-    // ---------refresh token request-----------------
-    [refreshToken.rejected]: (state, action) => {
-      if (action.payload.code === 200) {
-        state.auth = action.payload.data;
-      }
-      if (action.payload.code === 401) {
-        state.errorMessage = action.payload.message;
+      if (payload.code === 401) {
+        state.errorMessage = payload.message;
       }
     },
     // ----------register request------------------
@@ -91,5 +86,5 @@ const loginSlice = createSlice({
   },
 });
 const { actions, reducer } = loginSlice;
-export const { logOut } = actions;
+export const { logOut, setUser } = actions;
 export default reducer;

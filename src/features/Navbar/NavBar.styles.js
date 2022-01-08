@@ -122,19 +122,21 @@ export const User = styled.li`
   line-height: 1;
   display: flex;
   flex-direction: column;
+  padding: 16px 0;
   position: relative;
 `;
 export const UserLink = styled(Link)`
   width: 100%;
   padding: 0 36px;
   text-decoration: none;
-  display: block;
+  display: flex;
+  justify-content: center;
   position: relative;
 `;
 export const Image = styled.img`
   display: block;
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   object-fit: cover;
   border-radius: 50%;
 `;
@@ -143,7 +145,7 @@ export const DropDown = styled.div`
   position: absolute;
   top: 0;
   right: 0;
-  margin-top: 40px;
+  margin-top: 55px;
   flex-direction: column;
   background-color: white;
   width: 100%;

@@ -1,13 +1,10 @@
 import jwt_decode from "jwt-decode";
 import axiosClient from "./axiosClient";
-// import store from "app/store";
-// import refreshToken from 'features/Login/refreshToken';
+import store from "app/store";
+import { setUser } from "features/Login/loginSlice";
 
 const getToken = async () => {
-  const localStore = localStorage.getItem("state");
-  const { login } = JSON.parse(localStore);
-  const token = login?.auth?.token;
-
+  const token = JSON.parse(localStorage.getItem("token"));
   //No loged in user
   if (!token) return null;
 
@@ -15,7 +12,7 @@ const getToken = async () => {
   return new Promise((resolve, reject) => {
     const waitTimer = setTimeout(() => {
       reject(null);
-      console.log("token expired");
+      console.log("token timeout");
     }, 5000);
 
     resolve(token);
@@ -25,62 +22,59 @@ const getToken = async () => {
 
 //refresh token
 let refreshTokenRequest = null;
-const requestApiToken = async (token) => {
-  const tokenExpired = await checkExpireToken(token);
+const requestApiToken = async () => {
+  // const tokenExpired = await checkExpireToken();
+  // if (tokenExpired === true) {
+  //   refreshTokenRequest = refreshTokenRequest
+  //     ? refreshTokenRequest
+  //     : handleRefreshToken();
+  //   const res = refreshTokenRequest;
+  //   // reset token request for the next expiration
+  //   refreshTokenRequest = "a";
+  //   //save new token to local storage
+  //   updateTokenLocalStorage(res);
+  //   return;
+  // }
+};
 
-  if (tokenExpired) {
-    refreshTokenRequest = refreshTokenRequest
-      ? refreshTokenRequest
-      : handleRefreshToken();
+const updateTokenLocalStorage = async (res) => {
+  const data = await new Promise((resolve, reject) => {
+    res.code === 200 && resolve(res.data);
+    res.code !== 200 && reject(res.message);
+  });
 
-    const newToken = refreshTokenRequest;
-    // reset token request for the next expiration
-    refreshTokenRequest = null;
-
-    //save new token to local storage
-    updateTokenLocalStorage(newToken);
-
-    return;
+  if (data.token) {
+    const { token, refreshToken } = data;
+    const { _id } = jwt_decode(token);
+    
+    _id && store.dispatch(setUser(_id));
+    localStorage.setItem("token", JSON.stringify(token));
+    localStorage.setItem("refresh_token", JSON.stringify(refreshToken));
   }
 };
 
-const updateTokenLocalStorage = (newToken) => {
-  const localStore = localStorage.getItem("state");
-  const state = JSON.parse(localStore);
-  state.login.auth = newToken.data;
-  localStorage.setItem("state", JSON.stringify(state));
-};
-
-const handleRefreshToken = async () => {
-  const localStore = localStorage.getItem("state");
-  const { login } = JSON.parse(localStore);
-  const refreshToken = login?.auth?.refreshToken;
-  
-  console.log("refreshToken:", refreshToken);
-  const response = await axiosClient.post("/auth/refresh", {
-    refreshToken,
-  });
-  //disaptch refresh token update to store
-  // store.dispatch(refreshToken(refreshToken));
-  return response;
+const handleRefreshToken = () => {
+  const refreshToken = JSON.parse(localStorage.getItem("refresh_token"));
+  return refreshToken;
 };
 
 const checkExpireToken = async () => {
-  const localStore = localStorage.getItem("state");
-  const { login } = JSON.parse(localStore);
-  const token = login?.auth?.token;
-  const expire = await jwt_decode(token).exp;
+  const token = JSON.parse(localStorage.getItem("refresh_token"));
+  if (token) {
+    const { exp } = await jwt_decode(token);
+    // console.log("[refresh_token_time]:", exp - Math.floor(new Date() / 1000));
+    // console.log(
+    //   "[token]:",
+    //   jwt_decode(JSON.parse(localStorage.getItem("token"))).exp -
+    //     Math.floor(new Date() / 1000)
+    // );
 
-  console.log("expire:", expire);
-  console.log("current time:", new Date() / 1000);
-  console.log("expire - current time:", expire - Math.floor(new Date() / 1000));
-
-  if (Math.floor(new Date() / 1000) >= expire) {
-    console.log("token expired");
-   
-    return true; //token is expired
-  } else return false; //token is not expired
-  
+    if (Math.floor(new Date() / 1000) >= exp) {
+      return true; //token is expired
+    } else {
+      return false; //token is not expired
+    }
+  }
 };
 
 const ValidateToken = {

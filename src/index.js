@@ -6,11 +6,6 @@ import store from "app/store";
 import App from "./App";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "react-toastify/dist/ReactToastify.css";
-import { saveState } from "localState/localStorage";
-
-store.subscribe(() => {
-  saveState(store.getState());
-});
 
 ReactDOM.render(
   <React.StrictMode>

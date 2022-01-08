@@ -62,6 +62,7 @@ const ThemeItem = ({ description, version, price, nameProperty }) => {
   window.scrollTo(0, 0);
 
   useEffect(() => {
+    const abortController = new AbortController();
     //reload page get all theme
     const handleValue = async () => {
       const { payload: data } = await dispatch(getAllTheme());
@@ -86,6 +87,8 @@ const ThemeItem = ({ description, version, price, nameProperty }) => {
 
     // if token exist & token id not expire => sync item cart to database
     expToken && handleAsyncProductToUser();
+    //clean up
+    return () => abortController.abort();
   }, [dispatch, nameTheme, navigate, user, products, total, expToken]);
 
   //===================================================

@@ -35,6 +35,7 @@ import {
   updateUser,
   updatePassword,
 } from "features/User/userSlice";
+import ToastConfig from "features/common/toast/toast";
 
 Profile.propTypes = {};
 Profile.defaultProps = {
@@ -76,10 +77,10 @@ function Profile({ imageDefault, handleOffModal }) {
   const defaultValues = changePassword
     ? { oldPassword: "", password: "", confirmPassword: "" }
     : {
-        userName: user.data.userName,
-        email: user.data.email,
-        firstName: user.data.firstName,
-        lastName: user.data.lastName,
+        userName: user.userName,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
       };
 
   const {
@@ -94,56 +95,15 @@ function Profile({ imageDefault, handleOffModal }) {
 
   useEffect(() => {
     if (isSubmitSuccessful) {
-      if (user.code === 200) {
-        toast.configure();
-        const id = toast.info("Please wait...", {
-          position: toast.POSITION.TOP_CENTER,
-          style: { backgroundColor: "#f8f8f8", fontWeight: "500" },
-          autoClose: false,
-          icon: <Loader />,
-        });
-        setTimeout(() => {
-          toast.update(id, {
-            position: toast.POSITION.TOP_CENTER,
-            type: toast.TYPE.SUCCESS,
-            icon: <BsFillCheckCircleFill size={25} />,
-            render: "Update successfully!",
-            autoClose: 2000,
-            style: {
-              color: "#fff",
-              backgroundColor: "#07bc0c",
-              fontWeight: "500",
-            },
-          });
-
-          //off modal
-          handleOffModal(false);
-        }, 1500);
+      if (Object.keys(user).length > 0) {
+        ToastConfig.toastLoadingSuccess("Update successfully!", 2000);
+        //off modal
+        handleOffModal(false);
       } else {
-        toast.configure();
-        const id = toast.info("Please wait...", {
-          position: toast.POSITION.TOP_CENTER,
-          style: { backgroundColor: "#f8f8f8", fontWeight: "500" },
-          autoClose: false,
-          icon: <Loader />,
-        });
-        setTimeout(() => {
-          return toast.update(id, {
-            position: toast.POSITION.TOP_CENTER,
-            type: toast.TYPE.ERROR,
-            icon: <FaTimesCircle size={25} />,
-            render: user.message,
-            autoClose: 2000,
-            style: {
-              color: "#fff",
-              backgroundColor: "#e74c3c",
-              fontWeight: "500",
-            },
-          });
-        }, 1500);
+        ToastConfig.toastLoadingError("Update failed!", 2000);
       }
     }
-  }, [isSubmitSuccessful, user, navigate, handleOffModal]);
+  }, [isSubmitSuccessful, user, handleOffModal]);
 
   const handleChangeAvatar = async (e) => {
     const errs = [];
@@ -214,7 +174,7 @@ function Profile({ imageDefault, handleOffModal }) {
                 avatar
                 id="avatar"
                 onClick={() => uploadRef.current.click()}
-                src={user.data.avatar || imageDefault}
+                src={user.avatar || imageDefault}
               />
               <Upload
                 type="file"

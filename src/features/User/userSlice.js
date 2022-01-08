@@ -62,22 +62,42 @@ const userSlice = createSlice({
     isLoading: false,
     errorMessage: null,
   },
+  reducers: {
+    clearStateUser: (state) => {
+      state.user = [];
+      state.checkout = [];
+      state.file = [];
+    }
+  },
   extraReducers: {
-    [getUser.fulfilled]: (state, action) => {
-      state.user = action.payload;
+    [getUser.fulfilled]: (state, { payload }) => {
+      if (payload.code === 200) {
+        state.user = payload.data;
+      }
     },
-    [getDataPurchase.fulfilled]: (state, action) => {
-      state.checkout = action.payload;
+    [getDataPurchase.fulfilled]: (state, { payload }) => {
+      if (payload.code === 200) {
+        state.checkout = payload.data;
+      }
+      state.errorMessage = payload.message;
     },
-    [uploadFile.fulfilled]: (state, action) => {
-      state.file = action.payload;
+    [uploadFile.fulfilled]: (state, { payload }) => {
+      if (payload.code === 200) {
+        state.file = payload;
+        console.log('file', state.file)
+      }
     },
-    [updateUser.fulfilled]: (state, action) => {
-      if(action.payload.code === 200) {state.user = action.payload};
+    [updateUser.fulfilled]: (state, {payload}) => {
+      if (payload.code === 200) {
+        state.user = payload.data;
+      }
+      else {
+        state.errorMessage = payload.message;
+      }
     },
   },
 });
 
 const { reducer, actions } = userSlice;
-
+export const { clearStateUser } = actions;
 export default reducer;

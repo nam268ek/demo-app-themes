@@ -1,17 +1,24 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { Widthleft } from './../Navbar/NavBar.styles';
 
 export const Layout = styled.div`
   display: flex;
 `;
 export const ListLink = styled.div`
   width: calc(100% / 4);
+
+  @media (max-width: 1023px) {
+    display: none;
+  }
 `;
 export const NameAccount = styled.div``;
 export const Verify = styled.div`
   padding: 0 16px;
   margin-bottom: 16px;
+
+  @media (max-width: 1023px) {
+
+  }
 `;
 export const VerifyStatus = styled.span`
   background-color: #04c;
@@ -50,7 +57,15 @@ export const BoxInfoPersonal = styled.div`
     `
     width: calc(100% * 2 / 3);
     display: flex;
+
+    @media (max-width: 767px) {
+      width: 100%;
+    }
   `}
+
+  @media (max-width: 767px) {
+    width: 100%;
+  }
 `;
 export const TitleName = styled.h2`
   font-size: 18px;
@@ -136,9 +151,21 @@ export const CheckboxMailText = styled.p`
 export const BoxInfo = styled.div`
   display: flex;
   column-gap: 15px;
+
+  @media (max-width: 767px) {
+    display: block;
+  }
 `;
 export const ListLinkInfo = styled.div`
   width: calc(100% * 3 / 4);
+
+  @media (max-width: 1023px) {
+    width: 100%;
+  }
+
+  @media (max-width: 767px) {
+
+  }
 `;
 export const StyleLink = styled(Link)`
   text-decoration: none;

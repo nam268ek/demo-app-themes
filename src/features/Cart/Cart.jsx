@@ -22,10 +22,14 @@ import {
   CustomImage,
 } from "./Cart.styles";
 import "./style.css";
+import ValidateToken from "api/auth";
+import ToastConfig from "features/common/toast/toast";
 
 function Cart() {
   const themeList = useSelector((state) => state.carts.products);
-  const { user, token } = useSelector((state) => state.login);
+  const { user } = useSelector((state) => state.login);
+  //user is logged in
+  const [isUser, setIsUser] = React.useState(false);
   const {
     products,
     total,
@@ -37,6 +41,20 @@ function Cart() {
   const nodeRef = React.useRef(null);
 
   useEffect(() => {
+    //check token is valid and not expired
+    const handleCheckToken = async () => {
+      const token = await ValidateToken.getToken("token");
+      const tokenExpire =
+        token && (await ValidateToken.checkExpireToken(token));
+      //note: if tokenExpire is false & token is valid => token is not expire
+      if (token && !tokenExpire) {
+        setIsUser(true);
+      }
+    };
+    handleCheckToken();
+  }, [dispatch]);
+
+  useEffect(() => {
     // handle async item cart for user in database
     const handleAsyncProductToUser = async () => {
       const asyncProducts = {
@@ -46,8 +64,8 @@ function Cart() {
       };
       await dispatch(asyncProductForUser(asyncProducts));
     };
-    token && handleAsyncProductToUser();
-  }, [dispatch, token, user, products, total]);
+    isUser && handleAsyncProductToUser();
+  }, [isUser, products, total, dispatch, user]);
 
   const handleNavigate = () => {
     navigate("/themes", { replace: true });
@@ -56,14 +74,12 @@ function Cart() {
   const handleCheckOut = () => {
     // handle check out
     const item = { userId: user, products, total };
-    dispatch(checkOutPurchase(item));
-
-    toast.configure();
-    toast.success("Checkout Success", {
-      theme: "colored",
-      autoClose: 3000,
-      position: toast.POSITION.TOP_CENTER,
-    });
+    if (isUser) {
+      dispatch(checkOutPurchase(item));
+      ToastConfig.toastSuccess("Check out successful");
+    } else {
+      ToastConfig.toastInfo("Please login to check out.", "colored", 4000);
+    }
   };
 
   return (
@@ -102,9 +118,9 @@ function Cart() {
                 <Title>Cart</Title>
               </CustomDiv>
               <TransitionGroup>
-                {themeList?.map((item) => (
+                {themeList?.map((item, index) => (
                   <CSSTransition
-                    key={item.id}
+                    key={index}
                     nodeRef={nodeRef}
                     classNames="fade"
                     timeout={500}

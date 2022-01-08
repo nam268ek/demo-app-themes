@@ -29,8 +29,7 @@ import {
   LinkItem,
   Hr,
 } from "./NavBar.styles";
-import { getDataPurchase, getUser } from "features/User/userSlice";
-import jwt_decode from "jwt-decode";
+import { clearStateUser, getUser } from "features/User/userSlice";
 import ValidateToken from "api/auth";
 
 NavBar.propTypes = {};
@@ -65,10 +64,11 @@ function NavBar({ handleClickOpen, urlAvatar }) {
   ];
   const navigate = useNavigate();
   const totalQty = useSelector((state) => state.carts.qty);
-  const { data } = useSelector((state) => state.users.user);
-  const { token } = useSelector((state) => state.login.auth);
+  const info = useSelector((state) => state.users.user);
+  const { user } = useSelector((state) => state.login);
 
   const [isOpen, setIsOpen] = React.useState(false);
+  // check user is logged in
   const [isUser, setIsUser] = React.useState(false);
 
   const dispatch = useDispatch();
@@ -86,22 +86,28 @@ function NavBar({ handleClickOpen, urlAvatar }) {
 
   const handleLogout = (e) => {
     e.preventDefault();
-    toast.configure();
 
     setIsOpen(false);
     setIsUser(false);
-    dispatch(logOut());
-    localStorage.clear();
+    dispatch(logOut()); // remove user from state login
+    dispatch(clearStateUser()); // remove user from state user
+
+    if (window.location.pathname === "/user") {
+      navigate("/login", { replace: true });
+    }
   };
 
   React.useEffect(() => {
     // check token is valid and expire token
     const handleCheckToken = async () => {
-      if (token) {
+      const token = await ValidateToken.getToken();
+      if (token && user) {
         const tokenExpire = await ValidateToken.checkExpireToken();
         //note: if tokenExpire is false => token is not expire
-        !tokenExpire && setIsUser(true);
-        
+        if (!tokenExpire) {
+          dispatch(getUser());
+          setIsUser(true);
+        } else setIsUser(false);
       }
     };
     handleCheckToken();
@@ -115,13 +121,12 @@ function NavBar({ handleClickOpen, urlAvatar }) {
     isUser && window.addEventListener("click", handleClickOutside);
     //clean up
     return () => window.removeEventListener("click", handleClickOutside);
-  }, [isUser, token, dispatch]);
+  }, [isUser, dispatch, user]);
 
   //handle click personal infomation
   const handleNavigate = (e) => {
     e.preventDefault();
     //get data purchase
-    dispatch(getDataPurchase());
     navigate(`/user`, { replace: true });
   };
 
@@ -164,7 +169,7 @@ function NavBar({ handleClickOpen, urlAvatar }) {
                       <Image
                         width={35}
                         height={35}
-                        src={data?.avatar || urlAvatar}
+                        src={info?.avatar || urlAvatar}
                       />
                     </UserLink>
                     <DropDown isOpen={isOpen}>
