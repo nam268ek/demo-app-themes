@@ -215,7 +215,9 @@ function User() {
             </BoxInfoPersonal>
             <BoxInfoPersonal full>
               <Total>
-                <TitleName profile="true">Total Buy</TitleName>
+                <TitleName profile="true">
+                  Total Buy
+                </TitleName>
                 {TotalMoney()}
               </Total>
               <DivChart>

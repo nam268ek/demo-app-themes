@@ -17,7 +17,6 @@ export const Verify = styled.div`
   margin-bottom: 16px;
 
   @media (max-width: 1023px) {
-
   }
 `;
 export const VerifyStatus = styled.span`
@@ -43,6 +42,7 @@ export const BoxInfoOrders = styled.div`
   /* box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
     rgba(27, 31, 35, 0.15) 0px 0px 0px 1px; */
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  overflow-x: auto;
 `;
 export const BoxInfoPersonal = styled.div`
   width: calc(100% / 3);
@@ -107,6 +107,7 @@ export const TitleName = styled.h2`
         align-items: center;
         column-gap: 5px;
         padding: 10px 0;
+
     `}
 `;
 export const SecondTitle = styled(Link)`
@@ -164,7 +165,6 @@ export const ListLinkInfo = styled.div`
   }
 
   @media (max-width: 767px) {
-
   }
 `;
 export const StyleLink = styled(Link)`
@@ -179,6 +179,12 @@ export const Span = styled.span`
 `;
 export const Total = styled.div`
   width: 25%;
+
+  @media (max-width: 767px) {
+    /* display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; */
+  }
 `;
 export const Monney = styled.p`
   font-size: 30px;
@@ -189,6 +195,10 @@ export const Monney = styled.p`
 export const DivChart = styled.div`
   width: 75%;
   height: 212px;
+
+  @media (max-width: 767px) {
+    width: 450px;
+  }
 `;
 export const TableOrders = styled.table`
   /* width: 100%; */
@@ -197,11 +207,9 @@ export const TableOrders = styled.table`
   width: 100%;
 
   /* Decoration */
-
 `;
 export const TrOrder = styled.tr`
   /* margin: 0; */
- 
 `;
 export const TdOrder = styled.td`
   padding: 10px 15px;
@@ -226,7 +234,7 @@ export const ThOrder = styled.th`
     padding: 16px 0;
     padding-left: 35px;
   `}
- `;
+`;
 export const DivImage = styled.div`
   ${(props) =>
     props.avatar &&
