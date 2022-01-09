@@ -4,10 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { getAllTheme } from "features/Theme/themeSlice";
 import { addToCart, asyncProductForUser } from "features/Cart/cartSlice";
-import { toast } from "react-toastify";
 import FeedBackSecond from "components/FeedBack/FeedBackSecond";
 import { Container } from "globalStyles";
-import jwt_decode from "jwt-decode";
 
 import {
   Box,
@@ -32,13 +30,19 @@ import {
   Loader,
 } from "./ThemeItem.styles";
 import CardTheme from "components/CardTheme/CardTheme";
-import { logOut } from "features/Login/loginSlice";
+import ToastConfig from "features/common/toast/toast";
 
-const ThemeItem = ({ description, version, price, nameProperty }) => {
+const ThemeItem = ({
+  description,
+  version,
+  price,
+  nameProperty,
+  defaultImage,
+}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [expToken, setExpToken] = useState(false);
+  const { statusUser } = useSelector((state) => state.login);
   const [loading, setLoading] = useState({
     loadingNavigate: false,
     loadingAddToCart: false,
@@ -48,7 +52,7 @@ const ThemeItem = ({ description, version, price, nameProperty }) => {
   const { themeItem: nameTheme } = useParams();
 
   const themeList = useSelector((state) => state.themes.themeList);
-  const { user, token } = useSelector((state) => state.login);
+  const { user } = useSelector((state) => state.login);
   const { products, total } = useSelector((state) => state.carts);
 
   const themeSelect = themeList.find(
@@ -71,7 +75,6 @@ const ThemeItem = ({ description, version, price, nameProperty }) => {
       );
       !isExist && navigate(`/not-found`, { replace: true });
     };
-
     // handle async item cart for user in database
     const handleAsyncProductToUser = async () => {
       const asyncProducts = {
@@ -79,104 +82,49 @@ const ThemeItem = ({ description, version, price, nameProperty }) => {
         products,
         total,
       };
-
       await dispatch(asyncProductForUser(asyncProducts));
     };
 
     handleValue(); //get all theme
-
     // if token exist & token id not expire => sync item cart to database
-    expToken && handleAsyncProductToUser();
+    statusUser && handleAsyncProductToUser();
     //clean up
     return () => abortController.abort();
-  }, [dispatch, nameTheme, navigate, user, products, total, expToken]);
-
-  //===================================================
-  const checkExpireToken = (token) => {
-    const expire = jwt_decode(token).exp;
-    //check token expire
-    if (Date.now() >= expire * 1000) {
-      dispatch(logOut());
-      setTimeout(() => {
-        toast.info("Session has expired.", {
-          position: toast.POSITION.TOP_CENTER,
-          theme: "colored",
-          autoClose: 3000,
-        });
-        navigate("/login", { replace: true });
-      }, 1500);
-    } else setExpToken(true); //token is not expire
-  };
+  }, [dispatch, nameTheme, navigate, user, products, total, statusUser]);
 
   //===================================================
   const handleAddToCart = (e, item) => {
     e.preventDefault();
     const itemSelect = products.find((product) => product._id === item._id);
     const isItemExist = itemSelect ? itemSelect : false;
-
     if (isItemExist.qty < MAX_QTY || !isItemExist) {
       //set Loading...
       setLoading({ ...loading, loadingAddToCart: true });
-
       //dispath action add to cart
       const productItem = { ...item, qty: 1 };
-      const action = addToCart(productItem);
-      dispatch(action);
-
-      token && checkExpireToken(token); //check token expire
-
-      toast.configure({ theme: "colored", autoClose: 3000 });
-      toast.success("Successfully", {
-        position: toast.POSITION.TOP_CENTER,
-        theme: "colored",
-        autoClose: 3000,
-      });
-
+      dispatch(addToCart(productItem));
+      //toast success
+      ToastConfig.toastSuccess("Successfully");
       setTimeout(
         () => setLoading({ ...loading, loadingAddToCart: false }),
         800
       );
     } else {
-      //show toast message
-      toast.configure();
-      toast.warn(`Maximum quantity is ${MAX_QTY}`, {
-        theme: "colored",
-        position: toast.POSITION.TOP_CENTER,
-      });
+      //toast waring max qty is MAX_QTY
+      ToastConfig.toastWarning(`Maximum quantity is ${MAX_QTY}`);
     }
   };
 
   //===================================================
   const handleNavigateToCart = (e, item) => {
     e.preventDefault();
-    const itemSelect = products.find((product) => product._id === item._id);
-    const isItemExist = itemSelect ? itemSelect : false;
-
-    if (isItemExist.qty < MAX_QTY || !isItemExist) {
-      setLoading({ ...loading, loadingNavigate: true });
-      //dispath action add to cart
-      const product = { ...item, qty: 1 };
-      const action = addToCart(product);
-      dispatch(action);
-
-      // navigate to cart
-      setTimeout(() => {
-        navigate("/cart");
-        setLoading({ ...loading, loadingNavigate: false });
-      }, 800);
-    } else {
-      //show toast message
-      toast.configure();
-      toast.warn(`Maximum quantity is ${MAX_QTY}`, {
-        theme: "colored",
-        position: toast.POSITION.TOP_CENTER,
-      });
-    }
+    handleAddToCart(e, item); // +1 qty
+    // navigate to cart
+    setTimeout(() => {
+      navigate("/cart");
+      setLoading({ ...loading, loadingNavigate: false });
+    }, 800);
   };
-
-  //url image default icon
-  const urlImage =
-    "https://res.cloudinary.com/ds6y4vgjb/image/upload/v1636026141/check_wtwl39.png";
 
   return (
     <>
@@ -252,7 +200,7 @@ const ThemeItem = ({ description, version, price, nameProperty }) => {
               <Content>
                 <Box className="secondary">
                   <DivImage>
-                    <CustomImage src={urlImage} />
+                    <CustomImage src={defaultImage} />
                   </DivImage>
                   <TagP>
                     Ghost 4.0+. Enjoy a beautiful, functional site in no time.
@@ -264,7 +212,7 @@ const ThemeItem = ({ description, version, price, nameProperty }) => {
               <Content>
                 <Box className="secondary">
                   <DivImage>
-                    <CustomImage src={urlImage} />
+                    <CustomImage src={defaultImage} />
                   </DivImage>
                   <TagP>
                     Membership support. Add membership and subscription to your
@@ -276,7 +224,7 @@ const ThemeItem = ({ description, version, price, nameProperty }) => {
               <Content>
                 <Box className="secondary">
                   <DivImage>
-                    <CustomImage src={urlImage} />
+                    <CustomImage src={defaultImage} />
                   </DivImage>
                   <TagP>
                     Responsive design. You’ll get a fully responsive site. The
@@ -288,7 +236,7 @@ const ThemeItem = ({ description, version, price, nameProperty }) => {
               <Content>
                 <Box className="secondary">
                   <DivImage>
-                    <CustomImage src={urlImage} />
+                    <CustomImage src={defaultImage} />
                   </DivImage>
                   <TagP>
                     Free updates. New Ghost features are added to your theme as
@@ -300,7 +248,7 @@ const ThemeItem = ({ description, version, price, nameProperty }) => {
               <Content>
                 <Box className="secondary">
                   <DivImage>
-                    <CustomImage src={urlImage} />
+                    <CustomImage src={defaultImage} />
                   </DivImage>
                   <TagP>
                     Free support. Whenever you have any questions or face sudden
@@ -312,7 +260,7 @@ const ThemeItem = ({ description, version, price, nameProperty }) => {
               <Content>
                 <Box className="secondary">
                   <DivImage>
-                    <CustomImage src={urlImage} />
+                    <CustomImage src={defaultImage} />
                   </DivImage>
                   <TagP>
                     Translation ready. The theme supports German, Spanish,
@@ -346,5 +294,7 @@ ThemeItem.defaultProps = {
   description: "description",
   price: "price",
   version: "version",
+  defaultImage:
+    "https://res.cloudinary.com/ds6y4vgjb/image/upload/v1636026141/check_wtwl39.png",
 };
 export default ThemeItem;

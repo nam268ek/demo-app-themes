@@ -39,8 +39,6 @@ export const MyOrders = styled.div`
   padding: 0 16px;
 `;
 export const BoxInfoOrders = styled.div`
-  /* box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
-    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px; */
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   overflow-x: auto;
 `;
@@ -48,23 +46,27 @@ export const BoxInfoPersonal = styled.div`
   width: calc(100% / 3);
   padding: 16px 16px 40px 16px;
   transition: all 0.3s ease-in-out;
-  /* box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
-    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px; */
+
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   margin-bottom: 16px;
+ 
+
   ${(props) =>
     props.full &&
     `
     width: calc(100% * 2 / 3);
     display: flex;
+    margin-left: 16px;
 
-    @media (max-width: 767px) {
+    @media (max-width: 480px) {
       width: 100%;
+      display: block;
     }
   `}
 
   @media (max-width: 767px) {
     width: 100%;
+    margin-left: 0;
   }
 `;
 export const TitleName = styled.h2`
@@ -151,7 +153,7 @@ export const CheckboxMailText = styled.p`
 `;
 export const BoxInfo = styled.div`
   display: flex;
-  column-gap: 15px;
+  /* column-gap: 15px; */
 
   @media (max-width: 767px) {
     display: block;
@@ -162,9 +164,6 @@ export const ListLinkInfo = styled.div`
 
   @media (max-width: 1023px) {
     width: 100%;
-  }
-
-  @media (max-width: 767px) {
   }
 `;
 export const StyleLink = styled(Link)`
@@ -180,10 +179,8 @@ export const Span = styled.span`
 export const Total = styled.div`
   width: 25%;
 
-  @media (max-width: 767px) {
-    /* display: flex;
-    flex-direction: row;
-    flex-wrap: wrap; */
+  @media (max-width: 480px) {
+    width: 100%;
   }
 `;
 export const Monney = styled.p`
@@ -196,8 +193,8 @@ export const DivChart = styled.div`
   width: 75%;
   height: 212px;
 
-  @media (max-width: 767px) {
-    width: 450px;
+  @media (max-width: 480px) {
+    width: 100%;
   }
 `;
 export const TableOrders = styled.table`

@@ -1,7 +1,7 @@
 import jwt_decode from "jwt-decode";
 import axiosClient from "./axiosClient";
 import store from "app/store";
-import { setUser } from "features/Login/loginSlice";
+import { setUser,updateStatusUser } from "features/Login/loginSlice";
 
 const getToken = async () => {
   const token = JSON.parse(localStorage.getItem("token"));
@@ -47,7 +47,7 @@ const updateTokenLocalStorage = async (res) => {
     const { token, refreshToken } = data;
     const { _id } = jwt_decode(token);
     
-    _id && store.dispatch(setUser(_id));
+    store.dispatch(setUser(_id));
     localStorage.setItem("token", JSON.stringify(token));
     localStorage.setItem("refresh_token", JSON.stringify(refreshToken));
   }
@@ -62,16 +62,11 @@ const checkExpireToken = async () => {
   const token = JSON.parse(localStorage.getItem("refresh_token"));
   if (token) {
     const { exp } = await jwt_decode(token);
-    // console.log("[refresh_token_time]:", exp - Math.floor(new Date() / 1000));
-    // console.log(
-    //   "[token]:",
-    //   jwt_decode(JSON.parse(localStorage.getItem("token"))).exp -
-    //     Math.floor(new Date() / 1000)
-    // );
-
     if (Math.floor(new Date() / 1000) >= exp) {
+      store.dispatch(updateStatusUser(false));
       return true; //token is expired
     } else {
+      store.dispatch(updateStatusUser(true));
       return false; //token is not expired
     }
   }

@@ -16,8 +16,8 @@ const toastError = (message, theme, timeOut) => {
   toast.configure();
   toast.error(message, {
     position: toast.POSITION.TOP_CENTER,
-    theme: theme,
-    autoClose: timeOut,
+    theme: theme || "colored",
+    autoClose: timeOut || 3000,
   });
 };
 
@@ -25,8 +25,8 @@ const toastWarning = (message, theme, timeOut) => {
   toast.configure();
   toast.warn(message, {
     position: toast.POSITION.TOP_CENTER,
-    theme: theme,
-    autoClose: timeOut,
+    theme: theme || "colored",
+    autoClose: timeOut || 3000,
   });
 };
 
@@ -34,8 +34,17 @@ const toastInfo = (message, theme, timeOut) => {
   toast.configure();
   toast.info(message, {
     position: toast.POSITION.TOP_CENTER,
-    theme: theme,
-    autoClose: timeOut,
+    theme: theme || "colored",
+    autoClose: timeOut || 3000,
+  });
+};
+
+const customMessage = (message, type, theme, timeOut) => {
+  toast.configure();
+  toast[type](message, {
+    position: toast.POSITION.TOP_CENTER,
+    theme: theme || "colored",
+    autoClose: timeOut || 3000,
   });
 };
 
@@ -53,7 +62,7 @@ const toastLoadingSuccess = (message, timeOut) => {
       type: toast.TYPE.SUCCESS,
       icon: <BsFillCheckCircleFill size={25} />,
       render: message,
-      autoClose: timeOut,
+      autoClose: timeOut || 3000,
       style: {
         color: "#fff",
         backgroundColor: "#07bc0c",
@@ -92,6 +101,7 @@ const ToastConfig = {
   toastError,
   toastWarning,
   toastInfo,
+  customMessage,
   toastLoadingSuccess,
   toastLoadingError,
 };
