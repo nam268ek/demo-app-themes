@@ -16,10 +16,10 @@ const axiosClient = axios.create({
   paramsSerializer: (params) => queryString.stringify(params),
 });
 
+
 axiosClient.interceptors.request.use(async (config) => {
   //add token to header
   const token = await ValidateToken.getToken();
-
   if (token) {
     //add token to header
     config.headers.Authorization = `Bearer ${token}`;
@@ -36,20 +36,17 @@ axiosClient.interceptors.response.use(
   },
   async (err) => {
     const originalConfig = err.config;
-    console.log("err.response:", err.response);
     if (originalConfig.url !== "/login" && err.response) {
       // Access Token was expired
-     
       if (err.response.status === 403 && !originalConfig._retry) {
         originalConfig._retry = true;
-
         try {
           const rs = await axiosClient.post("/auth/refresh", {
             refreshToken: ValidateToken.handleRefreshToken(),
           });
-
           ValidateToken.updateTokenLocalStorage(rs);
-
+          //config new token
+          originalConfig.headers.Authorization = `Bearer ${rs.data.token}`;
           return axiosClient(originalConfig);
         } catch (_error) {
           return Promise.reject(_error);

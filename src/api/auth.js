@@ -61,12 +61,13 @@ const handleRefreshToken = () => {
 const checkExpireToken = async () => {
   const token = JSON.parse(localStorage.getItem("refresh_token"));
   if (token) {
-    const { exp } = await jwt_decode(token);
+    const { exp, _id } = await jwt_decode(token);
     if (Math.floor(new Date() / 1000) >= exp) {
       store.dispatch(updateStatusUser(false));
       return true; //token is expired
     } else {
       store.dispatch(updateStatusUser(true));
+      store.dispatch(setUser(_id));
       return false; //token is not expired
     }
   }

@@ -1,63 +1,66 @@
-import React, { useCallback, useEffect, useState, useRef } from "react";
-import PropTypes from "prop-types";
-import { Container } from "globalStyles";
-import { BsCheck } from "react-icons/bs";
+import ValidateToken from "api/auth";
 import Chart from "features/Chart/Chart";
-import { useDispatch, useSelector } from "react-redux";
+import Profile from "features/Profile/Profile";
+import { Container } from "globalStyles";
+import PropTypes from "prop-types";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { BsCheck } from "react-icons/bs";
+import Modal from "react-modal";
 import Moment from "react-moment";
+import NumberFormat from "react-number-format";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { CSSTransition } from "react-transition-group";
+import "./transition.css";
 import {
-  Layout,
-  ListLink,
-  ListLinkInfo,
   BoxInfo,
   BoxInfoOrders,
   BoxInfoPersonal,
-  TitleName,
-  Name,
-  Email,
   CheckboxMail,
   CheckboxMailStatus,
   CheckboxMailText,
-  Verify,
-  VerifyStatus,
-  NameAccount,
+  DivChart,
+  DivImage,
+  Email,
+  Image,
+  Info,
+  Layout,
+  ListLink,
+  ListLinkInfo,
   ManagerAccount,
+  Monney,
   MyOrders,
+  Name,
+  NameAccount,
   SecondTitle,
   Span,
   StyleLink,
-  Total,
-  DivChart,
-  DivImage,
-  Image,
-  TrOrder,
-  ThOrder,
-  TdOrder,
-  Monney,
   TableOrders,
-  Info,
-  Thead,
   TBody,
+  TdOrder,
+  Thead,
+  ThOrder,
+  TitleName,
+  Total,
+  TrOrder,
+  Verify,
+  VerifyStatus,
 } from "./User.styles";
-import { useNavigate } from "react-router-dom";
-import jwt_decode from "jwt-decode";
-import { logOut } from "features/Login/loginSlice";
-import { toast } from "react-toastify";
-import Profile from "features/Profile/Profile";
-import Modal from "react-modal";
-import { CSSTransition } from "react-transition-group";
-import NumberFormat from "react-number-format";
-import TableScrollbar from "react-table-scrollbar";
-import "./transition.css";
 import { getDataPurchase } from "./userSlice";
-import ValidateToken from "api/auth";
 
 User.propTypes = {
   user: PropTypes.object,
+  checkout: PropTypes.object,
+  listItems: PropTypes.array,
 };
 
 User.defaultProps = {
-  user: {},
+  info: {},
+  checkout: {},
+  listItems: [],
+  lastName: "",
+  firstName: "",
+  email: "",
   imageDefault:
     "https://res.cloudinary.com/ds6y4vgjb/image/upload/v1638839543/icons8-user-64_igxpij.png",
 };
@@ -65,36 +68,29 @@ User.defaultProps = {
 function User() {
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const { user: info, checkout } = useSelector((state) => state.users);
+  const { statusUser } = useSelector((state) => state.login);
   const [listItem, setListItem] = useState();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const nodeRef = useRef(null);
-  //user is login
-  const [isUser, setIsUser] = useState(false);
 
   useEffect(() => {
-    //handle redirect to login
-    const handleRedirect = async () => {
-      const token = await ValidateToken.getToken();
-      if (token) {
-        const tokenExpired = await ValidateToken.checkExpireToken();
-        // token expired return false => not expired
-        tokenExpired ? navigate("/login", { replace: true }) : setIsUser(true);
-      } else navigate("/login", { replace: true });
+    //user is login => get data purchase
+    const handleGetDataPurchase = async () => {
+      const tokenExpire = await ValidateToken.checkExpireToken();
+      tokenExpire === false
+        ? dispatch(getDataPurchase())
+        : navigate("/login", { replace: true });
     };
-    handleRedirect();
-
-    //if user is login => get data purchase
-    isUser && dispatch(getDataPurchase());
-    //==================
-  }, [navigate, dispatch, isUser]);
+    handleGetDataPurchase();
+  }, [navigate, dispatch, statusUser]);
 
   useEffect(() => {
     //handle detail render
     const handleOrderDetail = () => {
       // const { data } = checkout;
       var orderList = [];
-      if (checkout.length > 0) {
+      if (checkout && checkout.length > 0) {
         for (const item of checkout) {
           for (const prod of item.products) {
             orderList.push({
@@ -162,7 +158,7 @@ function User() {
   return (
     <Container>
       <Layout>
-        <ListLink>
+        <ListLink >
           <NameAccount>
             <TitleName hello>
               Hello, {info && info.lastName + info.firstName}
@@ -215,9 +211,7 @@ function User() {
             </BoxInfoPersonal>
             <BoxInfoPersonal full>
               <Total>
-                <TitleName profile="true">
-                  Total Buy
-                </TitleName>
+                <TitleName profile="true">Total Buy</TitleName>
                 {TotalMoney()}
               </Total>
               <DivChart>
@@ -227,7 +221,6 @@ function User() {
           </BoxInfo>
           <BoxInfoOrders>
             <TitleName order="true">Recent Orders</TitleName>
-            {/* <TableScrollbar rows={5}> */}
             <TableOrders>
               <colgroup>
                 <col width="18%" />
@@ -280,7 +273,6 @@ function User() {
                 ))}
               </TBody>
             </TableOrders>
-            {/* </TableScrollbar> */}
           </BoxInfoOrders>
         </ListLinkInfo>
       </Layout>

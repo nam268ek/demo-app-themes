@@ -1,14 +1,25 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import ToastConfig from "features/common/toast/toast";
+import {
+  getUser,
+  updatePassword,
+  updateUser,
+  uploadFile
+} from "features/User/userSlice";
 import { Container } from "globalStyles";
+import PropTypes from "prop-types";
 import React, { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { BiErrorCircle } from "react-icons/bi";
-import { BsFillCheckCircleFill } from "react-icons/bs";
-import { FaTimesCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import * as yup from "yup";
+import {
+  Avatar,
+  DivImage,
+  Image,
+  NameAvatar,
+  Upload
+} from "../User/User.styles";
 import {
   Button,
   Content,
@@ -18,28 +29,17 @@ import {
   Layout,
   MessageError,
   Span,
-  Title,
-  Loader,
   StyleButton,
+  Title
 } from "./Profile.styles";
-import {
-  Avatar,
-  DivImage,
-  Upload,
-  NameAvatar,
-  Image,
-} from "../User/User.styles";
-import {
-  getUser,
-  uploadFile,
-  updateUser,
-  updatePassword,
-} from "features/User/userSlice";
-import ToastConfig from "features/common/toast/toast";
 
-Profile.propTypes = {};
+Profile.propTypes = {
+  user: PropTypes.array,
+  userId: PropTypes.string,
+};
 Profile.defaultProps = {
-  user: {},
+  user: [],
+  userId: "",
   imageDefault:
     "https://res.cloudinary.com/ds6y4vgjb/image/upload/v1638839543/icons8-user-64_igxpij.png",
 };
@@ -66,7 +66,6 @@ const passwordShema = yup.object().shape({
 });
 
 function Profile({ imageDefault, handleOffModal }) {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.users);
   const { user: userId } = useSelector((state) => state.login);
@@ -125,14 +124,7 @@ function Profile({ imageDefault, handleOffModal }) {
     });
 
     if (errs.length > 0) {
-      toast.configure();
-      errs.forEach((err) =>
-        toast.info(err, {
-          theme: "colored",
-          autoClose: false,
-          position: toast.POSITION.TOP_CENTER,
-        })
-      );
+      errs.forEach((err) => ToastConfig.toastInfo(err));
       errs.splice(0, errs.length + 1);
     } else {
       await dispatch(uploadFile(formData));
@@ -174,7 +166,7 @@ function Profile({ imageDefault, handleOffModal }) {
                 avatar
                 id="avatar"
                 onClick={() => uploadRef.current.click()}
-                src={user.avatar || imageDefault}
+                src={user?.avatar || imageDefault}
               />
               <Upload
                 type="file"

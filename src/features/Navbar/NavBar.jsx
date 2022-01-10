@@ -1,10 +1,9 @@
 import Menu from "components/common/navBar/menuItem";
 import { logOut } from "features/Login/loginSlice";
 import { Container } from "globalStyles";
-import React from "react";
+import React, { forwardRef } from "react";
 import { RiShoppingCartLine } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import {
@@ -32,14 +31,7 @@ import {
 import { clearStateUser, getUser } from "features/User/userSlice";
 import ValidateToken from "api/auth";
 
-NavBar.propTypes = {};
-
-NavBar.defaultProps = {
-  urlAvatar:
-    "https://res.cloudinary.com/ds6y4vgjb/image/upload/v1638839543/icons8-user-64_igxpij.png",
-};
-
-function NavBar({ handleClickOpen, urlAvatar }) {
+const NavBar = forwardRef((props, ref) => {
   const titleList = [
     {
       title: "Themes",
@@ -63,6 +55,7 @@ function NavBar({ handleClickOpen, urlAvatar }) {
     },
   ];
   const navigate = useNavigate();
+  const { handleClickOpen, urlAvatar } = props;
   const totalQty = useSelector((state) => state.carts.qty);
   const info = useSelector((state) => state.users.user);
   const { user } = useSelector((state) => state.login);
@@ -73,11 +66,6 @@ function NavBar({ handleClickOpen, urlAvatar }) {
 
   const dispatch = useDispatch();
   const showMenuRef = React.useRef(null);
-
-  const handleNote = () => {
-    toast.configure();
-    // toast.info("Feature under construction.", { theme: "colored" });
-  };
 
   const handleMenu = (e) => {
     e.preventDefault();
@@ -139,10 +127,12 @@ function NavBar({ handleClickOpen, urlAvatar }) {
               <NavLogoLink to="/">Aspire Labs</NavLogoLink>
             </NavLogo>
           </Widthleft>
-          <Icon onClick={handleClickOpen}>&#9776;</Icon>
+          <Icon onClick={handleClickOpen}>
+            &#9776;
+          </Icon>
           <Widthright>
             <nav>
-              <NavMenu onClick={handleClickOpen}>
+              <NavMenu>
                 <Menu
                   titleList={titleList}
                   classActive="actived"
@@ -150,9 +140,7 @@ function NavBar({ handleClickOpen, urlAvatar }) {
                 />
                 {!isUser && (
                   <MenuButton>
-                    <StyleLink to="login" onClick={handleNote}>
-                      Login &#10072; Register
-                    </StyleLink>
+                    <StyleLink to="login">Login &#10072; Register</StyleLink>
                   </MenuButton>
                 )}
                 <Cart>
@@ -190,6 +178,16 @@ function NavBar({ handleClickOpen, urlAvatar }) {
       </Container>
     </Header>
   );
-}
+});
+
+NavBar.propTypes = {
+  handleClickOpen: PropTypes.func,
+  urlAvatar: PropTypes.string,
+};
+
+NavBar.defaultProps = {
+  urlAvatar:
+    "https://res.cloudinary.com/ds6y4vgjb/image/upload/v1638839543/icons8-user-64_igxpij.png",
+};
 
 export default NavBar;
