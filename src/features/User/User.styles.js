@@ -9,11 +9,22 @@ export const ListLink = styled.div`
   width: calc(100% / 4);
 
   @media (max-width: 1023px) {
-    display: none;
-    /* position: absolute;
-    background-color: green;
+    display: block;
+    position: absolute;
+    background-color: white;
     z-index: 1;
-    height: 100%; */
+    height: 100%;
+    width: 252px;
+    transition: all 0.3s ease-in-out;
+    /* box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; */
+    box-shadow: 5px 0 5px -5px rgba(0, 0, 0, 0.16);
+    ${(props) =>
+      props.open
+        ? "transform: translateX(0)"
+        : `
+        transform: translateX(-255px);
+        opacity: 0;
+        `};
   }
 `;
 export const NameAccount = styled.div``;
@@ -54,7 +65,6 @@ export const BoxInfoPersonal = styled.div`
 
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   margin-bottom: 16px;
- 
 
   ${(props) =>
     props.full &&
@@ -100,11 +110,18 @@ export const TitleName = styled.h2`
 
   ${(props) =>
     props.link &&
-    `
+    `   
         margin-bottom: 30px;
         background-color: #fafafa;
         padding: 10px 16px;
         border-left: groove;
+
+        @media (max-width: 1023px) {
+          display: flex;
+          column-gap: 16px;
+          transition: all 0.3s ease-in-out;
+          transform: ${props.open ? "translateX(260px)" : "translateX(0)"};
+        }
     `}
 
     ${(props) =>
@@ -117,6 +134,17 @@ export const TitleName = styled.h2`
 
     `}
 `;
+
+export const Icon = styled.div`
+  font-size: 23px;
+  cursor: pointer;
+  display: block;
+
+  @media only screen and (min-width: 1023px) {
+    display: none;
+  }
+`;
+
 export const SecondTitle = styled(Link)`
   text-decoration: none;
   font-size: 16px;
@@ -180,6 +208,15 @@ export const StyleLink = styled(Link)`
 `;
 export const Span = styled.span`
   font-size: 12px;
+
+  ${(props) =>
+    props.primary &&
+    `
+    font-weight: 500;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+  `}
 `;
 export const Total = styled.div`
   width: 25%;

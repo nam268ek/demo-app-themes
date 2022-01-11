@@ -22,6 +22,7 @@ import {
   DivChart,
   DivImage,
   Email,
+  Icon,
   Image,
   Info,
   Layout,
@@ -70,6 +71,7 @@ function User() {
   const { user: info, checkout } = useSelector((state) => state.users);
   const { statusUser } = useSelector((state) => state.login);
   const [listItem, setListItem] = useState();
+  const [isMobile, setIsMobile] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const nodeRef = useRef(null);
@@ -138,6 +140,10 @@ function User() {
     setIsOpen(boolean);
   }, []);
 
+  const handleClickOpenMobile = () => {
+    setIsMobile(!isMobile);
+  };
+
   const TotalMoney = () => {
     let total = 0;
     if (listItem) {
@@ -155,10 +161,11 @@ function User() {
       />
     );
   };
+  console.log(isMobile);
   return (
     <Container>
       <Layout>
-        <ListLink >
+        <ListLink open={isMobile}>
           <NameAccount>
             <TitleName hello>
               Hello, {info && info.lastName + info.firstName}
@@ -181,7 +188,9 @@ function User() {
           </MyOrders>
         </ListLink>
         <ListLinkInfo>
-          <TitleName link>My Account</TitleName>
+          <TitleName link open={isMobile}><Icon onClick={handleClickOpenMobile}>
+            &#9776;
+          </Icon><Span primary="true" >My Account</Span></TitleName>
           <BoxInfo>
             <BoxInfoPersonal>
               <Info>
