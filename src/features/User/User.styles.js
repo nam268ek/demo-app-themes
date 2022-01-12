@@ -20,7 +20,7 @@ export const ListLink = styled.div`
     box-shadow: 5px 0 5px -5px rgba(0, 0, 0, 0.16);
     ${(props) =>
       props.open
-        ? "transform: translateX(0)"
+        ? "transform: translateX(-2px)"
         : `
         transform: translateX(-255px);
         opacity: 0;
@@ -233,7 +233,7 @@ export const Monney = styled.p`
 `;
 export const DivChart = styled.div`
   width: 75%;
-  height: 212px;
+  height: 215px;
 
   @media (max-width: 480px) {
     width: 100%;

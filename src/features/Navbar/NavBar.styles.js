@@ -150,6 +150,7 @@ export const DropDown = styled.div`
   background-color: white;
   width: 100%;
   border: 1px solid #d6d6d66b;
+  z-index: 10;
   border-radius: 4px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 `;

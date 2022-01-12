@@ -32,6 +32,16 @@ export const checkOutPurchase = createAsyncThunk(
   }
 );
 
+export const paymentRequest = createAsyncThunk(
+  "themes/paymentRequest",
+  async (params) => {
+    const data = await themeApi.paymentRequest(params).catch((err) => {
+      return err.response.data;
+    });
+    return data;
+  }
+);
+
 const cartSlice = createSlice({
   name: "carts",
   initialState: {

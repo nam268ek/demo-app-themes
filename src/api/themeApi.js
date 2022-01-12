@@ -75,6 +75,10 @@ const themeApi = {
       },
     });
   },
+  paymentRequest: (params) => {
+    const url = "/create-checkout-session";
+    return axiosClient.post(url, { params });
+  },
 };
 
 export default themeApi;
