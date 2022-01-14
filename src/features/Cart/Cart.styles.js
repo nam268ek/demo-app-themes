@@ -155,6 +155,7 @@ export const Remove = styled.button`
   height: 26px;
   font-size: 16px;
   margin-left: 16px;
+  cursor: pointer;
 
   &:hover {
     color: white;
@@ -189,6 +190,7 @@ export const Button = styled.button`
   height: 26px;
   font-size: 16px;
   font-weight: 400;
+  cursor: pointer;
 
   &:hover {
     background-color: #001fff;
@@ -235,6 +237,11 @@ export const CustomBtn = styled(Remove)`
   text-align: center;
   margin: 0;
   font-size: 18px;
+
+  ${(props) => props.primary && `
+  text-transform: uppercase;
+  cursor: pointer;
+  `}
 `;
 export const CustomBtnSecondary = styled.button`
   background-color: white;

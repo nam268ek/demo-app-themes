@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { useNavigate } from "react-router-dom";
@@ -28,6 +28,9 @@ import "./style.css";
 import ValidateToken from "api/auth";
 import ToastConfig from "features/common/toast/toast";
 import { loadStripe } from "@stripe/stripe-js";
+import { toast } from "react-toastify";
+import Profile from "features/Profile/Profile";
+import { Modal } from "react-modal";
 
 function Cart() {
   const themeList = useSelector((state) => state.carts.products);
@@ -43,7 +46,6 @@ function Cart() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const nodeRef = React.useRef(null);
-  const [message, setMessage] = useState("");
 
   useEffect(() => {
     //check token is valid and not expired
@@ -76,36 +78,15 @@ function Cart() {
     navigate("/themes", { replace: true });
   };
 
-
-  // useEffect(() => {
-  //   // window.location.href = urlCheckout;
-  //   // handle payment request
-  //   const handlePaymentRequest = async () => {
-  //     const paymentRequest = {
-  //       userId: user,
-  //       products,
-  //       total,
-  //     };
-  //     const { data } = await dispatch(paymentRequest(paymentRequest));
-  //     console.log(data);
-  //     setUrlCheckout(data.url);
-  //   };
-  //   isUser && handlePaymentRequest();
-
-  // }, [urlCheckout, isUser, products, total, dispatch, user]);
-
   const handleCheckOut = async () => {
     if (isUser) {
-    const stripe = await loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
-    const item = { userId: user, products, total };
-    const { payload } = await dispatch(paymentRequest(item));
-    // redirect to checkout stripe
-    stripe.redirectToCheckout({ sessionId: payload.data.id });
-    // handle check out
-   
-      // dispatch(checkOutPurchase(item));
-
-      // ToastConfig.toastSuccess("Check out successful");
+      const stripe = await loadStripe(
+        process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY
+      );
+      const item = { userId: user, products, total };
+      const { payload } = await dispatch(paymentRequest(item));
+      // redirect to checkout stripe
+      stripe.redirectToCheckout({ sessionId: payload.data.id });
     } else {
       ToastConfig.toastInfo("Please login to check out.", "colored", 4000);
     }
@@ -116,15 +97,23 @@ function Cart() {
     const query = new URLSearchParams(window.location.search);
 
     if (query.get("success")) {
-      setMessage("Order placed! You will receive an email confirmation.");
-      ToastConfig.toastSuccess("Check out successful");
+      toast.configure();
+        toast.success("Payment success.", {
+          position: toast.POSITION.TOP_CENTER,
+          theme: "colored",
+          autoClose: 5000,
+          style: {width: "100%", fontSize: "16px", fontWeight: "bold"},
+        });
     }
 
     if (query.get("canceled")) {
-      setMessage(
-        "Order canceled -- continue to shop around and checkout when you're ready."
-      );
-      ToastConfig.toastError("Check out canceled");
+      toast.configure();
+        toast.error("Payment canceled.", {
+          position: toast.POSITION.TOP_CENTER,
+          theme: "colored",
+          autoClose: 5000,
+          style: {width: "100%", fontSize: "16px", fontWeight: "bold"},
+        });
     }
   }, []);
 
@@ -201,7 +190,9 @@ function Cart() {
                   alignItems="center"
                   padding="0 46px"
                 >
-                  <CustomBtn onClick={handleCheckOut}>Checkout</CustomBtn>
+                  <CustomBtn onClick={handleCheckOut} primary="true">
+                    Process to Checkout
+                  </CustomBtn>
                 </CustomDiv>
               </div>
             </ContentCheckOut>
