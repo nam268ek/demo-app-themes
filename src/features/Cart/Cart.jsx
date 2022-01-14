@@ -23,14 +23,14 @@ import {
   TitlePrice,
   DivImage,
   CustomImage,
+  Loader,
+  Span,
 } from "./Cart.styles";
 import "./style.css";
 import ValidateToken from "api/auth";
 import ToastConfig from "features/common/toast/toast";
 import { loadStripe } from "@stripe/stripe-js";
 import { toast } from "react-toastify";
-import Profile from "features/Profile/Profile";
-import { Modal } from "react-modal";
 
 function Cart() {
   const themeList = useSelector((state) => state.carts.products);
@@ -46,6 +46,7 @@ function Cart() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const nodeRef = React.useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     //check token is valid and not expired
@@ -80,6 +81,7 @@ function Cart() {
 
   const handleCheckOut = async () => {
     if (isUser) {
+      setIsLoading(true);
       const stripe = await loadStripe(
         process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY
       );
@@ -98,22 +100,22 @@ function Cart() {
 
     if (query.get("success")) {
       toast.configure();
-        toast.success("Payment success.", {
-          position: toast.POSITION.TOP_CENTER,
-          theme: "colored",
-          autoClose: 5000,
-          style: {width: "100%", fontSize: "16px", fontWeight: "bold"},
-        });
+      toast.success("Payment success.", {
+        position: toast.POSITION.TOP_CENTER,
+        theme: "colored",
+        autoClose: 5000,
+        style: { width: "100%", fontSize: "16px", fontWeight: "bold" },
+      });
     }
 
     if (query.get("canceled")) {
       toast.configure();
-        toast.error("Payment canceled.", {
-          position: toast.POSITION.TOP_CENTER,
-          theme: "colored",
-          autoClose: 5000,
-          style: {width: "100%", fontSize: "16px", fontWeight: "bold"},
-        });
+      toast.error("Payment canceled.", {
+        position: toast.POSITION.TOP_CENTER,
+        theme: "colored",
+        autoClose: 5000,
+        style: { width: "100%", fontSize: "16px", fontWeight: "bold" },
+      });
     }
   }, []);
 
@@ -190,8 +192,19 @@ function Cart() {
                   alignItems="center"
                   padding="0 46px"
                 >
-                  <CustomBtn onClick={handleCheckOut} primary="true">
-                    Process to Checkout
+                  <CustomBtn
+                    onClick={handleCheckOut}
+                    primary="true"
+                    // loading={isLoading}
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <>
+                        <Loader /> <Span>processing...</Span>
+                      </>
+                    ) : (
+                      `Process to checkout`
+                    )}
                   </CustomBtn>
                 </CustomDiv>
               </div>

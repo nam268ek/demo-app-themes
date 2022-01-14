@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export const Layout = styled.div`
   width: 100%;
@@ -230,6 +230,26 @@ export const Hr = styled.hr`
   border: 0;
   opacity: 0.55;
 `;
+export const spin = keyframes`
+  0% {
+    transform: rotate(0); }
+  100% {
+    transform: rotate(360deg); } 
+`;
+export const Loader = styled.div`
+  height: 1em;
+  width: 1em;
+  position: relative;
+  display: inline-block;
+  border: 2px solid;
+  border-radius: 50%;
+  border-right-color: #0019c700;
+  animation: ${spin} 0.6s linear infinite;
+`;
+export const Span = styled.span`
+  padding-left: 8px;
+`;
+
 export const CustomBtn = styled(Remove)`
   height: 100%;
   width: ${(props) => props.width || "100%"};
@@ -237,10 +257,19 @@ export const CustomBtn = styled(Remove)`
   text-align: center;
   margin: 0;
   font-size: 18px;
+  border: 0;
 
   ${(props) => props.primary && `
   text-transform: uppercase;
   cursor: pointer;
+  `}
+
+  ${(props) => props.disabled === true && `
+    pointer-events: none;
+    background-color: #3268fad1;
+    display: flex;
+    justify-content: center;
+    border: 0;
   `}
 `;
 export const CustomBtnSecondary = styled.button`
