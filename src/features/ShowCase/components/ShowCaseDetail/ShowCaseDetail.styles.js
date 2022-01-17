@@ -60,4 +60,5 @@ export const Image = styled.img`
   height: auto;
   max-width: 354px;
   object-fit: contain;
+  display: block;
 `;

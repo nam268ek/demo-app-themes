@@ -60,8 +60,8 @@ function ShowCaseDetail() {
               </CustomDiv>
             </CustomDiv>
             <Content>
-              {listItems.map((item) => (
-                <Item key={item.id}>
+              {listItems.map((item, index) => (
+                <Item key={index}>
                   <StyleLink to="">
                     <LazyLoad offset={-150} classNamePrefix="lazyload">
                       <Image

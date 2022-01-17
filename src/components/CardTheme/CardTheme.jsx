@@ -24,15 +24,15 @@ const CardTheme = ({ themesTitle, propertyId, themeList }) => {
           <Title>{themesTitle}</Title>
         </Header>
         <Content>
-          {themeList.map((theme) => (
-            <Item key={theme[propertyId]}>
+          {themeList.map((theme, index) => (
+            <Item key={index}>
               <StyleLink to={`/themes/${theme.name.toLowerCase()}`}>
                 <LazyLoad offset={-150} placeholder={<PlaceHolder />}>
                   <Image
                     src={theme.image}
                     alt={theme.name}
-                    width="504"
-                    height="284"
+                    width="504px"
+                    height="284px"
                     loading="lazy"
                     decoding="async"
                   />

@@ -3,7 +3,6 @@ import NotFound from "components/NotFound/NotFound";
 import OnTop from "components/OnTop/OnTop";
 import Blog from "features/CardPost/components/blog/blog";
 import Cart from "features/Cart/Cart";
-import Checkout from "features/Checkout/Checkout";
 import Login from "features/Login/Login";
 import Contact from "features/pages/Contact/Contact";
 import HomePage from "features/pages/HomePage";
@@ -43,14 +42,6 @@ function App() {
             <Route path="register" element={<Register />} />
             <Route path="login" element={<Login />} />
             <Route path="user" element={<User />} />
-            <Route path="test" element={<Checkout />} />
-            <Route
-              path="/redirect"
-              element={() => {
-                window.location.href = "https://google.com/";
-                return null;
-              }}
-            />
           </Routes>
         </Main>
         <Footer>
