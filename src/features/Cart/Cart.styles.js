@@ -259,12 +259,16 @@ export const CustomBtn = styled(Remove)`
   font-size: 18px;
   border: 0;
 
-  ${(props) => props.primary && `
+  ${(props) =>
+    props.primary &&
+    `
   text-transform: uppercase;
   cursor: pointer;
   `}
 
-  ${(props) => props.disabled === true && `
+  ${(props) =>
+    props.disabled === true &&
+    `
     pointer-events: none;
     background-color: #3268fad1;
     display: flex;
@@ -303,6 +307,7 @@ export const CustomTitle = styled(Title)`
 `;
 
 export const CustomImage = styled.img`
+  display: block;
   width: 100%;
   max-width: 265px;
   height: fit-content;

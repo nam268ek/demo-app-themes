@@ -200,7 +200,7 @@ function Cart() {
                   >
                     {isLoading ? (
                       <>
-                        <Loader /> <Span>processing...</Span>
+                        <Loader /> <Span>Processing...</Span>
                       </>
                     ) : (
                       `Process to checkout`

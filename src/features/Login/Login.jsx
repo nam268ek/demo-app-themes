@@ -21,6 +21,7 @@ import {
   MessageError,
   Span,
   StyleLink,
+  Loader,
 } from "../Register/Register.styles";
 import { useSelector } from "react-redux";
 import ValidateToken from "api/auth";
@@ -38,6 +39,7 @@ function Login() {
 
   //user is logged in
   const [isUser, setIsUser] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const {
     register,
@@ -48,19 +50,23 @@ function Login() {
   });
 
   useEffect(() => {
-      //check token is valid and not expired
-      const handleCheckToken = async () => {
-        const token = await ValidateToken.getToken("token");
-        const tokenExpire = token && (await ValidateToken.checkExpireToken(token));
-        //note: if tokenExpire is false & token is valid => token is not expire
-        if (token && !tokenExpire) {
-          setIsUser(true);
-          ToastConfig.toastSuccess("Login Successful");
-          // redirect to home page
-          navigate("/", { replace: true });
-        }
-      };
-      handleCheckToken();
+    //check token is valid and not expired
+    const handleCheckToken = async () => {
+      const token = await ValidateToken.getToken("token");
+      const tokenExpire =
+        token && (await ValidateToken.checkExpireToken(token));
+      //note: if tokenExpire is false & token is valid => token is not expire
+      if (token && !tokenExpire) {
+        setIsUser(true);
+        ToastConfig.toastSuccess("Login Successful");
+        // redirect to home page
+        navigate("/", { replace: true });
+      }
+    };
+    handleCheckToken();
+    if (isSubmitSuccessful) {
+      setIsLoading(true);
+    }
   }, [isSubmitSuccessful, navigate]);
 
   useEffect(() => {
@@ -70,8 +76,11 @@ function Login() {
     };
     isUser && handleAsyncCartFromDatabase();
     //check error message
-    errorMessage && ToastConfig.toastError(errorMessage);
-  }, [isUser, dispatch, errorMessage, navigate]);
+    if (errorMessage) {
+      setIsLoading(false);
+      ToastConfig.toastError(errorMessage);
+    }
+  }, [isUser, dispatch, errorMessage]);
 
   const handleNavigate = (e) => {
     e.preventDefault();
@@ -125,7 +134,16 @@ function Login() {
                 </MessageError>
               )}
             </CustomDiv>
-            <Button type="submit">Login</Button>
+            <Button type="submit" disabled={isLoading}>
+              {isLoading ? (
+                <>
+                  <Loader />{" "}
+                  <Span style={{ paddingLeft: "5px" }}>Login...</Span>
+                </>
+              ) : (
+                `Login`
+              )}
+            </Button>
           </Form>
         </Content>
       </Layout>

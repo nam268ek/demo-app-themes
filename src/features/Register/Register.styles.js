@@ -126,6 +126,13 @@ export const Button = styled.button`
   justify-content: center;
   margin-bottom: 22px;
 
+  ${(props) =>
+    props.disabled &&
+    `
+    cursor: not-allowed;
+    opacity: 0.5;
+  `}
+
   &:hover {
     color: white;
     background-color: #04c;
@@ -172,13 +179,12 @@ export const spin = keyframes`
     transform: rotate(360deg); } 
 `;
 export const Loader = styled.div`
-  height: 1.2em;
-  width: 1.2em;
-  color: rgba(90, 90, 90, 0.2);
+  height: 1em;
+  width: 1em;
   position: relative;
   display: inline-block;
-  border: 3.5px solid;
+  border: 2px solid;
   border-radius: 50%;
-  border-right-color: #5a5a5a;
+  border-right-color: #0019c700;
   animation: ${spin} 0.6s linear infinite;
 `;
