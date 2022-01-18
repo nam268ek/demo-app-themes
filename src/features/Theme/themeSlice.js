@@ -1,10 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import themeApi from "api/themeApi";
 
-export const getAllTheme = createAsyncThunk("themes/getAllTheme", async () => {
-  const data = await themeApi.getAll();
-  return data;
-});
+export const getAllTheme = createAsyncThunk(
+  "themes/getAllTheme",
+  async () => {
+    const data = await themeApi.getAll();
+    return data;
+  }
+);
 
 export const getLimitTheme = createAsyncThunk(
   "themes/getLimitTheme",

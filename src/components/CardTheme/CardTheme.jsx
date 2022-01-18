@@ -14,7 +14,7 @@ import {
 import { Container } from "globalStyles";
 import { useLocation } from "react-router-dom";
 
-const CardTheme = ({ themesTitle, propertyId, themeList }) => {
+const CardTheme = ({ themesTitle, themeList }) => {
   const { pathname: url } = useLocation();
 
   return (
@@ -49,13 +49,11 @@ const CardTheme = ({ themesTitle, propertyId, themeList }) => {
 
 CardTheme.propTypes = {
   themesTitle: PropTypes.string,
-  propertyId: PropTypes.string,
   themeList: PropTypes.array,
 };
 
 CardTheme.defaultProps = {
   themesTitle: "Lastest Ghost themes",
-  propertyId: "_id",
   themeList: [],
 };
 export default CardTheme;

@@ -64,16 +64,19 @@ const ThemeItem = ({
     .slice(0, 4);
 
   window.scrollTo(0, 0);
+  console.log(themeSelect);
 
   useEffect(() => {
-    const abortController = new AbortController();
+    let isSubscribe = true;
     //reload page get all theme
     const handleValue = async () => {
       const { payload: data } = await dispatch(getAllTheme());
-      const isExist = data.find(
-        (item) => item.name.toLowerCase() === nameTheme
-      );
-      !isExist && navigate(`/not-found`, { replace: true });
+      if (isSubscribe && data) {
+        const isExist = data.find(
+          (item) => item.name.toLowerCase() === nameTheme
+        );
+        !isExist && navigate(`/not-found`, { replace: true });
+      }
     };
     // handle async item cart for user in database
     const handleAsyncProductToUser = async () => {
@@ -88,8 +91,8 @@ const ThemeItem = ({
     handleValue(); //get all theme
     // if token exist & token id not expire => sync item cart to database
     statusUser && handleAsyncProductToUser();
-    //clean up
-    return () => abortController.abort();
+    // clean up
+    return () => isSubscribe === false;
   }, [dispatch, nameTheme, navigate, user, products, total, statusUser]);
 
   //===================================================
@@ -121,7 +124,7 @@ const ThemeItem = ({
     handleAddToCart(e, item); // +1 qty
     // navigate to cart
     setTimeout(() => {
-      navigate("/cart");
+      navigate("/cart", { replace: true });
       setLoading({ ...loading, loadingNavigate: false });
     }, 800);
   };

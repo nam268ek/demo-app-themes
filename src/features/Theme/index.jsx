@@ -8,6 +8,7 @@ import ThemeItem from "components/ThemeItem/ThemeItem";
 const Themes = () => {
   const dispatch = useDispatch();
   const themeList = useSelector((state) => state.themes.themeList);
+  
   useEffect(() => {
     dispatch(getAllTheme());
   }, [dispatch]);
