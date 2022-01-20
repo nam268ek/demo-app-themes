@@ -91,8 +91,6 @@ export const StyleLinkItem = styled(Link)`
 `;
 export const Image = styled.img`
   width: 100%;
-  max-width: 354px;
-  max-height: 265px;
   height: 100%;
   object-fit: cover;
   display: block;
