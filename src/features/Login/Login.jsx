@@ -110,7 +110,7 @@ function Login() {
             <CustomDiv>
               <Input
                 placeholder="Email"
-                value="nam.nguyen@techupcorp.com"
+                value="nam.nguyen@demo.app.com"
                 {...register("email", { required: true })}
               />
               {errors.email && (
