@@ -28,6 +28,7 @@ import {
   TagP,
   Title,
   Loader,
+  CustomDiv,
 } from "./ThemeItem.styles";
 import CardTheme from "components/CardTheme/CardTheme";
 import ToastConfig from "features/common/toast/toast";
@@ -277,10 +278,12 @@ const ThemeItem = ({
         </Layout>
       )}
       <FeedBackSecond />
-      <CardTheme
-        themeList={moreTheme}
-        themesTitle="Other Ghost themes you might like"
-      />
+      <CustomDiv>
+        <CardTheme
+          themeList={moreTheme}
+          themesTitle="Other Ghost themes you might like"
+        />
+      </CustomDiv>
     </>
   );
 };

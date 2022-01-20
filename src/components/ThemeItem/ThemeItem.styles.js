@@ -180,3 +180,6 @@ export const CustomImage = styled.img`
   object-fit: cover;
   object-position: top;
 `;
+export const CustomDiv = styled.div`
+  padding-top: 32px;
+`;
