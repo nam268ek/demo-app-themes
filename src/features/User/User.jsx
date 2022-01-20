@@ -183,8 +183,8 @@ function User() {
           </ManagerAccount>
           <MyOrders>
             <TitleName link_1>My Orders</TitleName>
-            <SecondTitle to="">My Completed</SecondTitle>
-            <SecondTitle to="">My Cancellations</SecondTitle>
+            <SecondTitle to="">My Completed <Span coming="true">Coming soon</Span></SecondTitle>
+            <SecondTitle to="">My Cancellations <Span coming="true">Coming soon</Span></SecondTitle>
           </MyOrders>
         </ListLink>
         <ListLinkInfo>

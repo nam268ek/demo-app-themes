@@ -217,6 +217,14 @@ export const Span = styled.span`
     display: flex;
     align-items: center;
   `}
+
+  ${(props) =>props.coming && `
+    padding: 2px 8px;
+    background-color: #505258;
+    border-radius: 10px;
+    color: white;
+    font-weight: 600;
+  `}
 `;
 export const Total = styled.div`
   width: 25%;
