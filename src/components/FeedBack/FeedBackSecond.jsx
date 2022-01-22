@@ -1,4 +1,5 @@
-import { Container } from "globalStyles";
+import React from 'react';
+import { Container } from 'globalStyles';
 import {
   Layout,
   Content,
@@ -10,7 +11,7 @@ import {
   TagP,
   Highlight,
   Center,
-} from "./FeedBack.styles";
+} from './FeedBack.styles';
 
 const FeedBackSecond = () => {
   return (
@@ -20,9 +21,9 @@ const FeedBackSecond = () => {
           <Content>
             <DivLeft>
               <Title>
-                "I just <Highlight>bought the whole theme bundle</Highlight>{" "}
-                from Ahmad this morning. I am currently redoing my German blog
-                using the Nubia theme and <Highlight>love it</Highlight>."
+                &#34;I just <Highlight>bought the whole theme bundle</Highlight> from Ahmad this
+                morning. I am currently redoing my German blog using the Nubia theme and{' '}
+                <Highlight>love it</Highlight>.&#34;
               </Title>
               <StyleLink to="">Marco Zehe</StyleLink>
               <TagP>Accessibility Engineer — Mozilla</TagP>

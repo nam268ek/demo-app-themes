@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import styled, { keyframes } from "styled-components";
+import { Link } from 'react-router-dom';
+import styled, { keyframes } from 'styled-components';
 
 export const Layout = styled.div`
   display: flex;
@@ -45,8 +45,8 @@ export const StyleLink = styled(Link)`
   font-size: 16px;
   font-weight: 600;
   color: #164ada;
-  text-decoration: ${(props) => (props.primary ? "underline" : "none")};
-  padding: ${(props) => (props.primary ? "0 0 0 5px" : "0 0 0 0")};
+  text-decoration: ${(props) => (props.primary ? 'underline' : 'none')};
+  padding: ${(props) => (props.primary ? '0 0 0 5px' : '0 0 0 0')};
   text-underline-offset: 4px;
 `;
 export const CustomDiv = styled.div`
@@ -98,20 +98,22 @@ export const Input = styled.input`
   padding: 10px 0;
   font-size: 100%;
   padding-left: 14px;
-  width: ${(props) => (props.secondary ? "50%" : "100%")};
-  border-top-right-radius: ${(props) => props.one && "0"};
-  border-bottom-right-radius: ${(props) => props.one && "0"};
-  border-top-left-radius: ${(props) => props.two && "0"};
-  border-bottom-left-radius: ${(props) => props.two && "0"};
+  width: ${(props) => (props.secondary ? '50%' : '100%')};
+  border-top-right-radius: ${(props) => props.one && '0'};
+  border-bottom-right-radius: ${(props) => props.one && '0'};
+  border-top-left-radius: ${(props) => props.two && '0'};
+  border-bottom-left-radius: ${(props) => props.two && '0'};
 
   &:active {
-    border-top-right-radius: ${(props) => props.one && "0"};
-    border-bottom-right-radius: ${(props) => props.one && "0"};
-    border-top-left-radius: ${(props) => props.two && "0"};
-    border-bottom-left-radius: ${(props) => props.two && "0"};
+    border-top-right-radius: ${(props) => props.one && '0'};
+    border-bottom-right-radius: ${(props) => props.one && '0'};
+    border-top-left-radius: ${(props) => props.two && '0'};
+    border-bottom-left-radius: ${(props) => props.two && '0'};
   }
-  
-  ${props=>props.disabled && `
+
+  ${(props) =>
+    props.disabled &&
+    `
     background-color: #e7e7e7;
 
   `}
@@ -143,7 +145,7 @@ export const Button = styled.button`
   }
 `;
 export const StyleButton = styled.p`
-    width: 100%;
+  width: 100%;
   padding: 8px 16px;
   background-color: #001fff;
   color: #ffffff;
@@ -158,7 +160,7 @@ export const StyleButton = styled.p`
   margin-bottom: 12px;
   text-transform: uppercase;
   cursor: pointer;
-  
+
   &:hover {
     color: white;
     background-color: #04c;
@@ -169,7 +171,7 @@ export const StyleButton = styled.p`
     outline: 2px solid #04c !important;
   }
 `;
-export const CheckBox = styled.input.attrs({ type: "checkbox" })`
+export const CheckBox = styled.input.attrs({ type: 'checkbox' })`
   background-color: #ececec;
   border-radius: 5px;
   border: 1px solid #d4d4d4;

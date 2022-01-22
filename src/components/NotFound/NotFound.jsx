@@ -1,5 +1,6 @@
-import styled from "styled-components";
-import { Container } from "globalStyles";
+import React from 'react';
+import styled from 'styled-components';
+import { Container } from 'globalStyles';
 
 const Layout = styled.div`
   width: 100%;

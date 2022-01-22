@@ -1,9 +1,9 @@
-import styled from "styled-components";
-import { Link } from "react-router-dom";
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const Span = styled.span`
   font-size: 20px;
-  margin: ${(props) => (props.primary ? "0 5px" : "0 0 0 0")};
+  margin: ${(props) => (props.primary ? '0 5px' : '0 0 0 0')};
   color: #525252;
 `;
 export const Layout = styled.div`
@@ -12,11 +12,11 @@ export const Layout = styled.div`
   flex-direction: column;
 `;
 export const CustomDiv = styled.div`
-  display: ${(props) => (props.primary ? "flex" : "block")};
-  align-items: ${(props) => (props.primary ? "baseline" : "unset")};
+  display: ${(props) => (props.primary ? 'flex' : 'block')};
+  align-items: ${(props) => (props.primary ? 'baseline' : 'unset')};
   width: 100%;
-  margin: ${(props) => (props.primary ? "0 0 24px 0" : "0 0 0 0")};
-  padding: ${(props) => props.padding || "unset"};
+  margin: ${(props) => (props.primary ? '0 0 24px 0' : '0 0 0 0')};
+  padding: ${(props) => props.padding || 'unset'};
 `;
 export const Content = styled.div`
   display: flex;
@@ -38,16 +38,16 @@ export const Item = styled.div`
   }
 `;
 export const StyleLink = styled(Link)`
-  font-size: ${(props) => (props.primary ? "2em" : "14px")};
+  font-size: ${(props) => (props.primary ? '2em' : '14px')};
   line-height: 1.5;
-  color: ${(props) => (props.primary ? "#181818" : "#525252")};
-  text-transform: ${(props) => (props.primary ? "unset" : "uppercase")};
-  width: ${(props) => (props.primary ? "auto" : "100%")};
-  font-weight: ${(props) => (props.primary ? 600 : "unset")};
+  color: ${(props) => (props.primary ? '#181818' : '#525252')};
+  text-transform: ${(props) => (props.primary ? 'unset' : 'uppercase')};
+  width: ${(props) => (props.primary ? 'auto' : '100%')};
+  font-weight: ${(props) => (props.primary ? 600 : 'unset')};
   display: block;
-  text-decoration: ${(props) => (props.primary ? "underline" : "none")};
-  text-underline-offset: ${(props) => (props.primary ? "4px" : "0px")};
-  padding: ${(props) => props.padding || "unset"};
+  text-decoration: ${(props) => (props.primary ? 'underline' : 'none')};
+  text-underline-offset: ${(props) => (props.primary ? '4px' : '0px')};
+  padding: ${(props) => props.padding || 'unset'};
 
   &:hover {
     color: #001fff;

@@ -1,37 +1,32 @@
-import { PropTypes } from "prop-types";
-import LazyLoad from "react-lazyload";
-import { useLocation, useNavigate } from "react-router-dom";
-import { Container } from "globalStyles";
+import React from 'react';
+import { Container } from 'globalStyles';
+import { PropTypes } from 'prop-types';
+import LazyLoad from 'react-lazyload';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
-  Layout,
-  Header,
-  Title,
+  BodyContent,
   Content,
-  Image,
-  StyleLink,
   DivButton,
   DivCard,
+  Header,
+  Image,
+  ItemCard,
+  Layout,
   LinkItemButton,
   PlaceHolder,
-  BodyContent,
-  TagP,
-  ItemCard,
+  StyleLink,
   StyleLinkItem,
-} from "./ShowCaseCard.styles";
+  TagP,
+  Title,
+} from './ShowCaseCard.styles';
 
-const ShowcaseCard = ({
-  propertyId,
-  showCase,
-  propertyName,
-  themeList,
-  title,
-}) => {
+const ShowcaseCard = ({ propertyId, showCase, propertyName, themeList, title }) => {
   const { pathname: url } = useLocation();
   const navigate = useNavigate();
 
   const handleNavigate = (e) => {
     e.preventDefault();
-    navigate("/themes", { replace: true });
+    navigate('/themes', { replace: true });
   };
 
   return (
@@ -43,10 +38,10 @@ const ShowcaseCard = ({
           </Header>
           <BodyContent>
             <TagP>
-              Themes truly come alive when used by real{" "}
-              {url === "/" ? "websites" : "people"}. Prepare to get inspired!
+              Themes truly come alive when used by real {url === '/' ? 'websites' : 'people'}.
+              Prepare to get inspired!
             </TagP>
-            {url === "/" && <StyleLink to="">Explore more examples</StyleLink>}
+            {url === '/' && <StyleLink to="">Explore more examples</StyleLink>}
           </BodyContent>
           <DivButton>
             {themeList.map((item) => (
@@ -85,11 +80,13 @@ ShowcaseCard.propTypes = {
   showCase: PropTypes.array,
   themeList: PropTypes.array,
   propertyName: PropTypes.string,
+  title: PropTypes.string,
 };
 ShowcaseCard.defaultProps = {
-  propertyId: "_id",
-  propertyName: "name",
+  propertyId: '_id',
+  propertyName: 'name',
   showCase: [],
   themeList: [],
+  title: '',
 };
 export default ShowcaseCard;

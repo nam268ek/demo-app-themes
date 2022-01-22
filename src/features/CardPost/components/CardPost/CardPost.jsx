@@ -1,7 +1,8 @@
-import LazyLoad from "react-lazyload";
-import { useLocation } from "react-router-dom";
-import { Container } from "globalStyles";
-import { PropTypes } from "prop-types";
+import React from 'react';
+import LazyLoad from 'react-lazyload';
+import { useLocation } from 'react-router-dom';
+import { Container } from 'globalStyles';
+import { PropTypes } from 'prop-types';
 import {
   Header,
   Title,
@@ -18,7 +19,7 @@ import {
   DateTimeItem,
   PlaceHolder,
   LinkPrimary,
-} from "./CardPost.styles";
+} from './CardPost.styles';
 
 const CardPost = ({ cardPostList, propertyId }) => {
   const { pathname } = useLocation();
@@ -30,13 +31,11 @@ const CardPost = ({ cardPostList, propertyId }) => {
 
   return (
     <Container>
-      {pathname === "/" && (
+      {pathname === '/' && (
         <Header>
           <Title>Ghost tips & tricks</Title>
           <Info>
-            <Span>
-              Find knowledge and advice to make your Ghost site better.
-            </Span>
+            <Span>Find knowledge and advice to make your Ghost site better.</Span>
             <LinkPrimary to="">Read more posts</LinkPrimary>
           </Info>
         </Header>
@@ -65,11 +64,12 @@ const CardPost = ({ cardPostList, propertyId }) => {
 
 CardPost.propTypes = {
   cardPostList: PropTypes.array,
+  propertyId: PropTypes.string,
 };
 
 CardPost.defaultProps = {
   cardPostList: [],
-  propertyId: "_id",
+  propertyId: '_id',
 };
 
 export default CardPost;

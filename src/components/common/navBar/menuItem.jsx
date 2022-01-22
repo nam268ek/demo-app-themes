@@ -1,5 +1,6 @@
-import { MenuItem, RouteLink } from "features/Navbar/NavBar.styles";
-import { PropTypes } from "prop-types";
+import React from 'react';
+import { MenuItem, RouteLink } from 'features/Navbar/NavBar.styles';
+import { PropTypes } from 'prop-types';
 
 const Menu = ({ titleList, classActive, color }) => {
   return (
@@ -27,8 +28,8 @@ Menu.propTypes = {
 
 Menu.defaultProps = {
   titleList: [],
-  classActive: "",
-  color: "",
+  classActive: '',
+  color: '',
 };
 
 export default Menu;

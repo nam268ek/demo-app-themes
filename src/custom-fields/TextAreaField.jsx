@@ -1,6 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
-import styled from "styled-components";
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 TextAreaField.propTypes = {
   placeholder: PropTypes.string,
@@ -8,8 +8,8 @@ TextAreaField.propTypes = {
 };
 
 TextAreaField.defaultProps = {
-  placeholder: "",
-  className: "",
+  placeholder: '',
+  className: '',
 };
 
 const TextArea = styled.textarea`
@@ -40,5 +40,15 @@ function TextAreaField(props) {
     </>
   );
 }
+
+TextAreaField.propTypes = {
+  field: PropTypes.object,
+  label: PropTypes.string,
+};
+
+TextAreaField.defaultProps = {
+  field: {},
+  label: '',
+};
 
 export default TextAreaField;

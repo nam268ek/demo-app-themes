@@ -1,4 +1,5 @@
-import { Container } from "globalStyles";
+import React from 'react';
+import { Container } from 'globalStyles';
 import {
   Layout,
   Content,
@@ -10,7 +11,7 @@ import {
   TagP,
   Highlight,
   Center,
-} from "./FeedBack.styles";
+} from './FeedBack.styles';
 
 const FeedBack = () => {
   return (
@@ -20,11 +21,9 @@ const FeedBack = () => {
           <Content>
             <DivLeft>
               <Title>
-                "If you happen to be looking for Ghost CMS themes, check out
-                @aspirethemes I use one of their themes for Glimmering and{" "}
-                <Highlight>
-                  love their work. Excellent design, code, and support."
-                </Highlight>
+                "If you happen to be looking for Ghost CMS themes, check out @aspirethemes I use one
+                of their themes for Glimmering and{' '}
+                <Highlight>love their work. Excellent design, code, and support."</Highlight>
               </Title>
               <StyleLink to="">Leslie Camacho</StyleLink>
               <TagP>Co-Founder — Glimmering LLC</TagP>

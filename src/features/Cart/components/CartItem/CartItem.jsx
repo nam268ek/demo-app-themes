@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import {
   AboutTheme,
   Button,
@@ -17,7 +17,7 @@ import {
   ThemeLink,
   TitlePrice,
   Item,
-} from "features/Cart/Cart.styles";
+} from 'features/Cart/Cart.styles';
 import {
   deCreaseQty,
   removeFormCart,
@@ -25,7 +25,8 @@ import {
   getTotal,
   updateItem,
   asyncProductForUser,
-} from "features/Cart/cartSlice";
+} from 'features/Cart/cartSlice';
+import { PropTypes } from 'prop-types';
 
 function CartItem({ item }) {
   const { name, price, image, id, qty, description } = item;
@@ -48,7 +49,6 @@ function CartItem({ item }) {
       await dispatch(asyncProductForUser(asyncProducts));
     };
     token && handleAsyncProductToUser();
-
   }, [dispatch, token, user, products, total]);
 
   const handleOnChangeQty = (e) => {
@@ -56,16 +56,12 @@ function CartItem({ item }) {
   };
 
   const handleOnBlurQty = (e, item) => {
-    const value = Math.max(
-      Number(1),
-      Math.min(Number(10), Number(e.target.value))
-    );
+    const value = Math.max(Number(1), Math.min(Number(10), Number(e.target.value)));
 
     toast.configure();
     Number(e.target.value) > 10
-      ? toast.warn(`Maximum quantity is 10`, { theme: "colored" })
-      : Number(e.target.value) < 1 &&
-        toast.warn(`Minimum quantity is 1`, { theme: "colored" });
+      ? toast.warn(`Maximum quantity is 10`, { theme: 'colored' })
+      : Number(e.target.value) < 1 && toast.warn(`Minimum quantity is 1`, { theme: 'colored' });
 
     const update = {
       ...item,
@@ -141,4 +137,10 @@ function CartItem({ item }) {
   );
 }
 
+CartItem.propTypes = {
+  item: PropTypes.object,
+};
+CartItem.defaultProps = {
+  item: {},
+};
 export default CartItem;

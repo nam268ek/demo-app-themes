@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { keyframes } from "styled-components";
+import styled from 'styled-components';
+import { keyframes } from 'styled-components';
 import { PaymentElement } from '@stripe/react-stripe-js';
 //   body {
 //     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
@@ -15,8 +15,8 @@ export const CheckoutFormStyles = styled.form`
   width: 30vw;
   min-width: 500px;
   align-self: center;
-  box-shadow: 0px 0px 0px 0.5px rgba(50, 50, 93, 0.1),
-    0px 2px 5px 0px rgba(50, 50, 93, 0.1), 0px 1px 1.5px 0px rgba(0, 0, 0, 0.07);
+  box-shadow: 0px 0px 0px 0.5px rgba(50, 50, 93, 0.1), 0px 2px 5px 0px rgba(50, 50, 93, 0.1),
+    0px 1px 1.5px 0px rgba(0, 0, 0, 0.07);
   border-radius: 7px;
   padding: 40px;
 
@@ -105,7 +105,7 @@ export const Spinner = styled.div`
   &:before,
   &:after {
     position: absolute;
-    content: "";
+    content: '';
   }
 
   &::after {

@@ -1,25 +1,14 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import ToastConfig from "features/common/toast/toast";
-import {
-  getUser,
-  updatePassword,
-  updateUser,
-  uploadFile
-} from "features/User/userSlice";
-import { Container } from "globalStyles";
-import PropTypes from "prop-types";
-import React, { useEffect, useRef } from "react";
-import { useForm } from "react-hook-form";
-import { BiErrorCircle } from "react-icons/bi";
-import { useDispatch, useSelector } from "react-redux";
-import * as yup from "yup";
-import {
-  Avatar,
-  DivImage,
-  Image,
-  NameAvatar,
-  Upload
-} from "../User/User.styles";
+import { yupResolver } from '@hookform/resolvers/yup';
+import ToastConfig from 'features/common/toast/toast';
+import { getUser, updatePassword, updateUser, uploadFile } from 'features/User/userSlice';
+import { Container } from 'globalStyles';
+import PropTypes from 'prop-types';
+import React, { useEffect, useRef } from 'react';
+import { useForm } from 'react-hook-form';
+import { BiErrorCircle } from 'react-icons/bi';
+import { useDispatch, useSelector } from 'react-redux';
+import * as yup from 'yup';
+import { Avatar, DivImage, Image, NameAvatar, Upload } from '../User/User.styles';
 import {
   Button,
   Content,
@@ -30,39 +19,41 @@ import {
   MessageError,
   Span,
   StyleButton,
-  Title
-} from "./Profile.styles";
+  Title,
+} from './Profile.styles';
 
 Profile.propTypes = {
   user: PropTypes.array,
   userId: PropTypes.string,
+  imageDefault: PropTypes.string,
+  handleOffModal: PropTypes.func,
 };
 Profile.defaultProps = {
   user: [],
-  userId: "",
+  userId: '',
   imageDefault:
-    "https://res.cloudinary.com/ds6y4vgjb/image/upload/v1638839543/icons8-user-64_igxpij.png",
+    'https://res.cloudinary.com/ds6y4vgjb/image/upload/v1638839543/icons8-user-64_igxpij.png',
 };
 
 const updateProfileSchema = yup.object().shape({
-  email: yup.string().email("Email is invalid").required("Email is required"),
-  firstName: yup.string().required("Firstname is required"),
-  lastName: yup.string().required("Lastname is required"),
+  email: yup.string().email('Email is invalid').required('Email is required'),
+  firstName: yup.string().required('Firstname is required'),
+  lastName: yup.string().required('Lastname is required'),
 });
 
 const passwordShema = yup.object().shape({
   oldPassword: yup
     .string()
-    .min(6, "Password must be at least 6 characters")
-    .required("Password is required"),
+    .min(6, 'Password must be at least 6 characters')
+    .required('Password is required'),
   password: yup
     .string()
-    .min(6, "Password must be at least 6 characters")
-    .required("Password is required"),
+    .min(6, 'Password must be at least 6 characters')
+    .required('Password is required'),
   confirmPassword: yup
     .string()
-    .oneOf([yup.ref("password"), null], "Password does not match.")
-    .required("Confirm password is required"),
+    .oneOf([yup.ref('password'), null], 'Password does not match.')
+    .required('Confirm password is required'),
 });
 
 function Profile({ imageDefault, handleOffModal }) {
@@ -74,7 +65,7 @@ function Profile({ imageDefault, handleOffModal }) {
   const [changePassword, setChangePassword] = React.useState(false);
   const profileSchema = editProfile ? updateProfileSchema : passwordShema;
   const defaultValues = changePassword
-    ? { oldPassword: "", password: "", confirmPassword: "" }
+    ? { oldPassword: '', password: '', confirmPassword: '' }
     : {
         userName: user.userName,
         email: user.email,
@@ -95,11 +86,11 @@ function Profile({ imageDefault, handleOffModal }) {
   useEffect(() => {
     if (isSubmitSuccessful) {
       if (Object.keys(user).length > 0) {
-        ToastConfig.toastLoadingSuccess("Update successfully!", 2000);
+        ToastConfig.toastLoadingSuccess('Update successfully!', 2000);
         //off modal
         handleOffModal(false);
       } else {
-        ToastConfig.toastLoadingError("Update failed!", 2000);
+        ToastConfig.toastLoadingError('Update failed!', 2000);
       }
     }
   }, [isSubmitSuccessful, user, handleOffModal]);
@@ -109,7 +100,7 @@ function Profile({ imageDefault, handleOffModal }) {
     const files = Array.from(e.target.files);
 
     const formData = new FormData();
-    const types = ["image/png", "image/jpeg", "image/gif"];
+    const types = ['image/png', 'image/jpeg', 'image/gif'];
 
     files.forEach((file) => {
       if (types.every((type) => file.type !== type)) {
@@ -120,7 +111,7 @@ function Profile({ imageDefault, handleOffModal }) {
         errs.push(`'${file.name}' is too large, please pick a smaller file.`);
       }
 
-      formData.append("avatar", file);
+      formData.append('avatar', file);
     });
 
     if (errs.length > 0) {
@@ -132,7 +123,7 @@ function Profile({ imageDefault, handleOffModal }) {
     }
   };
 
-  const onSubmitRegister = async (data, e) => {
+  const onSubmitRegister = async (data) => {
     const pass = {
       oldPassword: data.oldPassword,
       password: data.password,
@@ -144,7 +135,7 @@ function Profile({ imageDefault, handleOffModal }) {
       : await dispatch(updateUser(data));
   };
 
-  const onError = (errors, e) => console.log("error:", errors, e);
+  const onError = (errors, e) => console.log('error:', errors, e);
 
   const handleEditProfile = () => {
     setEditProfile(true);
@@ -168,11 +159,7 @@ function Profile({ imageDefault, handleOffModal }) {
                 onClick={() => uploadRef.current.click()}
                 src={user?.avatar || imageDefault}
               />
-              <Upload
-                type="file"
-                ref={uploadRef}
-                onChange={handleChangeAvatar}
-              />
+              <Upload type="file" ref={uploadRef} onChange={handleChangeAvatar} />
             </DivImage>
             <NameAvatar>Profile picture</NameAvatar>
           </Avatar>
@@ -180,22 +167,18 @@ function Profile({ imageDefault, handleOffModal }) {
             {!changePassword ? (
               <>
                 <CustomDiv>
-                  <Input
-                    placeholder="User name"
-                    disabled
-                    {...register("userName")}
-                  />
+                  <Input placeholder="User name" disabled {...register('userName')} />
                 </CustomDiv>
                 <CustomDiv row>
                   <CustomDiv w50>
                     <Input
                       placeholder="First name"
                       disabled={!editProfile}
-                      {...register("firstName", { required: true })}
+                      {...register('firstName', { required: true })}
                     />
                     {errors.firstName && (
                       <MessageError>
-                        <BiErrorCircle style={{ color: "#04c" }} size={18} />
+                        <BiErrorCircle style={{ color: '#04c' }} size={18} />
                         {errors.firstName.message}
                       </MessageError>
                     )}
@@ -204,11 +187,11 @@ function Profile({ imageDefault, handleOffModal }) {
                     <Input
                       placeholder="Last name"
                       disabled={!editProfile}
-                      {...register("lastName", { required: true })}
+                      {...register('lastName', { required: true })}
                     />
                     {errors.lastName && (
                       <MessageError>
-                        <BiErrorCircle style={{ color: "#04c" }} size={18} />
+                        <BiErrorCircle style={{ color: '#04c' }} size={18} />
                         {errors.lastName.message}
                       </MessageError>
                     )}
@@ -218,11 +201,11 @@ function Profile({ imageDefault, handleOffModal }) {
                   <Input
                     placeholder="Email"
                     disabled={!editProfile}
-                    {...register("email", { required: true })}
+                    {...register('email', { required: true })}
                   />
                   {errors.email && (
                     <MessageError>
-                      <BiErrorCircle style={{ color: "#04c" }} size={18} />
+                      <BiErrorCircle style={{ color: '#04c' }} size={18} />
                       {errors.email.message}
                     </MessageError>
                   )}
@@ -234,11 +217,11 @@ function Profile({ imageDefault, handleOffModal }) {
                   <Input
                     type="password"
                     placeholder="Current Password"
-                    {...register("oldPassword", { required: true })}
+                    {...register('oldPassword', { required: true })}
                   />
                   {errors.oldPassword && (
                     <MessageError>
-                      <BiErrorCircle style={{ color: "#04c" }} size={18} />
+                      <BiErrorCircle style={{ color: '#04c' }} size={18} />
                       <Span>{errors.oldPassword.message}</Span>
                     </MessageError>
                   )}
@@ -247,11 +230,11 @@ function Profile({ imageDefault, handleOffModal }) {
                   <Input
                     type="password"
                     placeholder="New Password"
-                    {...register("password", { required: true })}
+                    {...register('password', { required: true })}
                   />
                   {errors.password && (
                     <MessageError>
-                      <BiErrorCircle style={{ color: "#04c" }} size={18} />
+                      <BiErrorCircle style={{ color: '#04c' }} size={18} />
                       <Span>{errors.password.message}</Span>
                     </MessageError>
                   )}
@@ -260,11 +243,11 @@ function Profile({ imageDefault, handleOffModal }) {
                   <Input
                     type="password"
                     placeholder="Confirm Password"
-                    {...register("confirmPassword", { required: true })}
+                    {...register('confirmPassword', { required: true })}
                   />
                   {errors.confirmPassword && (
                     <MessageError>
-                      <BiErrorCircle style={{ color: "#04c" }} size={18} />
+                      <BiErrorCircle style={{ color: '#04c' }} size={18} />
                       <Span>{errors.confirmPassword.message}</Span>
                     </MessageError>
                   )}
@@ -282,9 +265,7 @@ function Profile({ imageDefault, handleOffModal }) {
               </Button>
             ) : (
               <>
-                <StyleButton onClick={handleEditProfile}>
-                  Edit profile
-                </StyleButton>
+                <StyleButton onClick={handleEditProfile}>Edit profile</StyleButton>
                 <StyleButton type="submit" onClick={handleChangePassword}>
                   Change password
                 </StyleButton>

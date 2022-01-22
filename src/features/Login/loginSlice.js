@@ -1,7 +1,7 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import themeApi from "api/themeApi";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import themeApi from 'api/themeApi';
 
-export const getLogin = createAsyncThunk("themes/getLogin", async (params) => {
+export const getLogin = createAsyncThunk('themes/getLogin', async (params) => {
   const data = await themeApi.getLogin(params).catch((err) => {
     return err.response.data;
   });
@@ -9,33 +9,27 @@ export const getLogin = createAsyncThunk("themes/getLogin", async (params) => {
   return data;
 });
 
-export const getRefreshToken = createAsyncThunk(
-  "themes/getRefreshToken",
-  async (params) => {
-    const data = await themeApi.getRefreshToken(params).catch((err) => {
-      return err.response.data;
-    });
-    console.log(data);
-    return data;
-  }
-);
+export const getRefreshToken = createAsyncThunk('themes/getRefreshToken', async (params) => {
+  const data = await themeApi.getRefreshToken(params).catch((err) => {
+    return err.response.data;
+  });
+  console.log(data);
+  return data;
+});
 
-export const postRegister = createAsyncThunk(
-  "themes/postRegister",
-  async (params) => {
-    const data = await themeApi.postRegister(params).catch((err) => {
-      return err.response.data;
-    });
-    return data;
-  }
-);
+export const postRegister = createAsyncThunk('themes/postRegister', async (params) => {
+  const data = await themeApi.postRegister(params).catch((err) => {
+    return err.response.data;
+  });
+  return data;
+});
 
 const loginSlice = createSlice({
-  name: "login",
+  name: 'login',
   initialState: {
     user: [],
     statusUser: false,
-    errorMessage: "",
+    errorMessage: '',
     isFetching: false,
     isSuccess: false,
     isError: false,
@@ -51,36 +45,33 @@ const loginSlice = createSlice({
     },
     updateStatusUser: (state, action) => {
       state.statusUser = action.payload;
-    }
+    },
   },
   extraReducers: {
     //-------------login-----------------
     [getLogin.pending]: (state) => {
-      state.errorMessage = "";
+      state.errorMessage = '';
     },
     [getLogin.fulfilled]: (state, { payload }) => {
       if (payload.code === 200) {
-        localStorage.setItem("token", JSON.stringify(payload.data.token));
-        localStorage.setItem(
-          "refresh_token",
-          JSON.stringify(payload.data.refreshToken)
-        );
+        localStorage.setItem('token', JSON.stringify(payload.data.token));
+        localStorage.setItem('refresh_token', JSON.stringify(payload.data.refreshToken));
 
         state.user = payload.data._id;
-        state.error = "";
+        state.error = '';
       }
       if (payload.code === 401) {
         state.errorMessage = payload.message;
       }
     },
     // ----------register request------------------
-    [postRegister.pending]: (state, action) => {
-      state.error = "";
+    [postRegister.pending]: (state) => {
+      state.error = '';
     },
     [postRegister.fulfilled]: (state, action) => {
       if (action.payload.auth) {
         state.auth = action.payload;
-        state.error = "";
+        state.error = '';
       }
       if (action.payload.message) {
         state.error = action.payload.message;

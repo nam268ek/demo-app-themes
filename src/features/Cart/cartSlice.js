@@ -1,49 +1,37 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import themeApi from "api/themeApi";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import themeApi from 'api/themeApi';
 
-export const asyncProductForUser = createAsyncThunk(
-  "theme/asyncProductForUser",
-  async (params) => {
-    const data = await themeApi.asyncProductForUser(params).catch((err) => {
-      return err.response.data;
-    });
-    console.log(data);
-    return data;
-  }
-);
+export const asyncProductForUser = createAsyncThunk('theme/asyncProductForUser', async (params) => {
+  const data = await themeApi.asyncProductForUser(params).catch((err) => {
+    return err.response.data;
+  });
+  console.log(data);
+  return data;
+});
 
-export const asyncCartFromDatabase = createAsyncThunk(
-  "themes/asyncCartFromDatabase",
-  async () => {
-    const data = await themeApi.asyncCartFromDatabase().catch((err) => {
-      return err.response.data;
-    });
-    return data;
-  }
-);
+export const asyncCartFromDatabase = createAsyncThunk('themes/asyncCartFromDatabase', async () => {
+  const data = await themeApi.asyncCartFromDatabase().catch((err) => {
+    return err.response.data;
+  });
+  return data;
+});
 
-export const checkOutPurchase = createAsyncThunk(
-  "themes/checkOutPurchase",
-  async (params) => {
-    const data = await themeApi.checkOutPurchase(params).catch((err) => {
-      return err.response.data;
-    });
-    return data;
-  }
-);
+export const checkOutPurchase = createAsyncThunk('themes/checkOutPurchase', async (params) => {
+  const data = await themeApi.checkOutPurchase(params).catch((err) => {
+    return err.response.data;
+  });
+  return data;
+});
 
-export const paymentRequest = createAsyncThunk(
-  "themes/paymentRequest",
-  async (params) => {
-    const data = await themeApi.paymentRequest(params).catch((err) => {
-      return err.response.data;
-    });
-    return data;
-  }
-);
+export const paymentRequest = createAsyncThunk('themes/paymentRequest', async (params) => {
+  const data = await themeApi.paymentRequest(params).catch((err) => {
+    return err.response.data;
+  });
+  return data;
+});
 
 const cartSlice = createSlice({
-  name: "carts",
+  name: 'carts',
   initialState: {
     products: [],
     qty: 0,
@@ -64,27 +52,21 @@ const cartSlice = createSlice({
       }, 0);
     },
     removeFormCart: (state, action) => {
-      const item = state.products.find(
-        (item) => item._id === action.payload._id
-      );
+      const item = state.products.find((item) => item._id === action.payload._id);
       const index = state.products.indexOf(item);
       const qtyItem = state.products[index].qty;
       state.products.splice(index, 1);
       state.qty -= qtyItem;
     },
     deCreaseQty: (state, action) => {
-      const item = state.products.find(
-        (item) => item._id === action.payload._id
-      );
+      const item = state.products.find((item) => item._id === action.payload._id);
       const index = state.products.indexOf(item);
       state.products[index].qty -= 1;
       state.products[index].qty === 0 && state.products.splice(index, 1);
       state.qty -= 1;
     },
     updateItem: (state, action) => {
-      const item = state.products.find(
-        (item) => item._id === action.payload._id
-      );
+      const item = state.products.find((item) => item._id === action.payload._id);
       const index = state.products.indexOf(item);
       state.products[index].qty = action.payload.qty;
 
@@ -105,13 +87,10 @@ const cartSlice = createSlice({
     },
   },
   extraReducers: {
-    [checkOutPurchase.fulfilled]: (state, action) => {
+    [checkOutPurchase.fulfilled]: (state) => {
       state.products = [];
       state.qty = 0;
       state.total = 0;
-    },
-    [asyncProductForUser.fulfilled]: (state, action) => {
-      // if (action.payload) state.products = action.payload;
     },
     [asyncCartFromDatabase.fulfilled]: (state, action) => {
       const isItem = Object.keys(action.payload).length > 0 ? true : false;
@@ -128,12 +107,5 @@ const cartSlice = createSlice({
 });
 
 const { reducer, actions } = cartSlice;
-export const {
-  addToCart,
-  removeFormCart,
-  deCreaseQty,
-  getTotal,
-  updateItem,
-  checkOut,
-} = actions;
+export const { addToCart, removeFormCart, deCreaseQty, getTotal, updateItem, checkOut } = actions;
 export default reducer;

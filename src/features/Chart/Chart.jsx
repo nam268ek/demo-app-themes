@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { PieChart, Pie, Sector, ResponsiveContainer } from "recharts";
+import React, { useCallback, useEffect, useState } from 'react';
+import { PieChart, Pie, Sector, ResponsiveContainer } from 'recharts';
+import PropTypes from 'prop-types';
 
 const renderActiveShape = (props) => {
   const RADIAN = Math.PI / 180;
@@ -24,7 +25,7 @@ const renderActiveShape = (props) => {
   const my = cy + (outerRadius + 35) * sin;
   const ex = mx + (cos >= 0 ? 1 : -1) * 7;
   const ey = my;
-  const textAnchor = cos >= 0 ? "start" : "end";
+  const textAnchor = cos >= 0 ? 'start' : 'end';
 
   return (
     <g>
@@ -49,11 +50,7 @@ const renderActiveShape = (props) => {
         outerRadius={outerRadius + 10}
         fill={fill}
       />
-      <path
-        d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`}
-        stroke={fill}
-        fill="none"
-      />
+      <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
       <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
       <text
         x={ex + (cos >= 0 ? 1 : -1) * 12}
@@ -61,17 +58,19 @@ const renderActiveShape = (props) => {
         textAnchor={textAnchor}
         fill="#333"
       >{`$${value}`}</text>
-      <text
-        x={ex + (cos >= 0 ? 1 : -1) * 0}
-        y={ey}
-        dy={20}
-        textAnchor={textAnchor}
-        fill="#999"
-      >
+      <text x={ex + (cos >= 0 ? 1 : -1) * 0} y={ey} dy={20} textAnchor={textAnchor} fill="#999">
         {`(${(percent * 100).toFixed(2)}%)`}
       </text>
     </g>
   );
+};
+
+Chart.propTypes = {
+  listItem: PropTypes.array,
+};
+
+Chart.defaultProps = {
+  listItem: [],
 };
 
 function Chart({ listItem }) {
@@ -96,7 +95,6 @@ function Chart({ listItem }) {
     };
     handleData();
   }, [listItem]);
-
 
   return (
     <ResponsiveContainer width="100%" height="100%">

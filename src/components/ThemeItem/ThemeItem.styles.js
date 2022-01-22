@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes } from 'styled-components';
 
 export const Layout = styled.div`
   width: 100%;
@@ -53,14 +53,11 @@ export const Box = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  border: ${(props) =>
-    props.className === "secondary" ? 0 : "1px solid #eaeaea"};
+  border: ${(props) => (props.className === 'secondary' ? 0 : '1px solid #eaeaea')};
   padding: 24px;
   margin-bottom: 24px;
-  align-items: ${(props) =>
-    props.className === "secondary" ? "flex-start" : "center"};
-  background-color: ${(props) =>
-    props.className === "secondary" ? "#fafafa" : "#fff"};
+  align-items: ${(props) => (props.className === 'secondary' ? 'flex-start' : 'center')};
+  background-color: ${(props) => (props.className === 'secondary' ? '#fafafa' : '#fff')};
 `;
 
 export const spin = keyframes`
@@ -82,9 +79,9 @@ export const Loader = styled.div`
 
 export const StyleLink = styled.button`
   padding: 16px 32px;
-  background-color: ${(props) => (props.primary ? "#001fff" : "#ffffff")};
-  color: ${(props) => (props.primary ? "#ffffff" : "#001fff")};
-  font-weight: ${(props) => (props.primary ? "600" : "500")};
+  background-color: ${(props) => (props.primary ? '#001fff' : '#ffffff')};
+  color: ${(props) => (props.primary ? '#ffffff' : '#001fff')};
+  font-weight: ${(props) => (props.primary ? '600' : '500')};
   border: 1px solid #001fff;
   border-radius: 2px;
   display: block;
@@ -107,8 +104,8 @@ export const StyleLink = styled.button`
     opacity: 0.5;
   `}
   &:hover {
-    background-color: ${(props) => (props.primary ? "#04c" : "#fafafa")};
-    color: ${(props) => (props.primary ? "#ffffff" : "#001fff")};
+    background-color: ${(props) => (props.primary ? '#04c' : '#fafafa')};
+    color: ${(props) => (props.primary ? '#ffffff' : '#001fff')};
   }
 
   &:focus {

@@ -1,17 +1,17 @@
-import ValidateToken from "api/auth";
-import Chart from "features/Chart/Chart";
-import Profile from "features/Profile/Profile";
-import { Container } from "globalStyles";
-import PropTypes from "prop-types";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { BsCheck } from "react-icons/bs";
-import Modal from "react-modal";
-import Moment from "react-moment";
-import NumberFormat from "react-number-format";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { CSSTransition } from "react-transition-group";
-import "./transition.css";
+import ValidateToken from 'api/auth';
+import Chart from 'features/Chart/Chart';
+import Profile from 'features/Profile/Profile';
+import { Container } from 'globalStyles';
+import PropTypes from 'prop-types';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { BsCheck } from 'react-icons/bs';
+import Modal from 'react-modal';
+import Moment from 'react-moment';
+import NumberFormat from 'react-number-format';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { CSSTransition } from 'react-transition-group';
+import './transition.css';
 import {
   BoxInfo,
   BoxInfoOrders,
@@ -46,8 +46,8 @@ import {
   TrOrder,
   Verify,
   VerifyStatus,
-} from "./User.styles";
-import { getDataPurchase } from "./userSlice";
+} from './User.styles';
+import { getDataPurchase } from './userSlice';
 
 User.propTypes = {
   user: PropTypes.object,
@@ -59,11 +59,11 @@ User.defaultProps = {
   info: {},
   checkout: {},
   listItems: [],
-  lastName: "",
-  firstName: "",
-  email: "",
+  lastName: '',
+  firstName: '',
+  email: '',
   imageDefault:
-    "https://res.cloudinary.com/ds6y4vgjb/image/upload/v1638839543/icons8-user-64_igxpij.png",
+    'https://res.cloudinary.com/ds6y4vgjb/image/upload/v1638839543/icons8-user-64_igxpij.png',
 };
 
 function User() {
@@ -80,9 +80,7 @@ function User() {
     //user is login => get data purchase
     const handleGetDataPurchase = async () => {
       const tokenExpire = await ValidateToken.checkExpireToken();
-      tokenExpire === false
-        ? dispatch(getDataPurchase())
-        : navigate("/login", { replace: true });
+      tokenExpire === false ? dispatch(getDataPurchase()) : navigate('/login', { replace: true });
     };
     handleGetDataPurchase();
   }, [navigate, dispatch, statusUser]);
@@ -113,18 +111,18 @@ function User() {
   //Modal
   const customStyles = {
     content: {
-      top: "50%",
-      left: "50%",
-      right: "auto",
-      bottom: "auto",
-      marginRight: "-50%",
-      transform: "translate(-50%, -50%)",
-      boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
-      border: "none",
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+      boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px',
+      border: 'none',
     },
     overlay: {
-      backgroundColor: "rgb(88 88 88 / 50%)",
-      backdropFilter: "blur(5px)",
+      backgroundColor: 'rgb(88 88 88 / 50%)',
+      backdropFilter: 'blur(5px)',
     },
   };
 
@@ -154,9 +152,9 @@ function User() {
     return (
       <NumberFormat
         value={total}
-        displayType={"text"}
+        displayType={'text'}
         thousandSeparator={true}
-        prefix={"$"}
+        prefix={'$'}
         renderText={(value, props) => <Monney {...props}>{value}</Monney>}
       />
     );
@@ -167,9 +165,7 @@ function User() {
       <Layout>
         <ListLink open={isMobile}>
           <NameAccount>
-            <TitleName hello>
-              Hello, {info && info.lastName + info.firstName}
-            </TitleName>
+            <TitleName hello>Hello, {info && info.lastName + info.firstName}</TitleName>
             <Verify>
               <VerifyStatus>
                 <BsCheck size={16} />
@@ -183,14 +179,19 @@ function User() {
           </ManagerAccount>
           <MyOrders>
             <TitleName link_1>My Orders</TitleName>
-            <SecondTitle to="">My Completed <Span coming="true">Coming soon</Span></SecondTitle>
-            <SecondTitle to="">My Cancellations <Span coming="true">Coming soon</Span></SecondTitle>
+            <SecondTitle to="">
+              My Completed <Span coming="true">Coming soon</Span>
+            </SecondTitle>
+            <SecondTitle to="">
+              My Cancellations <Span coming="true">Coming soon</Span>
+            </SecondTitle>
           </MyOrders>
         </ListLink>
         <ListLinkInfo>
-          <TitleName link open={isMobile}><Icon onClick={handleClickOpenMobile}>
-            &#9776;
-          </Icon><Span primary="true" >My Account</Span></TitleName>
+          <TitleName link open={isMobile}>
+            <Icon onClick={handleClickOpenMobile}>&#9776;</Icon>
+            <Span primary="true">My Account</Span>
+          </TitleName>
           <BoxInfo>
             <BoxInfoPersonal>
               <Info>
@@ -209,7 +210,7 @@ function User() {
               </Info>
               <CSSTransition in={modalIsOpen} timeout={300} nodeRef={nodeRef}>
                 <Modal
-                  appElement={document.getElementById("root")}
+                  appElement={document.getElementById('root')}
                   isOpen={modalIsOpen}
                   onRequestClose={closeModal}
                   style={customStyles}
@@ -252,29 +253,20 @@ function User() {
                   <TrOrder key={index}>
                     <TdOrder>{item._id}</TdOrder>
                     <TdOrder>{item.themeName}</TdOrder>
-                    <TdOrder>
-                      {<Moment format="DD/MM/YYYY">{item.dateAt}</Moment>}
-                    </TdOrder>
+                    <TdOrder>{<Moment format="DD/MM/YYYY">{item.dateAt}</Moment>}</TdOrder>
                     <TdOrder>
                       <DivImage>
-                        <Image
-                          detail="true"
-                          src={item.urlHref}
-                          width="80px"
-                          alt=""
-                        />
+                        <Image detail="true" src={item.urlHref} width="80px" alt="" />
                       </DivImage>
                     </TdOrder>
                     <>
                       {
                         <NumberFormat
                           value={item.total}
-                          displayType={"text"}
+                          displayType={'text'}
                           thousandSeparator={true}
-                          prefix={"$"}
-                          renderText={(value, props) => (
-                            <TdOrder {...props}>{value}</TdOrder>
-                          )}
+                          prefix={'$'}
+                          renderText={(value, props) => <TdOrder {...props}>{value}</TdOrder>}
                         />
                       }
                     </>

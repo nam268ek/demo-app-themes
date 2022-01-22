@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import styled, { keyframes } from "styled-components";
+import { Link } from 'react-router-dom';
+import styled, { keyframes } from 'styled-components';
 
 export const Layout = styled.div`
   width: 100%;
@@ -11,7 +11,7 @@ export const Container = styled.div`
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
-  ${(props) => (props.flex ? "display: flex; flex-wrap: wrap;" : "block")};
+  ${(props) => (props.flex ? 'display: flex; flex-wrap: wrap;' : 'block')};
 `;
 
 export const ContentCheckOut = styled.div`
@@ -36,7 +36,7 @@ export const Title = styled.h1`
   padding: 10px 16px;
   margin-bottom: 32px;
   width: 100%;
-  background-color: ${(props) => props.bg || "#fafafa"};
+  background-color: ${(props) => props.bg || '#fafafa'};
   border-left: groove;
 `;
 
@@ -103,11 +103,11 @@ export const AboutTheme = styled.p`
 `;
 export const CustomDiv = styled.div`
   display: flex;
-  justify-content: ${(props) => props.justifyContent || "flex-start"};
-  align-items: ${(props) => props.alignItems || "flex-start"};
-  flex-direction: ${(props) => props.flexDirection || "row"};
-  padding: ${(props) => props.padding || "0"};
-  margin: ${(props) => props.margin || "0"};
+  justify-content: ${(props) => props.justifyContent || 'flex-start'};
+  align-items: ${(props) => props.alignItems || 'flex-start'};
+  flex-direction: ${(props) => props.flexDirection || 'row'};
+  padding: ${(props) => props.padding || '0'};
+  margin: ${(props) => props.margin || '0'};
   ${(props) =>
     props.qty &&
     `
@@ -115,7 +115,7 @@ export const CustomDiv = styled.div`
     padding-top: 10px;
   `}
 `;
-export const Qty = styled.input.attrs({ type: "number" })`
+export const Qty = styled.input.attrs({ type: 'number' })`
   outline: none;
   width: 40px;
   height: 26px;
@@ -179,10 +179,10 @@ export const Button = styled.button`
   font-weight: 600;
   border: 1px solid #ced4da;
   display: flex;
-  border-top-left-radius: ${(props) => (props.btlr ? "2px" : "0")};
-  border-bottom-left-radius: ${(props) => (props.btlr ? "2px" : "0")};
-  border-top-right-radius: ${(props) => (props.btrr ? "2px" : "0")};
-  border-bottom-right-radius: ${(props) => (props.btrr ? "2px" : "0")};
+  border-top-left-radius: ${(props) => (props.btlr ? '2px' : '0')};
+  border-bottom-left-radius: ${(props) => (props.btlr ? '2px' : '0')};
+  border-top-right-radius: ${(props) => (props.btrr ? '2px' : '0')};
+  border-bottom-right-radius: ${(props) => (props.btrr ? '2px' : '0')};
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -195,10 +195,10 @@ export const Button = styled.button`
   &:hover {
     background-color: #001fff;
     color: #ffffff;
-    border-top-left-radius: ${(props) => (props.btlr ? "2.1px" : "0")};
-    border-bottom-left-radius: ${(props) => (props.btlr ? "2.1px" : "0")};
-    border-top-right-radius: ${(props) => (props.btrr ? "2.1px" : "0")};
-    border-bottom-right-radius: ${(props) => (props.btrr ? "2.1px" : "0")};
+    border-top-left-radius: ${(props) => (props.btlr ? '2.1px' : '0')};
+    border-bottom-left-radius: ${(props) => (props.btlr ? '2.1px' : '0')};
+    border-top-right-radius: ${(props) => (props.btrr ? '2.1px' : '0')};
+    border-bottom-right-radius: ${(props) => (props.btrr ? '2.1px' : '0')};
   }
 `;
 export const TitlePrice = styled.p`
@@ -252,7 +252,7 @@ export const Span = styled.span`
 
 export const CustomBtn = styled(Remove)`
   height: 100%;
-  width: ${(props) => props.width || "100%"};
+  width: ${(props) => props.width || '100%'};
   display: inline-block;
   text-align: center;
   margin: 0;
@@ -299,11 +299,11 @@ export const CustomBtnSecondary = styled.button`
   }
 `;
 export const CustomTitle = styled(Title)`
-  padding: ${(props) => props.padding || "0"};
-  margin: ${(props) => props.margin || "0"};
-  background-color: ${(props) => props.backgroundColor || "white"};
-  text-align: ${(props) => props.textAlign || "left"};
-  border: ${(props) => props.border || "none"};
+  padding: ${(props) => props.padding || '0'};
+  margin: ${(props) => props.margin || '0'};
+  background-color: ${(props) => props.backgroundColor || 'white'};
+  text-align: ${(props) => props.textAlign || 'left'};
+  border: ${(props) => props.border || 'none'};
 `;
 
 export const CustomImage = styled.img`

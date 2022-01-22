@@ -1,8 +1,8 @@
-import styled, { keyframes } from "styled-components";
-import { Link } from "react-router-dom";
+import styled, { keyframes } from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const Layout = styled.div`
-  ${(props) => props.isExist === "/" && `padding: 64px 0;`};
+  ${(props) => props.isExist === '/' && `padding: 64px 0;`};
 `;
 export const Container = styled.div`
   display: flex;

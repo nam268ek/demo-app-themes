@@ -1,22 +1,21 @@
-import React, { useEffect } from "react";
-import BannerContent from "components/BannerContent/BannerContent";
-import LogoBrand from "components/LogoBrand/LogoBrand";
-import FeedBack from "components/FeedBack/FeedBack";
-import CardTheme from "components/CardTheme/CardTheme";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import { getLimitTheme } from "features/Theme/themeSlice";
-import { getLimitShowCase } from "features/ShowCase/showCaseSlice";
-import { getLimitCardPost } from "features/CardPost/cardPostSlice";
-import FeedBackSecond from "components/FeedBack/FeedBackSecond";
-import ShowcaseCard from "features/ShowCase/components/ShowCaseCard/ShowCaseCard";
-import FeedBackThree from "components/FeedBack/FeedBackThree";
-import CardPost from "features/CardPost/components/CardPost/CardPost";
-import Creator from "components/Creator/Creator";
+import BannerContent from 'components/BannerContent/BannerContent';
+import CardTheme from 'components/CardTheme/CardTheme';
+import Creator from 'components/Creator/Creator';
+import FeedBack from 'components/FeedBack/FeedBack';
+import FeedBackSecond from 'components/FeedBack/FeedBackSecond';
+import FeedBackThree from 'components/FeedBack/FeedBackThree';
+import LogoBrand from 'components/LogoBrand/LogoBrand';
+import { getLimitCardPost } from 'features/CardPost/cardPostSlice';
+import CardPost from 'features/CardPost/components/CardPost/CardPost';
+import ShowcaseCard from 'features/ShowCase/components/ShowCaseCard/ShowCaseCard';
+import { getLimitShowCase } from 'features/ShowCase/showCaseSlice';
+import { getLimitTheme } from 'features/Theme/themeSlice';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 HomePage.propTypes = {};
 
-function HomePage(props) {
+function HomePage() {
   const dispatch = useDispatch();
   const themeList = useSelector((state) => state.themes.themeList);
   const showCase = useSelector((state) => state.showCases.showCaseList);

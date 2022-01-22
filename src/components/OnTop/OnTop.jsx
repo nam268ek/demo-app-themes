@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import styled, { keyframes } from "styled-components";
+import React from 'react';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import styled, { keyframes } from 'styled-components';
 
 const OnTop = () => {
   const [onTop, setOnTop] = useState(0);
@@ -12,14 +13,14 @@ const OnTop = () => {
         setOnTop(window.scrollY);
       }
     };
-    window.addEventListener("scroll", handleOnTop);
+    window.addEventListener('scroll', handleOnTop);
     return () => {
-      window.removeEventListener("scroll", handleOnTop);
+      window.removeEventListener('scroll', handleOnTop);
     };
   }, []);
 
   const handleOnTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (

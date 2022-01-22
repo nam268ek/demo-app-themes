@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
-import { Container } from "globalStyles";
-import { BiErrorCircle } from "react-icons/bi";
-import { useForm } from "react-hook-form";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useNavigate } from "react-router-dom";
-import { getLogin } from "./loginSlice";
-import { asyncCartFromDatabase } from "features/Cart/cartSlice";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from 'react';
+import { Container } from 'globalStyles';
+import { BiErrorCircle } from 'react-icons/bi';
+import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useNavigate } from 'react-router-dom';
+import { getLogin } from './loginSlice';
+import { asyncCartFromDatabase } from 'features/Cart/cartSlice';
+import { useDispatch } from 'react-redux';
 
 import {
   Layout,
@@ -22,14 +22,14 @@ import {
   Span,
   StyleLink,
   Loader,
-} from "../Register/Register.styles";
-import { useSelector } from "react-redux";
-import ValidateToken from "api/auth";
-import ToastConfig from "features/common/toast/toast";
+} from '../Register/Register.styles';
+import { useSelector } from 'react-redux';
+import ValidateToken from 'api/auth';
+import ToastConfig from 'features/common/toast/toast';
 
 const loginSchema = yup.object().shape({
-  email: yup.string().email("Email is invalid").required("Email is required"),
-  password: yup.string().required("Password is required"),
+  email: yup.string().email('Email is invalid').required('Email is required'),
+  password: yup.string().required('Password is required'),
 });
 
 function Login() {
@@ -52,15 +52,14 @@ function Login() {
   useEffect(() => {
     //check token is valid and not expired
     const handleCheckToken = async () => {
-      const token = await ValidateToken.getToken("token");
-      const tokenExpire =
-        token && (await ValidateToken.checkExpireToken(token));
+      const token = await ValidateToken.getToken('token');
+      const tokenExpire = token && (await ValidateToken.checkExpireToken(token));
       //note: if tokenExpire is false & token is valid => token is not expire
       if (token && !tokenExpire) {
         setIsUser(true);
-        ToastConfig.toastSuccess("Login Successful");
+        ToastConfig.toastSuccess('Login Successful');
         // redirect to home page
-        navigate("/", { replace: true });
+        navigate('/', { replace: true });
       }
     };
     handleCheckToken();
@@ -84,7 +83,7 @@ function Login() {
 
   const handleNavigate = (e) => {
     e.preventDefault();
-    navigate("/register", { replace: true });
+    navigate('/register', { replace: true });
   };
 
   const onSubmit = async (data) => {
@@ -94,6 +93,10 @@ function Login() {
   const onError = (error) => {
     console.log(error);
   };
+
+  useEffect(() => {
+    ToastConfig.toastInfo('account demo: nam.nguyen@demo.app.com | pass: 131313', 'colored', false);
+  }, []);
 
   return (
     <Container>
@@ -111,11 +114,11 @@ function Login() {
               <Input
                 placeholder="Email"
                 value="nam.nguyen@demo.app.com"
-                {...register("email", { required: true })}
+                {...register('email', { required: true })}
               />
               {errors.email && (
                 <MessageError>
-                  <BiErrorCircle style={{ color: "#04c" }} size={18} />
+                  <BiErrorCircle style={{ color: '#04c' }} size={18} />
                   {errors.email.message}
                 </MessageError>
               )}
@@ -125,11 +128,11 @@ function Login() {
                 type="password"
                 value="131313"
                 placeholder="Password"
-                {...register("password", { required: true })}
+                {...register('password', { required: true })}
               />
               {errors.password && (
                 <MessageError>
-                  <BiErrorCircle style={{ color: "#04c" }} size={18} />
+                  <BiErrorCircle style={{ color: '#04c' }} size={18} />
                   <Span>{errors.password.message}</Span>
                 </MessageError>
               )}
@@ -137,8 +140,7 @@ function Login() {
             <Button type="submit" disabled={isLoading}>
               {isLoading ? (
                 <>
-                  <Loader />{" "}
-                  <Span style={{ paddingLeft: "5px" }}>Login...</Span>
+                  <Loader /> <Span style={{ paddingLeft: '5px' }}>Login...</Span>
                 </>
               ) : (
                 `Login`

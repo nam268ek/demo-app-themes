@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useStripe, useElements } from "@stripe/react-stripe-js";
+import React, { useEffect, useState } from 'react';
+import { useStripe, useElements } from '@stripe/react-stripe-js';
 import {
   CheckoutFormStyles,
   Email,
@@ -7,13 +7,13 @@ import {
   PaymentElementStyle,
   PaymentMessage,
   Spinner,
-} from "./CheckoutForm.styles";
+} from './CheckoutForm.styles';
 
 export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
 
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -25,7 +25,7 @@ export default function CheckoutForm() {
     }
 
     const clientSecret = new URLSearchParams(window.location.search).get(
-      "payment_intent_client_secret"
+      'payment_intent_client_secret'
     );
 
     if (!clientSecret) {
@@ -34,17 +34,17 @@ export default function CheckoutForm() {
 
     stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
       switch (paymentIntent.status) {
-        case "succeeded":
-          setMessage("Payment succeeded!");
+        case 'succeeded':
+          setMessage('Payment succeeded!');
           break;
-        case "processing":
-          setMessage("Your payment is processing.");
+        case 'processing':
+          setMessage('Your payment is processing.');
           break;
-        case "requires_payment_method":
-          setMessage("Your payment was not successful, please try again.");
+        case 'requires_payment_method':
+          setMessage('Your payment was not successful, please try again.');
           break;
         default:
-          setMessage("Something went wrong.");
+          setMessage('Something went wrong.');
           break;
       }
     });
@@ -75,10 +75,10 @@ export default function CheckoutForm() {
     // your `return_url`. For some payment methods like iDEAL, your customer will
     // be redirected to an intermediate site first to authorize the payment, then
     // redirected to the `return_url`.
-    if (error.type === "card_error" || error.type === "validation_error") {
+    if (error.type === 'card_error' || error.type === 'validation_error') {
       setMessage(error.message);
     } else {
-      setMessage("An unexpected error occured.");
+      setMessage('An unexpected error occured.');
     }
 
     setIsLoading(false);
@@ -95,9 +95,7 @@ export default function CheckoutForm() {
       />
       <PaymentElementStyle />
       <PayButton disabled={isLoading || !stripe || !elements} id="submit">
-        <span id="button-text">
-          {isLoading ? <Spinner></Spinner> : "Pay now"}
-        </span>
+        <span id="button-text">{isLoading ? <Spinner></Spinner> : 'Pay now'}</span>
       </PayButton>
       {/* Show any error or success messages */}
       {message && <PaymentMessage>{message}</PaymentMessage>}

@@ -1,26 +1,26 @@
-import FooterContent from "components/FooterContent/FooterContent";
-import NotFound from "components/NotFound/NotFound";
-import OnTop from "components/OnTop/OnTop";
-import Blog from "features/CardPost/components/blog/blog";
-import Cart from "features/Cart/Cart";
-import Login from "features/Login/Login";
-import Contact from "features/pages/Contact/Contact";
-import HomePage from "features/pages/HomePage";
-import Register from "features/Register/Register";
-import ShowCase from "features/ShowCase/components/showCase/showCase";
-import Themes from "features/Theme";
-import Documentation from "features/Theme/components/documentation/documentation";
-import React, { useState } from "react";
-import { Route, Routes } from "react-router-dom";
-import { Canvas, Footer, Main } from "./App.styles";
-import NavBar from "./features/Navbar/NavBar";
-import User from "./features/User/User";
-import Global from "./globalStyles";
+import FooterContent from 'components/FooterContent/FooterContent';
+import NotFound from 'components/NotFound/NotFound';
+import OnTop from 'components/OnTop/OnTop';
+import Blog from 'features/CardPost/components/blog/blog';
+import Cart from 'features/Cart/Cart';
+import Login from 'features/Login/Login';
+import Contact from 'features/pages/Contact/Contact';
+import HomePage from 'features/pages/HomePage';
+import Register from 'features/Register/Register';
+import ShowCase from 'features/ShowCase/components/showCase/showCase';
+import Themes from 'features/Theme';
+import Documentation from 'features/Theme/components/documentation/documentation';
+import { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { Canvas, Footer, Main } from './App.styles';
+import NavBar from './features/Navbar/NavBar';
+import User from './features/User/User';
+import Global from './globalStyles';
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleClickOpen = (e) => {
+  const handleClickOpen = () => {
     setIsOpen(!isOpen);
   };
 

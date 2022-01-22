@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { Link } from "react-router-dom";
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const Layout = styled.div`
   display: flex;
@@ -20,7 +20,7 @@ export const ListLink = styled.div`
     box-shadow: 5px 0 5px -5px rgba(0, 0, 0, 0.16);
     ${(props) =>
       props.open
-        ? "transform: translateX(-2px)"
+        ? 'transform: translateX(-2px)'
         : `
         transform: translateX(-255px);
         opacity: 0;
@@ -120,7 +120,7 @@ export const TitleName = styled.h2`
           display: flex;
           column-gap: 16px;
           transition: all 0.3s ease-in-out;
-          transform: ${props.open ? "translateX(260px)" : "translateX(0)"};
+          transform: ${props.open ? 'translateX(260px)' : 'translateX(0)'};
         }
     `}
 
@@ -170,7 +170,7 @@ export const CheckboxMail = styled.div`
   align-items: center;
   padding: 16px 0;
 `;
-export const CheckboxMailStatus = styled.input.attrs({ type: "checkbox" })`
+export const CheckboxMailStatus = styled.input.attrs({ type: 'checkbox' })`
   width: 18px;
   height: 18px;
 
@@ -218,7 +218,9 @@ export const Span = styled.span`
     align-items: center;
   `}
 
-  ${(props) =>props.coming && `
+  ${(props) =>
+    props.coming &&
+    `
     padding: 2px 8px;
     background-color: #505258;
     border-radius: 10px;
@@ -237,7 +239,7 @@ export const Monney = styled.p`
   font-size: 30px;
   font-weight: 500;
 
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
 `;
 export const DivChart = styled.div`
   width: 75%;
@@ -328,7 +330,7 @@ export const Avatar = styled.div`
 export const Info = styled.div`
   width: 100%;
 `;
-export const Upload = styled.input.attrs({ type: "file" })`
+export const Upload = styled.input.attrs({ type: 'file' })`
   visibility: hidden;
   display: none;
 `;

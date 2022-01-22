@@ -1,5 +1,5 @@
-import styled, { keyframes } from "styled-components";
-import { Link } from "react-router-dom";
+import styled, { keyframes } from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const Header = styled.div`
   padding: 0 16px;

@@ -1,11 +1,11 @@
-import Menu from "components/common/navBar/menuItem";
-import { logOut } from "features/Login/loginSlice";
-import { Container } from "globalStyles";
-import React, { forwardRef } from "react";
-import { RiShoppingCartLine } from "react-icons/ri";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
+import Menu from 'components/common/navBar/menuItem';
+import { logOut } from 'features/Login/loginSlice';
+import { Container } from 'globalStyles';
+import React from 'react';
+import { RiShoppingCartLine } from 'react-icons/ri';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import {
   MenuButton,
   NavLogo,
@@ -27,35 +27,34 @@ import {
   DropDown,
   LinkItem,
   Hr,
-} from "./NavBar.styles";
-import { clearStateUser, getUser } from "features/User/userSlice";
-import ValidateToken from "api/auth";
+} from './NavBar.styles';
+import { clearStateUser, getUser } from 'features/User/userSlice';
+import ValidateToken from 'api/auth';
 
-const NavBar = forwardRef((props, ref) => {
+const NavBar = (handleClickOpen, urlAvatar) => {
   const titleList = [
     {
-      title: "Themes",
-      toHref: "themes",
+      title: 'Themes',
+      toHref: 'themes',
     },
     {
-      title: "Documentations",
-      toHref: "documentations",
+      title: 'Documentations',
+      toHref: 'documentations',
     },
     {
-      title: "Showcase",
-      toHref: "showcase",
+      title: 'Showcase',
+      toHref: 'showcase',
     },
     {
-      title: "Blog",
-      toHref: "blog",
+      title: 'Blog',
+      toHref: 'blog',
     },
     {
-      title: "Contact",
-      toHref: "contact",
+      title: 'Contact',
+      toHref: 'contact',
     },
   ];
   const navigate = useNavigate();
-  const { handleClickOpen, urlAvatar } = props;
   const totalQty = useSelector((state) => state.carts.qty);
   const info = useSelector((state) => state.users.user);
   const { user } = useSelector((state) => state.login);
@@ -80,8 +79,8 @@ const NavBar = forwardRef((props, ref) => {
     dispatch(logOut()); // remove user from state login
     dispatch(clearStateUser()); // remove user from state user
 
-    if (window.location.pathname === "/user") {
-      navigate("/login", { replace: true });
+    if (window.location.pathname === '/user') {
+      navigate('/login', { replace: true });
     }
   };
 
@@ -106,9 +105,9 @@ const NavBar = forwardRef((props, ref) => {
         setIsOpen(false);
       }
     };
-    isUser && window.addEventListener("click", handleClickOutside);
+    isUser && window.addEventListener('click', handleClickOutside);
     //clean up
-    return () => window.removeEventListener("click", handleClickOutside);
+    return () => window.removeEventListener('click', handleClickOutside);
   }, [isUser, dispatch, user]);
 
   //handle click personal infomation
@@ -127,17 +126,11 @@ const NavBar = forwardRef((props, ref) => {
               <NavLogoLink to="/">Aspire Labs</NavLogoLink>
             </NavLogo>
           </Widthleft>
-          <Icon onClick={handleClickOpen}>
-            &#9776;
-          </Icon>
+          <Icon onClick={handleClickOpen}>&#9776;</Icon>
           <Widthright>
             <nav>
               <NavMenu>
-                <Menu
-                  titleList={titleList}
-                  classActive="actived"
-                  color="#181818"
-                />
+                <Menu titleList={titleList} classActive="actived" color="#181818" />
                 {!isUser && (
                   <MenuButton>
                     <StyleLink to="login">Login &#10072; Register</StyleLink>
@@ -154,11 +147,7 @@ const NavBar = forwardRef((props, ref) => {
                 {isUser && (
                   <User>
                     <UserLink to="" ref={showMenuRef} onClick={handleMenu}>
-                      <Image
-                        width={35}
-                        height={35}
-                        src={info?.avatar || urlAvatar}
-                      />
+                      <Image width={35} height={35} src={info?.avatar || urlAvatar} />
                     </UserLink>
                     <DropDown isOpen={isOpen}>
                       <LinkItem to="" onClick={handleNavigate}>
@@ -178,7 +167,7 @@ const NavBar = forwardRef((props, ref) => {
       </Container>
     </Header>
   );
-});
+};
 
 NavBar.propTypes = {
   handleClickOpen: PropTypes.func,
@@ -187,7 +176,7 @@ NavBar.propTypes = {
 
 NavBar.defaultProps = {
   urlAvatar:
-    "https://res.cloudinary.com/ds6y4vgjb/image/upload/v1638839543/icons8-user-64_igxpij.png",
+    'https://res.cloudinary.com/ds6y4vgjb/image/upload/v1638839543/icons8-user-64_igxpij.png',
 };
 
 export default NavBar;

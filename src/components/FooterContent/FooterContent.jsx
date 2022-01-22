@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { toast } from "react-toastify";
-import * as yup from "yup";
-import { Container } from "globalStyles";
+import React, { useState } from 'react';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import { Container } from 'globalStyles';
 import {
   Layout,
   Colum,
@@ -16,10 +16,10 @@ import {
   ColumLink,
   Hr,
   Line,
-} from "./FooterContent.styles";
+} from './FooterContent.styles';
 
 const FooterContent = () => {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
 
   const handleOnChange = (e) => {
     setEmail(e.target.value);
@@ -33,15 +33,15 @@ const FooterContent = () => {
     //validate email
     schema.isValid({ email: e.target[0].value }).then((value) => {
       toast.configure({
-        theme: "colored",
+        theme: 'colored',
         autoClose: 3000,
       });
 
       if (value) {
-        toast.success("Thank you for subscribing!");
-        setEmail("");
+        toast.success('Thank you for subscribing!');
+        setEmail('');
       } else {
-        toast.error("Please enter a valid email address");
+        toast.error('Please enter a valid email address');
       }
     });
   };
@@ -68,15 +68,8 @@ const FooterContent = () => {
           </Colum>
           <Colum>
             <Form onSubmit={handleOnSubmit}>
-              <TagP>
-                Subscribe to receive Ghost resources, new themes, and updates.
-              </TagP>
-              <Input
-                type="text"
-                placeholder="Your email"
-                value={email}
-                onChange={handleOnChange}
-              />
+              <TagP>Subscribe to receive Ghost resources, new themes, and updates.</TagP>
+              <Input type="text" placeholder="Your email" value={email} onChange={handleOnChange} />
             </Form>
           </Colum>
         </ColumLink>

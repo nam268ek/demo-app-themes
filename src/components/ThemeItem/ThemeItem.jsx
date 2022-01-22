@@ -1,11 +1,11 @@
-import { PropTypes } from "prop-types";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import { getAllTheme } from "features/Theme/themeSlice";
-import { addToCart, asyncProductForUser } from "features/Cart/cartSlice";
-import FeedBackSecond from "components/FeedBack/FeedBackSecond";
-import { Container } from "globalStyles";
+import { PropTypes } from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getAllTheme } from 'features/Theme/themeSlice';
+import { addToCart, asyncProductForUser } from 'features/Cart/cartSlice';
+import FeedBackSecond from 'components/FeedBack/FeedBackSecond';
+import { Container } from 'globalStyles';
 
 import {
   Box,
@@ -29,17 +29,11 @@ import {
   Title,
   Loader,
   CustomDiv,
-} from "./ThemeItem.styles";
-import CardTheme from "components/CardTheme/CardTheme";
-import ToastConfig from "features/common/toast/toast";
+} from './ThemeItem.styles';
+import CardTheme from 'components/CardTheme/CardTheme';
+import ToastConfig from 'features/common/toast/toast';
 
-const ThemeItem = ({
-  description,
-  version,
-  price,
-  nameProperty,
-  defaultImage,
-}) => {
+const ThemeItem = ({ description, version, price, nameProperty, defaultImage }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -56,13 +50,9 @@ const ThemeItem = ({
   const { user } = useSelector((state) => state.login);
   const { products, total } = useSelector((state) => state.carts);
 
-  const themeSelect = themeList.find(
-    (item) => item.name.toLowerCase() === nameTheme
-  );
+  const themeSelect = themeList.find((item) => item.name.toLowerCase() === nameTheme);
 
-  const moreTheme = themeList
-    .filter((item) => item.name.toLowerCase() !== nameTheme)
-    .slice(0, 4);
+  const moreTheme = themeList.filter((item) => item.name.toLowerCase() !== nameTheme).slice(0, 4);
 
   window.scrollTo(0, 0);
   console.log(themeSelect);
@@ -73,9 +63,7 @@ const ThemeItem = ({
     const handleValue = async () => {
       const { payload: data } = await dispatch(getAllTheme());
       if (isSubscribe && data) {
-        const isExist = data.find(
-          (item) => item.name.toLowerCase() === nameTheme
-        );
+        const isExist = data.find((item) => item.name.toLowerCase() === nameTheme);
         !isExist && navigate(`/not-found`, { replace: true });
       }
     };
@@ -108,11 +96,8 @@ const ThemeItem = ({
       const productItem = { ...item, qty: 1 };
       dispatch(addToCart(productItem));
       //toast success
-      ToastConfig.toastSuccess("Successfully");
-      setTimeout(
-        () => setLoading({ ...loading, loadingAddToCart: false }),
-        800
-      );
+      ToastConfig.toastSuccess('Successfully');
+      setTimeout(() => setLoading({ ...loading, loadingAddToCart: false }), 800);
     } else {
       //toast waring max qty is MAX_QTY
       ToastConfig.toastWarning(`Maximum quantity is ${MAX_QTY}`);
@@ -125,7 +110,7 @@ const ThemeItem = ({
     handleAddToCart(e, item); // +1 qty
     // navigate to cart
     setTimeout(() => {
-      navigate("/cart", { replace: true });
+      navigate('/cart', { replace: true });
       setLoading({ ...loading, loadingNavigate: false });
     }, 800);
   };
@@ -137,9 +122,7 @@ const ThemeItem = ({
           <Container>
             <LayoutItem>
               <Col75>
-                <ImageItem
-                  src={`https://aspirethemes.com/images/themes/${nameTheme}/home.webp`}
-                />
+                <ImageItem src={`https://aspirethemes.com/images/themes/${nameTheme}/home.webp`} />
               </Col75>
               <Col25>
                 <Title>{themeSelect[nameProperty]}</Title>
@@ -174,14 +157,10 @@ const ThemeItem = ({
                   </StyleLink>
                   <HighLight>One-time Purchase</HighLight>
                   <HighLight>14-Day 100% Money Back Guarantee</HighLight>
-                  <Note>
-                    If you're unhappy, get a full refund, no questions!
-                  </Note>
+                  <Note>If you&apos;re unhappy, get a full refund, no questions!</Note>
                 </Box>
                 <Box>
-                  <BoxItem>
-                    Ghost websites built with {themeSelect[nameProperty]}
-                  </BoxItem>
+                  <BoxItem>Ghost websites built with {themeSelect[nameProperty]}</BoxItem>
                   <BoxItem>Documentation · Changelog</BoxItem>
                   <BoxItem>
                     <Item>Current Version</Item>
@@ -207,9 +186,8 @@ const ThemeItem = ({
                     <CustomImage src={defaultImage} />
                   </DivImage>
                   <TagP>
-                    Ghost 4.0+. Enjoy a beautiful, functional site in no time.
-                    The theme supports the Ghost editor cards and delivers a
-                    stunning design.
+                    Ghost 4.0+. Enjoy a beautiful, functional site in no time. The theme supports
+                    the Ghost editor cards and delivers a stunning design.
                   </TagP>
                 </Box>
               </Content>
@@ -219,9 +197,8 @@ const ThemeItem = ({
                     <CustomImage src={defaultImage} />
                   </DivImage>
                   <TagP>
-                    Membership support. Add membership and subscription to your
-                    website for ultimate monetization. The theme comes with
-                    Ghost Membership and Subscription features.
+                    Membership support. Add membership and subscription to your website for ultimate
+                    monetization. The theme comes with Ghost Membership and Subscription features.
                   </TagP>
                 </Box>
               </Content>
@@ -231,9 +208,8 @@ const ThemeItem = ({
                     <CustomImage src={defaultImage} />
                   </DivImage>
                   <TagP>
-                    Responsive design. You’ll get a fully responsive site. The
-                    theme adjusts to phone, tablet, and desktop screens of any
-                    size imaginable.
+                    Responsive design. You’ll get a fully responsive site. The theme adjusts to
+                    phone, tablet, and desktop screens of any size imaginable.
                   </TagP>
                 </Box>
               </Content>
@@ -243,9 +219,9 @@ const ThemeItem = ({
                     <CustomImage src={defaultImage} />
                   </DivImage>
                   <TagP>
-                    Free updates. New Ghost features are added to your theme as
-                    updates. These improvements come to you at no extra cost.
-                    Zero stress and worry about lagging behind others.
+                    Free updates. New Ghost features are added to your theme as updates. These
+                    improvements come to you at no extra cost. Zero stress and worry about lagging
+                    behind others.
                   </TagP>
                 </Box>
               </Content>
@@ -255,9 +231,8 @@ const ThemeItem = ({
                     <CustomImage src={defaultImage} />
                   </DivImage>
                   <TagP>
-                    Free support. Whenever you have any questions or face sudden
-                    issues with your theme, please reach out on the contact
-                    page.
+                    Free support. Whenever you have any questions or face sudden issues with your
+                    theme, please reach out on the contact page.
                   </TagP>
                 </Box>
               </Content>
@@ -267,9 +242,8 @@ const ThemeItem = ({
                     <CustomImage src={defaultImage} />
                   </DivImage>
                   <TagP>
-                    Translation ready. The theme supports German, Spanish,
-                    French, Portuguese, Italian, Finnish, Dutch, Turkish, and
-                    Danish.
+                    Translation ready. The theme supports German, Spanish, French, Portuguese,
+                    Italian, Finnish, Dutch, Turkish, and Danish.
                   </TagP>
                 </Box>
               </Content>
@@ -279,10 +253,7 @@ const ThemeItem = ({
       )}
       <FeedBackSecond />
       <CustomDiv>
-        <CardTheme
-          themeList={moreTheme}
-          themesTitle="Other Ghost themes you might like"
-        />
+        <CardTheme themeList={moreTheme} themesTitle="Other Ghost themes you might like" />
       </CustomDiv>
     </>
   );
@@ -293,14 +264,14 @@ ThemeItem.propTypes = {
   nameProperty: PropTypes.string,
   price: PropTypes.string,
   version: PropTypes.string,
+  defaultImage: PropTypes.string,
 };
 
 ThemeItem.defaultProps = {
-  nameProperty: "name",
-  description: "description",
-  price: "price",
-  version: "version",
-  defaultImage:
-    "https://res.cloudinary.com/ds6y4vgjb/image/upload/v1636026141/check_wtwl39.png",
+  nameProperty: 'name',
+  description: 'description',
+  price: 'price',
+  version: 'version',
+  defaultImage: 'https://res.cloudinary.com/ds6y4vgjb/image/upload/v1636026141/check_wtwl39.png',
 };
 export default ThemeItem;

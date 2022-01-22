@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Content,
   Title,
@@ -8,9 +9,8 @@ import {
   Span,
   Image,
   Layout,
-} from "./BannerContent.styles";
-import { Container } from "globalStyles";
-
+} from './BannerContent.styles';
+import { Container } from 'globalStyles';
 const BannerContent = () => {
   return (
     <Container>
@@ -20,26 +20,26 @@ const BannerContent = () => {
             Write more <br /> Save time & money
           </Title>
           <TagP>
-            Ghost CMS themes for a professional-looking website. Newsletter &
-            membership full support.
+            Ghost CMS themes for a professional-looking website. Newsletter & membership full
+            support.
           </TagP>
           <StyleLink to="/themes">Choose your theme →</StyleLink>
           <ListNote>
             <ListNoteItem>
               <Span>
-                <i className="fas fa-check" style={{ color: "#001fff" }}></i>
+                <i className="fas fa-check" style={{ color: '#001fff' }}></i>
               </Span>
               Ghost 4 Support
             </ListNoteItem>
             <ListNoteItem>
               <Span>
-                <i className="fas fa-check" style={{ color: "#001fff" }}></i>
+                <i className="fas fa-check" style={{ color: '#001fff' }}></i>
               </Span>
               Free Support & Updates
             </ListNoteItem>
             <ListNoteItem>
               <Span>
-                <i className="fas fa-check" style={{ color: "#001fff" }}></i>
+                <i className="fas fa-check" style={{ color: '#001fff' }}></i>
               </Span>
               100% Money Back Guarantee
             </ListNoteItem>

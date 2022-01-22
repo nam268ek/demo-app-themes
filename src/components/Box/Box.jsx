@@ -1,9 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Container } from "globalStyles";
-import { BoxContent, Card, StyleLink, Title, Version } from "./Box.styles";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Container } from 'globalStyles';
+import { BoxContent, Card, StyleLink, Title, Version } from './Box.styles';
 
-const Box = (props) => {
+const Box = ({ themeList }) => {
   return (
     <>
       <Container>
@@ -11,7 +11,7 @@ const Box = (props) => {
       </Container>
       <Container>
         <BoxContent>
-          {props.themeList.map((item, index) => (
+          {themeList?.map((item, index) => (
             <Card key={index}>
               <StyleLink to={`/docs/${item.id}`}>
                 {item.name}
@@ -28,6 +28,13 @@ const Box = (props) => {
 Box.propTypes = {
   name: PropTypes.string,
   version: PropTypes.string,
+  themeList: PropTypes.array,
+};
+
+Box.defaultProps = {
+  name: '',
+  version: '',
+  themeList: [],
 };
 
 export default Box;

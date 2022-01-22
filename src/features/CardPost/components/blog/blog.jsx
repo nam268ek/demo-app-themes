@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
-import * as yup from "yup";
-import { getAllCardPosts } from "features/CardPost/cardPostSlice";
-import { Container } from "globalStyles";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import { getAllCardPosts } from 'features/CardPost/cardPostSlice';
+import { Container } from 'globalStyles';
 import {
   Button,
   Content,
@@ -16,11 +16,11 @@ import {
   TagP,
   TitleH1,
   Block,
-} from "./blog.styles";
-import CardPost from "../CardPost/CardPost";
+} from './blog.styles';
+import CardPost from '../CardPost/CardPost';
 
 const Blog = (props) => {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
   const dispatch = useDispatch();
   const { cardPostList } = useSelector((state) => state.cardPosts);
 
@@ -36,15 +36,15 @@ const Blog = (props) => {
     //validate email
     schema.isValid({ email: e.target[0].value }).then((value) => {
       toast.configure({
-        theme: "colored",
+        theme: 'colored',
         autoClose: 3000,
       });
 
       if (value) {
-        toast.success("Thank you for subscribing!");
-        setEmail("");
+        toast.success('Thank you for subscribing!');
+        setEmail('');
       } else {
-        toast.error("Please enter a valid email address");
+        toast.error('Please enter a valid email address');
       }
     });
   };
@@ -61,9 +61,7 @@ const Blog = (props) => {
                   <Span>&minus;</Span>
                   <StyleLink>RSS Feed</StyleLink>
                 </TitleH1>
-                <TagP>
-                  Subscribe to receive Ghost resources and new updates.
-                </TagP>
+                <TagP>Subscribe to receive Ghost resources and new updates.</TagP>
               </CustomCol>
               <CustomCol>
                 <Form onSubmit={handleOnSubmit}>

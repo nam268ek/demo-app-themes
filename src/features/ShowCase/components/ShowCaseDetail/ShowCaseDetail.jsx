@@ -1,18 +1,10 @@
-import React, { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import LazyLoad from "react-lazyload";
-import { useSelector, useDispatch } from "react-redux";
-import { getDetail } from "features/ShowCase/showCaseSlice";
-import { Container } from "globalStyles";
-import {
-  Layout,
-  Content,
-  Item,
-  Image,
-  StyleLink,
-  Span,
-  CustomDiv,
-} from "./ShowCaseDetail.styles";
+import React, { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import LazyLoad from 'react-lazyload';
+import { useSelector, useDispatch } from 'react-redux';
+import { getDetail } from 'features/ShowCase/showCaseSlice';
+import { Container } from 'globalStyles';
+import { Layout, Content, Item, Image, StyleLink, Span, CustomDiv } from './ShowCaseDetail.styles';
 
 function ShowCaseDetail() {
   const dispatch = useDispatch();

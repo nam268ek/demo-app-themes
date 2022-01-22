@@ -1,29 +1,23 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import themeApi from "api/themeApi";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import themeApi from 'api/themeApi';
 
-export const getAllShowCase = createAsyncThunk(
-  "themes/getAllShowCase",
-  async () => {
-    const data = await themeApi.showCase();
-    return data;
-  }
-);
+export const getAllShowCase = createAsyncThunk('themes/getAllShowCase', async () => {
+  const data = await themeApi.showCase();
+  return data;
+});
 
-export const getDetail = createAsyncThunk("themes/getDetail", async () => {
+export const getDetail = createAsyncThunk('themes/getDetail', async () => {
   const data = await themeApi.getDetailShowCase();
   return data;
 });
 
-export const getLimitShowCase = createAsyncThunk(
-  "themes/getLimitShowCase",
-  async (params) => {
-    const data = await themeApi.getLimitShowCase(params);
-    return data;
-  }
-);
+export const getLimitShowCase = createAsyncThunk('themes/getLimitShowCase', async (params) => {
+  const data = await themeApi.getLimitShowCase(params);
+  return data;
+});
 
 const showCaseSlice = createSlice({
-  name: "showCases",
+  name: 'showCases',
   initialState: {
     showCaseList: [],
     detail: [],

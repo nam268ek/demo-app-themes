@@ -1,5 +1,6 @@
-import { Container } from "globalStyles";
-import { Brand, ListLogo, ListLogoItem, Image } from "./LogoBrand.styles";
+import React from 'react';
+import { Container } from 'globalStyles';
+import { Brand, ListLogo, ListLogoItem, Image } from './LogoBrand.styles';
 
 const LogoBrand = () => {
   return (

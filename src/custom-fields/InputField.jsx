@@ -1,6 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
-import styled from "styled-components";
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 InputField.propTypes = {
   placeholder: PropTypes.string,
@@ -17,16 +17,16 @@ InputField.propTypes = {
 };
 
 InputField.defaultProps = {
-  placeholder: "",
-  className: "",
-  type: "text",
+  placeholder: '',
+  className: '',
+  type: 'text',
   disabled: false,
-  label: "",
+  label: '',
   useStyled: false,
-  valueSubmit: "",
+  valueSubmit: '',
   validation: {},
-  touched: "",
-  errors: "",
+  touched: '',
+  errors: '',
 };
 
 const Input = styled.input`
@@ -50,7 +50,7 @@ const Input = styled.input`
 `;
 const InputPrimary = styled.input`
   ${(props) =>
-    props.type === "text" &&
+    props.type === 'text' &&
     `
   padding: 16px 20px;
   width: 100%;
@@ -62,8 +62,7 @@ const InputPrimary = styled.input`
 `;
 
 function InputField(props) {
-  const { placeholder, className, field, type, label, useStyled, valueSubmit } =
-    props;
+  const { placeholder, className, field, type, label, useStyled, valueSubmit } = props;
   const { name, value, onChange, onBlur } = field;
   return (
     <>

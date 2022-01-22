@@ -1,10 +1,10 @@
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { getAllShowCase, getDetail } from "features/ShowCase/showCaseSlice";
-import { getAllTheme } from "features/Theme/themeSlice";
-import { Route, Routes } from "react-router-dom";
-import ShowCaseDetail from "../ShowCaseDetail/ShowCaseDetail";
-import ShowcaseCard from "../ShowCaseCard/ShowCaseCard";
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getAllShowCase, getDetail } from 'features/ShowCase/showCaseSlice';
+import { getAllTheme } from 'features/Theme/themeSlice';
+import { Route, Routes } from 'react-router-dom';
+import ShowCaseDetail from '../ShowCaseDetail/ShowCaseDetail';
+import ShowcaseCard from '../ShowCaseCard/ShowCaseCard';
 
 const ShowCase = (props) => {
   const dispatch = useDispatch();

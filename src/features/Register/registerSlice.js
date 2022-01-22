@@ -1,23 +1,20 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import themeApi from "api/themeApi";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import themeApi from 'api/themeApi';
 
-export const postRegister = createAsyncThunk(
-  "themes/postRegister",
-  async (params) => {
-    const data = await themeApi.postRegister(params).catch((err) => {
-      return err.response.data;
-    });
-    return data;
-  }
-);
+export const postRegister = createAsyncThunk('themes/postRegister', async (params) => {
+  const data = await themeApi.postRegister(params).catch((err) => {
+    return err.response.data;
+  });
+  return data;
+});
 
 const registerSlice = createSlice({
-  name: "register",
+  name: 'register',
   initialState: {
     message: [],
   },
   extraReducers: {
-    [postRegister.pending]: (state, action) => {
+    [postRegister.pending]: (state) => {
       state.message = [];
     },
     [postRegister.fulfilled]: (state, action) => {
@@ -25,5 +22,5 @@ const registerSlice = createSlice({
     },
   },
 });
-const { actions, reducer } = registerSlice;
+const { reducer } = registerSlice;
 export default reducer;

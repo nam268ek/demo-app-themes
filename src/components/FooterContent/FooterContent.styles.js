@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 export const Layout = styled.div`
   padding-top: 64px;
@@ -30,7 +30,7 @@ export const StyleLink = styled(Link)`
   display: block;
   margin-bottom: 8px;
   padding-bottom: 8px;
-  font-size: ${(props) => props.secondary && "14px"};
+  font-size: ${(props) => props.secondary && '14px'};
 
   text-decoration: underline;
   text-underline-offset: 4px;

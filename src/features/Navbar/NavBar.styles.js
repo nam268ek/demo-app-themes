@@ -1,5 +1,5 @@
-import { Link, NavLink } from "react-router-dom";
-import styled from "styled-components";
+import { Link, NavLink } from 'react-router-dom';
+import styled from 'styled-components';
 
 export const Header = styled.header`
   background-color: #ffffff;
@@ -141,7 +141,7 @@ export const Image = styled.img`
   border-radius: 50%;
 `;
 export const DropDown = styled.div`
-  display: ${(props) => (props.isOpen ? "flex" : "none")};
+  display: ${(props) => (props.isOpen ? 'flex' : 'none')};
   position: absolute;
   top: 0;
   right: 0;
@@ -212,7 +212,7 @@ export const Icon = styled.div`
 export const Cart = styled.li`
   list-style: none;
   line-height: 1;
-  border-right: ${(props) => props.br || "none"};
+  border-right: ${(props) => props.br || 'none'};
 
   @media screen and (min-width: 1024px) {
     border-right: 1px solid #f5f5f5;

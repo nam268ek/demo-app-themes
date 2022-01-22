@@ -1,5 +1,6 @@
-import PropTypes from "prop-types";
-import LazyLoad from "react-lazyload";
+import React from 'react';
+import PropTypes from 'prop-types';
+import LazyLoad from 'react-lazyload';
 import {
   Layout,
   Header,
@@ -10,9 +11,9 @@ import {
   StyleLink,
   Info,
   PlaceHolder,
-} from "./CardTheme.styles";
-import { Container } from "globalStyles";
-import { useLocation } from "react-router-dom";
+} from './CardTheme.styles';
+import { Container } from 'globalStyles';
+import { useLocation } from 'react-router-dom';
 
 const CardTheme = ({ themesTitle, themeList }) => {
   const { pathname: url } = useLocation();
@@ -53,7 +54,7 @@ CardTheme.propTypes = {
 };
 
 CardTheme.defaultProps = {
-  themesTitle: "Lastest Ghost themes",
+  themesTitle: 'Lastest Ghost themes',
   themeList: [],
 };
 export default CardTheme;

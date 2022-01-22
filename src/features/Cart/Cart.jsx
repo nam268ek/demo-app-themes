@@ -1,47 +1,38 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { useNavigate } from "react-router-dom";
-import CartItem from "./components/CartItem/CartItem";
-import {
-  asyncProductForUser,
-  checkOutPurchase,
-  paymentRequest,
-} from "./cartSlice";
-
+import { loadStripe } from '@stripe/stripe-js';
+import ValidateToken from 'api/auth';
+import ToastConfig from 'features/common/toast/toast';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import {
   Container,
-  Layout,
   ContentCart,
   ContentCheckOut,
-  Title,
   CustomBtn,
   CustomDiv,
-  CustomTitle,
-  Hr,
-  Price,
-  TitlePrice,
-  DivImage,
   CustomImage,
+  CustomTitle,
+  DivImage,
+  Hr,
+  Layout,
   Loader,
+  Price,
   Span,
-} from "./Cart.styles";
-import "./style.css";
-import ValidateToken from "api/auth";
-import ToastConfig from "features/common/toast/toast";
-import { loadStripe } from "@stripe/stripe-js";
-import { toast } from "react-toastify";
+  Title,
+  TitlePrice,
+} from './Cart.styles';
+import { asyncProductForUser, paymentRequest } from './cartSlice';
+import CartItem from './components/CartItem/CartItem';
+import './style.css';
 
 function Cart() {
   const themeList = useSelector((state) => state.carts.products);
   const { user } = useSelector((state) => state.login);
   //user is logged in
   const [isUser, setIsUser] = React.useState(false);
-  const {
-    products,
-    total,
-    qty: qtyValue,
-  } = useSelector((state) => state.carts);
+  const { products, total, qty: qtyValue } = useSelector((state) => state.carts);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -51,9 +42,8 @@ function Cart() {
   useEffect(() => {
     //check token is valid and not expired
     const handleCheckToken = async () => {
-      const token = await ValidateToken.getToken("token");
-      const tokenExpire =
-        token && (await ValidateToken.checkExpireToken(token));
+      const token = await ValidateToken.getToken('token');
+      const tokenExpire = token && (await ValidateToken.checkExpireToken(token));
       //note: if tokenExpire is false & token is valid => token is not expire
       if (token && !tokenExpire) {
         setIsUser(true);
@@ -76,21 +66,19 @@ function Cart() {
   }, [isUser, products, total, dispatch, user]);
 
   const handleNavigate = () => {
-    navigate("/themes", { replace: true });
+    navigate('/themes', { replace: true });
   };
 
   const handleCheckOut = async () => {
     if (isUser) {
       setIsLoading(true);
-      const stripe = await loadStripe(
-        process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY
-      );
+      const stripe = await loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
       const item = { userId: user, products, total };
       const { payload } = await dispatch(paymentRequest(item));
       // redirect to checkout stripe
       stripe.redirectToCheckout({ sessionId: payload.data.id });
     } else {
-      ToastConfig.toastInfo("Please login to check out.", "colored", 4000);
+      ToastConfig.toastInfo('Please login to check out.', 'colored', 4000);
     }
   };
   //-------------------
@@ -98,23 +86,23 @@ function Cart() {
     // Check to see if this is a redirect back from Checkout
     const query = new URLSearchParams(window.location.search);
 
-    if (query.get("success")) {
+    if (query.get('success')) {
       toast.configure();
-      toast.success("Payment success.", {
+      toast.success('Payment success.', {
         position: toast.POSITION.TOP_CENTER,
-        theme: "colored",
+        theme: 'colored',
         autoClose: 5000,
-        style: { width: "100%", fontSize: "16px", fontWeight: "bold" },
+        style: { width: '100%', fontSize: '16px', fontWeight: 'bold' },
       });
     }
 
-    if (query.get("canceled")) {
+    if (query.get('canceled')) {
       toast.configure();
-      toast.error("Payment canceled.", {
+      toast.error('Payment canceled.', {
         position: toast.POSITION.TOP_CENTER,
-        theme: "colored",
+        theme: 'colored',
         autoClose: 5000,
-        style: { width: "100%", fontSize: "16px", fontWeight: "bold" },
+        style: { width: '100%', fontSize: '16px', fontWeight: 'bold' },
       });
     }
   }, []);
@@ -125,11 +113,7 @@ function Cart() {
       <Layout>
         {qtyValue <= 0 ? (
           <Container>
-            <CustomDiv
-              flexDirection="column"
-              padding="0 30px"
-              alignItems="center"
-            >
+            <CustomDiv flexDirection="column" padding="0 30px" alignItems="center">
               <DivImage>
                 <CustomImage
                   src="https://res.cloudinary.com/ds6y4vgjb/image/upload/v1637585017/undraw_empty_cart_co35_pvhcna.svg"
@@ -137,11 +121,7 @@ function Cart() {
                   width="265px"
                 />
               </DivImage>
-              <CustomTitle
-                padding="16px 0"
-                margin="0 0 16px 0"
-                textAlign="center"
-              >
+              <CustomTitle padding="16px 0" margin="0 0 16px 0" textAlign="center">
                 Cart is empty
               </CustomTitle>
               <CustomBtn width="unset" onClick={() => handleNavigate()}>

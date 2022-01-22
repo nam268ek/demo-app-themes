@@ -1,4 +1,5 @@
-import { Container } from "globalStyles";
+import React from 'react';
+import { Container } from 'globalStyles';
 import {
   Layout,
   Content,
@@ -10,7 +11,7 @@ import {
   TagP,
   Highlight,
   Center,
-} from "./FeedBack.styles";
+} from './FeedBack.styles';
 
 const FeedBackThree = () => {
   return (
@@ -20,11 +21,9 @@ const FeedBackThree = () => {
           <Content>
             <DivLeft>
               <Title>
-                " I can honestly say I've been hugely impressed with @Ghost and{" "}
-                <Highlight>
-                  the themes from @aspirethemes are beautifully simple
-                </Highlight>
-                . Thank you! "
+                &#34;I can honestly say I&#34;ve been hugely impressed with @Ghost and{' '}
+                <Highlight>the themes from @aspirethemes are beautifully simple</Highlight>. Thank
+                you! &#34;
               </Title>
               <StyleLink to="">Tom Bell</StyleLink>
               <TagP>Cyber Security Consultant — Roke</TagP>
