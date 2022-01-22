@@ -95,7 +95,7 @@ function Login() {
   };
 
   useEffect(() => {
-    ToastConfig.toastInfo('account demo: nam.nguyen@demo.app.com | pass: 131313', 'colored', false);
+    ToastConfig.toastInfo('acc: nam.nguyen@demo.app.com pass: 131313', 'colored', false);
   }, []);
 
   return (
@@ -111,11 +111,7 @@ function Login() {
           </TitleH2>
           <Form onSubmit={handleSubmit(onSubmit, onError)}>
             <CustomDiv>
-              <Input
-                placeholder="Email"
-                value="nam.nguyen@demo.app.com"
-                {...register('email', { required: true })}
-              />
+              <Input placeholder="Email" {...register('email', { required: true })} />
               {errors.email && (
                 <MessageError>
                   <BiErrorCircle style={{ color: '#04c' }} size={18} />
@@ -126,7 +122,6 @@ function Login() {
             <CustomDiv>
               <Input
                 type="password"
-                value="131313"
                 placeholder="Password"
                 {...register('password', { required: true })}
               />

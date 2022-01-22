@@ -35,7 +35,7 @@ const toastInfo = (message, theme, timeOut) => {
   toast.info(message, {
     position: toast.POSITION.TOP_CENTER,
     theme: theme || 'colored',
-    autoClose: timeOut || 3000,
+    autoClose: timeOut,
   });
 };
 
