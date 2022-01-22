@@ -2,6 +2,8 @@
 
 ![demo-app-themes](https://res.cloudinary.com/ds6y4vgjb/image/upload/v1642691523/Screenshot_from_2022-01-20_22-10-24_gfgf60.png)
 
+### Visit website to see demo: [demo-app-themes.netlify.app](https://demo-app-themes.netlify.app/)
+
 # Some features
 
 ## 1. Login, Logout and Register
@@ -43,6 +45,11 @@
 
 ## 5. Checkout product
 
-> Product payment via `stripe`, use `webhook` to listen to the payment event sent to the server for processing.
+> Product payment via `stripe`, use `webhook` to listen to the payment event sent to the server for processing. Requires `login`
 
-![stripe]()
+![checkout](https://res.cloudinary.com/ds6y4vgjb/image/upload/v1642870619/checkout_oeojov.gif)
+
+## 6. Edit user infomation
+> Edit `first name`, `last name`, `email`, `password` and upload file `avatar`
+
+![avatar](https://res.cloudinary.com/ds6y4vgjb/image/upload/v1642872311/edit_user_al2dwa.gif)
