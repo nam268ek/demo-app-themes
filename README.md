@@ -47,14 +47,10 @@
 
 > Product payment via `stripe`, use `webhook` to listen to the payment event sent to the server for processing. Requires `login`
 
-<!-- ![checkout-image](https://res.cloudinary.com/ds6y4vgjb/image/upload/v1642870619/checkout_oeojov.gif) -->
-<img src="https://res.cloudinary.com/ds6y4vgjb/image/upload/v1642870619/checkout_oeojov.gif" width="754px" height="374px" alt="checkout-image">
+![checkout-image](https://res.cloudinary.com/ds6y4vgjb/image/upload/v1642875752/checkout2_d2ri4w.gif)
 
 ## 6. Edit user infomation
 
 > Edit `first name`, `last name`, `email`, `password` and upload file `avatar`
 
-<!-- ![edit-user](https://res.cloudinary.com/ds6y4vgjb/image/upload/v1642872311/edit_user_al2dwa.gif) -->
-<img src="https://res.cloudinary.com/ds6y4vgjb/image/upload/v1642872311/edit_user_al2dwa.gif" width="762px" height="406px" alt="edit-user">
-
-![test](https://res.cloudinary.com/ds6y4vgjb/image/upload/v1642875505/edit_user2_q6ocg1.gif)
+![edit-user](https://res.cloudinary.com/ds6y4vgjb/image/upload/v1642875505/edit_user2_q6ocg1.gif)
