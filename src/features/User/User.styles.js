@@ -14,7 +14,7 @@ export const ListLink = styled.div`
     background-color: white;
     z-index: 1;
     height: 100%;
-    width: 252px;
+    width: 18em;
     transition: all 0.3s ease-in-out;
     /* box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; */
     box-shadow: 5px 0 5px -5px rgba(0, 0, 0, 0.16);
@@ -120,7 +120,7 @@ export const TitleName = styled.h2`
           display: flex;
           column-gap: 16px;
           transition: all 0.3s ease-in-out;
-          transform: ${props.open ? 'translateX(260px)' : 'translateX(0)'};
+          transform: ${props.open ? 'translateX(16em)' : 'translateX(0)'};
         }
     `}
 

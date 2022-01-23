@@ -46,7 +46,7 @@ const NotFound = () => {
         <Container>
           <NotFoundPage>
             <TitleError>404</TitleError>
-            <TagH2>UH OH! You're lost.</TagH2>
+            <TagH2>UH OH! You&#39;re lost.</TagH2>
           </NotFoundPage>
         </Container>
       </Layout>

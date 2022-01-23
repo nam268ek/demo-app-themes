@@ -21,9 +21,9 @@ const FeedBack = () => {
           <Content>
             <DivLeft>
               <Title>
-                "If you happen to be looking for Ghost CMS themes, check out @aspirethemes I use one
-                of their themes for Glimmering and{' '}
-                <Highlight>love their work. Excellent design, code, and support."</Highlight>
+                &#34;If you happen to be looking for Ghost CMS themes, check out @aspirethemes I use
+                one of their themes for Glimmering and{' '}
+                <Highlight>love their work. Excellent design, code, and support.&#34;</Highlight>
               </Title>
               <StyleLink to="">Leslie Camacho</StyleLink>
               <TagP>Co-Founder — Glimmering LLC</TagP>
