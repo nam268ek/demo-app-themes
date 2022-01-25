@@ -41,11 +41,20 @@ export const uploadFile = createAsyncThunk('theme/uploadFile', async (formData) 
   return data;
 });
 
+export const getOrderCanceled = createAsyncThunk('theme/getOrderCanceled', async () => {
+  const data = await themeApi.getOrderCanceled().catch((err) => {
+    return err.response.data;
+  });
+  console.log(data);
+  return data;
+});
+
 const userSlice = createSlice({
   name: 'users',
   initialState: {
     user: [],
     checkout: [],
+    orderCanceled: [],
     file: [],
     isLoading: false,
     errorMessage: null,
@@ -63,6 +72,11 @@ const userSlice = createSlice({
         state.user = payload.data;
       }
     },
+    [getOrderCanceled.fulfilled]: (state, { payload }) => {
+      if (payload.code === 200) {
+        state.orderCanceled = payload.data;
+      }
+    },
     [getDataPurchase.fulfilled]: (state, { payload }) => {
       if (payload.code === 200) {
         state.checkout = payload.data;
@@ -72,7 +86,6 @@ const userSlice = createSlice({
     [uploadFile.fulfilled]: (state, { payload }) => {
       if (payload.code === 200) {
         state.file = payload;
-        console.log('file', state.file);
       }
     },
     [updateUser.fulfilled]: (state, { payload }) => {

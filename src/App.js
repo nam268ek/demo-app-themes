@@ -4,6 +4,8 @@ import OnTop from 'components/OnTop/OnTop';
 import Blog from 'features/CardPost/components/blog/blog';
 import Cart from 'features/Cart/Cart';
 import Login from 'features/Login/Login';
+import OrderCancel from 'features/OrderCancel/OrderCancel';
+import OrderComplete from 'features/OrderComplete/OrderComplete';
 import Contact from 'features/pages/Contact/Contact';
 import HomePage from 'features/pages/HomePage';
 import Register from 'features/Register/Register';
@@ -42,6 +44,8 @@ function App() {
             <Route path="register" element={<Register />} />
             <Route path="login" element={<Login />} />
             <Route path="user" element={<User />} />
+            <Route path="user/order/complete" element={<OrderComplete />} />
+            <Route path="user/order/cancel" element={<OrderCancel />} />
           </Routes>
         </Main>
         <Footer>

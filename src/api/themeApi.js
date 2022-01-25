@@ -17,6 +17,10 @@ const themeApi = {
     return axiosClient.post(url, { params });
   },
   // getRefreshToken: (params) => {},
+  getOrderCanceled: () => {
+    const url = '/order/canceled';
+    return axiosClient.get(url);
+  },
   postRegister: (params) => {
     const url = '/register';
     return axiosClient.post(url, { params });
