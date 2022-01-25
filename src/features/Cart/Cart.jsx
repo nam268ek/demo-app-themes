@@ -30,6 +30,7 @@ import './style.css';
 function Cart() {
   const themeList = useSelector((state) => state.carts.products);
   const { user } = useSelector((state) => state.login);
+  const { email } = useSelector((state) => state.users.user);
   //user is logged in
   const [isUser, setIsUser] = React.useState(false);
   const { products, total, qty: qtyValue } = useSelector((state) => state.carts);
@@ -73,7 +74,7 @@ function Cart() {
     if (isUser) {
       setIsLoading(true);
       const stripe = await loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
-      const item = { userId: user, products, total };
+      const item = { userId: user, products, total, email };
       const { payload } = await dispatch(paymentRequest(item));
       // redirect to checkout stripe
       stripe.redirectToCheckout({ sessionId: payload.data.id });
@@ -124,7 +125,7 @@ function Cart() {
               <CustomTitle padding="16px 0" margin="0 0 16px 0" textAlign="center">
                 Cart is empty
               </CustomTitle>
-              <CustomBtn width="unset" onClick={() => handleNavigate()}>
+              <CustomBtn width="unset" onClick={handleNavigate}>
                 Choose theme
               </CustomBtn>
             </CustomDiv>
@@ -172,12 +173,7 @@ function Cart() {
                   alignItems="center"
                   padding="0 46px"
                 >
-                  <CustomBtn
-                    onClick={handleCheckOut}
-                    primary="true"
-                    // loading={isLoading}
-                    disabled={isLoading}
-                  >
+                  <CustomBtn onClick={handleCheckOut} primary="true" disabled={isLoading}>
                     {isLoading ? (
                       <>
                         <Loader /> <Span>Processing...</Span>

@@ -77,7 +77,7 @@ const ThemeItem = ({ description, version, price, nameProperty, defaultImage }) 
       await dispatch(asyncProductForUser(asyncProducts));
     };
 
-    handleValue(); //get all theme
+    handleValue();
     // if token exist & token id not expire => sync item cart to database
     statusUser && handleAsyncProductToUser();
     // clean up

@@ -146,6 +146,10 @@ function Profile({ imageDefault, handleOffModal }) {
     setChangePassword(true);
   };
 
+  const handleClickUpload = () => {
+    uploadRef.current.click();
+  };
+
   return (
     <Container>
       <Layout>
@@ -156,7 +160,7 @@ function Profile({ imageDefault, handleOffModal }) {
               <Image
                 avatar
                 id="avatar"
-                onClick={() => uploadRef.current.click()}
+                onClick={handleClickUpload}
                 src={user?.avatar || imageDefault}
               />
               <Upload type="file" ref={uploadRef} onChange={handleChangeAvatar} />

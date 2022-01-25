@@ -159,7 +159,7 @@ function User() {
       />
     );
   };
-  console.log(isMobile);
+
   return (
     <Container>
       <Layout>
@@ -175,14 +175,14 @@ function User() {
           </NameAccount>
           <ManagerAccount>
             <TitleName link_1>Manage My Account</TitleName>
-            <SecondTitle to="">My profile</SecondTitle>
+            <SecondTitle to="/user">My profile</SecondTitle>
           </ManagerAccount>
           <MyOrders>
             <TitleName link_1>My Orders</TitleName>
-            <SecondTitle to="">
+            <SecondTitle to="/user/order/complete">
               My Completed <Span coming="true">Coming soon</Span>
             </SecondTitle>
-            <SecondTitle to="">
+            <SecondTitle to="/user/order/cancel">
               My Cancellations <Span coming="true">Coming soon</Span>
             </SecondTitle>
           </MyOrders>

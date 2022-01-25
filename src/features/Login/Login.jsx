@@ -47,6 +47,10 @@ function Login() {
     formState: { errors, isSubmitSuccessful },
   } = useForm({
     resolver: yupResolver(loginSchema),
+    defaultValues: {
+      email: 'nam.nguyen@demo.app.com',
+      password: '131313',
+    },
   });
 
   useEffect(() => {
@@ -94,9 +98,9 @@ function Login() {
     console.log(error);
   };
 
-  useEffect(() => {
-    ToastConfig.toastInfo('acc: nam.nguyen@demo.app.com pass: 131313', 'colored', false);
-  }, []);
+  // useEffect(() => {
+  //   ToastConfig.toastInfo('acc: nam.nguyen@demo.app.com pass: 131313', 'colored', false);
+  // }, []);
 
   return (
     <Container>
