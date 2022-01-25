@@ -31,7 +31,7 @@ import {
 import { clearStateUser, getUser } from 'features/User/userSlice';
 import ValidateToken from 'api/auth';
 
-const NavBar = (handleClickOpen, urlAvatar) => {
+function NavBar({ handleClickOpen, urlAvatar }) {
   const titleList = [
     {
       title: 'Themes',
@@ -167,7 +167,7 @@ const NavBar = (handleClickOpen, urlAvatar) => {
       </Container>
     </Header>
   );
-};
+}
 
 NavBar.propTypes = {
   handleClickOpen: PropTypes.func,
