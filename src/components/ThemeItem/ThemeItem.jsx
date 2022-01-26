@@ -49,23 +49,16 @@ const ThemeItem = ({ description, version, price, nameProperty, defaultImage }) 
   const themeList = useSelector((state) => state.themes.themeList);
   const { user } = useSelector((state) => state.login);
   const { products, total } = useSelector((state) => state.carts);
-
   const themeSelect = themeList.find((item) => item.name.toLowerCase() === nameTheme);
-
   const moreTheme = themeList.filter((item) => item.name.toLowerCase() !== nameTheme).slice(0, 4);
-
   window.scrollTo(0, 0);
-  console.log(themeSelect);
 
   useEffect(() => {
-    let isSubscribe = true;
     //reload page get all theme
     const handleValue = async () => {
       const { payload: data } = await dispatch(getAllTheme());
-      if (isSubscribe && data) {
-        const isExist = data.find((item) => item.name.toLowerCase() === nameTheme);
-        !isExist && navigate(`/not-found`, { replace: true });
-      }
+      const isExist = data.find((item) => item.name.toLowerCase() === nameTheme);
+      !isExist && navigate(`/not-found`, { replace: true });
     };
     // handle async item cart for user in database
     const handleAsyncProductToUser = async () => {
@@ -81,7 +74,6 @@ const ThemeItem = ({ description, version, price, nameProperty, defaultImage }) 
     // if token exist & token id not expire => sync item cart to database
     statusUser && handleAsyncProductToUser();
     // clean up
-    return () => isSubscribe === false;
   }, [dispatch, nameTheme, navigate, user, products, total, statusUser]);
 
   //===================================================
@@ -107,14 +99,22 @@ const ThemeItem = ({ description, version, price, nameProperty, defaultImage }) 
   //===================================================
   const handleNavigateToCart = (e, item) => {
     e.preventDefault();
-    handleAddToCart(e, item); // +1 qty
-    // navigate to cart
-    setTimeout(() => {
-      navigate('/cart', { replace: true });
-      setLoading({ ...loading, loadingNavigate: false });
-    }, 800);
+    const itemSelect = products.find((product) => product._id === item._id);
+    const isItemExist = itemSelect ? itemSelect : false;
+    if (isItemExist.qty < MAX_QTY || !isItemExist) {
+      //set Loading...
+      setLoading({ ...loading, loadingNavigate: true });
+      //dispath action add to cart
+      const productItem = { ...item, qty: 1 };
+      dispatch(addToCart(productItem));
+      //toast success
+      ToastConfig.toastSuccess('Successfully');
+      setTimeout(() => {
+        navigate('/cart', { replace: true });
+        setLoading({ ...loading, loadingNavigate: false });
+      }, 800);
+    }
   };
-
   return (
     <>
       {themeSelect && (
