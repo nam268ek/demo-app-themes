@@ -30,7 +30,6 @@ import {
   ListLinkInfo,
   ManagerAccount,
   Monney,
-  MyOrders,
   Name,
   NameAccount,
   SecondTitle,
@@ -177,7 +176,7 @@ function User() {
             <TitleName link_1>Manage My Account</TitleName>
             <SecondTitle to="/user">My profile</SecondTitle>
           </ManagerAccount>
-          <MyOrders>
+          {/* <MyOrders>
             <TitleName link_1>My Orders</TitleName>
             <SecondTitle to="/user/order/complete">
               My Completed <Span coming="true">Coming soon</Span>
@@ -185,7 +184,7 @@ function User() {
             <SecondTitle to="/user/order/cancel">
               My Cancellations <Span coming="true">Coming soon</Span>
             </SecondTitle>
-          </MyOrders>
+          </MyOrders> */}
         </ListLink>
         <ListLinkInfo>
           <TitleName link open={isMobile}>
